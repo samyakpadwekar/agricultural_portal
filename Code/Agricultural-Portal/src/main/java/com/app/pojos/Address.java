@@ -56,8 +56,12 @@ public class Address {
 	public Address() {
 	}
 
-	public Address(Integer addressId, String fullName, String mobileNumber, String pinCode, String line1, String line2,
-			String landMark, String city, String state, String country) {
+	public Address(Integer addressId, @NotBlank(message = "required") String fullName,
+			@NotBlank(message = "required") String mobileNumber, @NotBlank(message = "required") String pinCode,
+			@NotBlank(message = "required") String line1, @NotBlank(message = "required") String line2,
+			@NotBlank(message = "required") String landMark, @NotBlank(message = "required") String city,
+			@NotBlank(message = "required") String state, @NotBlank(message = "required") String country,
+			Object selectedUser) {
 		super();
 		this.addressId = addressId;
 		this.fullName = fullName;
@@ -69,6 +73,7 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.country = country;
+		this.selectedUser = selectedUser;
 	}
 
 	public Integer getUserId() {
@@ -149,6 +154,29 @@ public class Address {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public Integer getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+
+	public Object getSelectedUser() {
+		return selectedUser;
+	}
+
+	public void setSelectedUser(Object selectedUser) {
+		this.selectedUser = selectedUser;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [addressId=" + addressId + ", fullName=" + fullName + ", mobileNumber=" + mobileNumber
+				+ ", pinCode=" + pinCode + ", line1=" + line1 + ", line2=" + line2 + ", landMark=" + landMark
+				+ ", city=" + city + ", state=" + state + ", country=" + country + "]";
 	}
 
 }
