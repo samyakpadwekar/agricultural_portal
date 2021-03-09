@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -16,54 +15,55 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
-	
+
 	@Column(length = 30)
 	@NotBlank(message = "Required")
 	private String firstName;
-	
+
 	@Column(length = 30)
 	@NotBlank(message = "Required")
 	private String lastName;
-	
+
 	@Column(length = 50)
 	@NotBlank(message = "Required")
 	private String bussinessName;
-	
+
 	@Column(length = 50)
 	@NotBlank(message = "Required")
 	@Email(message = "Enter valid email")
 	private String email;
-	
+
 	@Column(length = 15)
 	private String mobileNo;
-	
+
 	@Column(length = 20, nullable = false)
-	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})",message = "Invalid password!")
+	@Pattern(regexp = "((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})", message = "Invalid password!")
 	private String password;
-	
+
 	@Column(length = 20)
-	@Pattern(regexp="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$",message = "Invalid GSTIN !")
+	@Pattern(regexp = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$", message = "Invalid GSTIN !")
 	private String gstin;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate regDate;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "selectedUser", orphanRemoval = true)
 	private List<Address> addresses;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "holder", orphanRemoval = true)
 	private List<BankDetails> bankDetails;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seller", orphanRemoval = true)
+	private List<Product> products;
 	
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "selectedUser",
-	 * orphanRemoval = true) private List<BankDetails> bankDetails;
-	 * 
-	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "soldBySeller",
-	 * orphanRemoval = true) private List<Product> products;
-	 */
+	@OneToOne
+	@JoinColumn(name="cart_id")	
+    private Cart cart;
+	
+	
 	
 	public User() {
 	}
@@ -170,7 +170,4 @@ public class User {
 		this.role = role;
 	}
 
-	
-	
-	
 }

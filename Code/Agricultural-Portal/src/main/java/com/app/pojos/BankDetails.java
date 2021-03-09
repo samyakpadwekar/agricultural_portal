@@ -3,15 +3,21 @@ package com.app.pojos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="bank_details")
 public class BankDetails {
 //UserId	IFSCcode	AccNo	HolderName	PhoneNo
-	//private Integer userId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer bankDetailsId;
 	@Column(length =30)
 	private String ifscCode;
 	@Column(length =30)
@@ -20,8 +26,9 @@ public class BankDetails {
 	private String holderName;
 	@Column(length =30)
 	private String phoneNo;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",nullable=false)
+	@JoinColumn(name="user_id",nullable=false)	
 	private User holder; 
 	
 	public BankDetails() {

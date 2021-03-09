@@ -3,43 +3,58 @@ package com.app.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name="cart")
 public class Cart {
+	
 	private int count;
-	@OneToOne
-	@JoinColumn(name="customer_id")
-	private User customer;
+	
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "cart_id")
+	 * 
+	 * @MapsId
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int cartId;
+	
 	@OneToMany
-	@JoinColumn(name="product_id")
+	@JoinColumn(name="p_id")
 	private List<Product> products=new ArrayList<>();
+	
+	
+	
+	
 	public Cart () {
 	}
-	public Cart(int count, User customer, List<Product> products) {
+	
+	
+	
+	public Cart(int count, int cartId, List<Product> products) {
 		super();
 		this.count = count;
-		this.customer = customer;
+		this.cartId = cartId;
 		this.products = products;
 	}
+
+
+
 	public int getCount() {
 		return count;
 	}
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
-	public User getCustomer() {
-		return customer;
+	public int getCartId() {
+		return cartId;
 	}
-	public void setCustomer(User customer) {
-		this.customer = customer;
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
 	}
 	public List<Product> getProducts() {
 		return products;
@@ -47,6 +62,7 @@ public class Cart {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+	
 	
 	
 	

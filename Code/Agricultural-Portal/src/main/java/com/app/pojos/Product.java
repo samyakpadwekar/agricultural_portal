@@ -1,125 +1,63 @@
 package com.app.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "products")
 public class Product {
 //	productId	Product name	Product Description	Category_Id	Unit Price	SellerId	
 //	Units_In_Stock	Units_sold	Discount_Available	Avg Rating	Picture
-	private Integer pId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer productId;
+	
+	@Column(length = 30)
+	@NotBlank(message = "required")
 	private String productName;
+	
+	@Column(length = 200)
+	@NotBlank(message = "required")
 	private String productDescription;
-	private Integer catId;
+	
+	@OneToOne	
+	@JoinColumn(name = "category_id",nullable = false)
+	private Category category;
+	
+	@NotNull
 	private double price;
-	private Integer sellerId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "seller_id",nullable = false)
+	private User seller;
+	
 	private int unitsStock;
+	
 	private int unitsSold;
+	
 	private double discount;
+	
 	private double avgRating;
+	@Lob
 	private byte[] picture;
+		
 
 	public Product() {
 	}
 
-	public Product(Integer pId, String productName, String productDescription, Integer catId, double price,
-			Integer sellerId, int unitsStock, int unitsSold, double discount, double avgRating, byte[] picture) {
-		super();
-		this.pId = pId;
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.catId = catId;
-		this.price = price;
-		this.sellerId = sellerId;
-		this.unitsStock = unitsStock;
-		this.unitsSold = unitsSold;
-		this.discount = discount;
-		this.avgRating = avgRating;
-		this.picture = picture;
-	}
+	
 
-	public Integer getpId() {
-		return pId;
-	}
-
-	public void setpId(Integer pId) {
-		this.pId = pId;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
-
-	public Integer getCatId() {
-		return catId;
-	}
-
-	public void setCatId(Integer catId) {
-		this.catId = catId;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public Integer getSellerId() {
-		return sellerId;
-	}
-
-	public void setSellerId(Integer sellerId) {
-		this.sellerId = sellerId;
-	}
-
-	public int getUnitsStock() {
-		return unitsStock;
-	}
-
-	public void setUnitsStock(int unitsStock) {
-		this.unitsStock = unitsStock;
-	}
-
-	public int getUnitsSold() {
-		return unitsSold;
-	}
-
-	public void setUnitsSold(int unitsSold) {
-		this.unitsSold = unitsSold;
-	}
-
-	public double getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(double discount) {
-		this.discount = discount;
-	}
-
-	public double getAvgRating() {
-		return avgRating;
-	}
-
-	public void setAvgRating(double avgRating) {
-		this.avgRating = avgRating;
-	}
-
-	public byte[] getPicture() {
-		return picture;
-	}
-
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
-	}
+	
 
 }
