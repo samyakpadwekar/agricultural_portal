@@ -51,6 +51,9 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "selectedUser", orphanRemoval = true)
 	private List<Address> addresses;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "holder", orphanRemoval = true)
+	private List<BankDetails> bankDetails;
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
