@@ -3,18 +3,9 @@ package com.app.pojos;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,7 +30,7 @@ public class Seller {
 	private String bussinessName;
 	
 	@Column(length = 50)
-	@NotNull(message = "Required")
+	@NotBlank(message = "Required")
 	@Email(message = "Enter valid email")
 	private String email;
 	
@@ -51,7 +42,7 @@ public class Seller {
 	private String password;
 	
 	@Column(length = 20)
-	@Pattern(regexp="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$",message = "Invalid password!")
+	@Pattern(regexp="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$",message = "Invalid GSTIN !")
 	private String gstin;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
