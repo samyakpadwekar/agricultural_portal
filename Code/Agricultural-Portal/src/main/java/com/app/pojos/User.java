@@ -1,19 +1,58 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "users")
 public class User {
 //	Id	FName	LName	Email	MobileNo.	Password	PostalCode	DateRegistered	Role
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
+	
+	@Column(length = 20)
+	@NotBlank(message = "required")
 	private String firstName;
+	
+	@Column(length = 20)
+	@NotBlank(message = "required")	
 	private String lastName;
+	
+	@Column(length = 50,unique = true)
+	@Email(message = "Enter valid email")
+	@NotBlank(message = "required")
 	private String email;
+	
+	@Column(length = 15,unique = true)
 	private String mobileNo;
+	
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})",message = "Invalid password!")
+	@NotBlank(message = "required")
 	private String password;
+	
+	@NotBlank(message = "required")
+	@Column(length = 10)
 	private String pin;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate regDate;
+	
+	@Enumerated(EnumType.STRING)
 	private Role role;
-
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy ="selectedUser",orphanRemoval = true)
+	private List<Address> address;
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy ="selectedUser",orphanRemoval = true)
+	private List<BankDetails> bankDetails;
 	public User() {
 	}
 
