@@ -13,21 +13,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cart")
 public class Cart {
-//	buyerId	productId	Count
 	private int count;
-	@OneToOne(mappedBy = "custCart",cascade = CascadeType.ALL,orphanRemoval=true)
-	@JoinColumn(name="Customer_id")
-	private int custId;
-	@OneToMany(mappedBy = "carts",cascade = CascadeType.ALL,orphanRemoval=true)
-	private List<Product> product=new ArrayList<>();
-	//private int productId;
+	@OneToOne
+	@JoinColumn(name="customer_id")
+	private User customer;
+	@OneToMany
+	@JoinColumn(name="product_id")
+	private List<Product> products=new ArrayList<>();
 	public Cart () {
 	}
-	public Cart(int count, int custId, List<Product> product) {
+	public Cart(int count, User customer, List<Product> products) {
 		super();
 		this.count = count;
-		this.custId = custId;
-		this.product = product;
+		this.customer = customer;
+		this.products = products;
 	}
 	public int getCount() {
 		return count;
@@ -35,19 +34,20 @@ public class Cart {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public int getCustId() {
-		return custId;
+	
+	public User getCustomer() {
+		return customer;
 	}
-	public void setCustId(int custId) {
-		this.custId = custId;
+	public void setCustomer(User customer) {
+		this.customer = customer;
 	}
-	public List<Product> getProduct() {
-		return product;
+	public List<Product> getProducts() {
+		return products;
 	}
-	public void setProduct(List<Product> product) {
-		this.product = product;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
-
+	
 	
 	
 }
