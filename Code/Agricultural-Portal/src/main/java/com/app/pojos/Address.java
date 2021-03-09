@@ -49,9 +49,8 @@ public class Address {
 	private String country;
 
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-			@JoinColumn(name = "user_id", referencedColumnName = "seller_id") })
-	private Object selectedUser;
+	@JoinColumn(name = "user_id")
+	private User selectedUser;
 
 	public Address() {
 	}
@@ -61,7 +60,7 @@ public class Address {
 			@NotBlank(message = "required") String line1, @NotBlank(message = "required") String line2,
 			@NotBlank(message = "required") String landMark, @NotBlank(message = "required") String city,
 			@NotBlank(message = "required") String state, @NotBlank(message = "required") String country,
-			Object selectedUser) {
+			User selectedUser) {
 		super();
 		this.addressId = addressId;
 		this.fullName = fullName;
@@ -168,7 +167,7 @@ public class Address {
 		return selectedUser;
 	}
 
-	public void setSelectedUser(Object selectedUser) {
+	public void setSelectedUser(User selectedUser) {
 		this.selectedUser = selectedUser;
 	}
 
