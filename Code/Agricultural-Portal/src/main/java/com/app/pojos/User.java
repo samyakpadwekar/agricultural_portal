@@ -63,7 +63,7 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "selectedUser", orphanRemoval = true)
 	private List<Address> addresses;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "holder", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
 	private List<BankDetails> bankDetails;
 
 	@Enumerated(EnumType.STRING)
