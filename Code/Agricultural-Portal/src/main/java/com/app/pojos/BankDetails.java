@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -29,7 +28,7 @@ public class BankDetails {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id",nullable=false)	
-	private User holder; 
+	private User user; 
 	
 	public BankDetails() {
 	}
@@ -40,7 +39,7 @@ public class BankDetails {
 		this.accNo = accNo;
 		this.holderName = holderName;
 		this.phoneNo = phoneNo;
-		this.holder = holder;
+		this.user = holder;
 	}
 
 	public String getIfscCode() {
@@ -75,12 +74,18 @@ public class BankDetails {
 		this.phoneNo = phoneNo;
 	}
 
-	public User getHolder() {
-		return holder;
+	public User getUser() {
+		return user;
 	}
 
-	public void setHolder(User holder) {
-		this.holder = holder;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "BankDetails [bankDetailsId=" + bankDetailsId + ", ifscCode=" + ifscCode + ", accNo=" + accNo
+				+ ", holderName=" + holderName + ", phoneNo=" + phoneNo + "]";
 	}
 	
 	

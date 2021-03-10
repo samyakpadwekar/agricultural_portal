@@ -3,8 +3,21 @@ package com.app.pojos;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +41,7 @@ public class User {
 	@NotBlank(message = "Required")
 	private String bussinessName;
 
-	@Column(length = 50)
+	@Column(length = 50, unique = true)
 	@NotBlank(message = "Required")
 	@Email(message = "Enter valid email")
 	private String email;
@@ -68,10 +81,10 @@ public class User {
 	public User() {
 	}
 
-	public User(Integer sellerId, String firstName, String lastName, String bussinessName, String email,
+	public User(Integer userId, String firstName, String lastName, String bussinessName, String email,
 			String mobileNo, String password, String gstin, LocalDate regDate) {
 		super();
-		this.userId = sellerId;
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.bussinessName = bussinessName;
@@ -170,4 +183,12 @@ public class User {
 		this.role = role;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", bussinessName="
+				+ bussinessName + ", email=" + email + ", mobileNo=" + mobileNo + ", password=" + password + ", gstin="
+				+ gstin + ", regDate=" + regDate + ", role=" + role + "]";
+	}
+	
+	
 }

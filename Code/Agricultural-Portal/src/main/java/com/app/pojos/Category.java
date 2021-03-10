@@ -61,4 +61,9 @@ public class Category {
 		this.picture = picture;
 	}
 
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", catName=" + catName + ", description=" + description + "]";
+	}
+
 }
