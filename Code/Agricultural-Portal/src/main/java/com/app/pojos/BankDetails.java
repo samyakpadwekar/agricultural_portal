@@ -1,45 +1,24 @@
 package com.app.pojos;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-@Entity
-@Table(name="bank_details")
+@Embeddable
 public class BankDetails {
 //UserId	IFSCcode	AccNo	HolderName	PhoneNo
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer bankDetailsId;
-	@Column(length =30)
+
+	@Column(length = 30)
 	private String ifscCode;
-	@Column(length =30)
+	@Column(length = 30)
 	private String accNo;
-	@Column(length =30)
-	private String holderName;
-	@Column(length =30)
-	private String phoneNo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",nullable=false)	
-	private User user; 
-	
+
 	public BankDetails() {
 	}
 
-	public BankDetails(String ifscCode, String accNo, String holderName, String phoneNo, User holder) {
+	public BankDetails(String ifscCode, String accNo) {
 		super();
 		this.ifscCode = ifscCode;
 		this.accNo = accNo;
-		this.holderName = holderName;
-		this.phoneNo = phoneNo;
-		this.user = holder;
 	}
 
 	public String getIfscCode() {
@@ -58,35 +37,10 @@ public class BankDetails {
 		this.accNo = accNo;
 	}
 
-	public String getHolderName() {
-		return holderName;
-	}
-
-	public void setHolderName(String holderName) {
-		this.holderName = holderName;
-	}
-
-	public String getPhoneNo() {
-		return phoneNo;
-	}
-
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	@Override
 	public String toString() {
-		return "BankDetails [bankDetailsId=" + bankDetailsId + ", ifscCode=" + ifscCode + ", accNo=" + accNo
-				+ ", holderName=" + holderName + ", phoneNo=" + phoneNo + "]";
+		return "BankDetails [ifscCode=" + ifscCode + ", accNo=" + accNo + "]";
 	}
 	
-	
+
 }

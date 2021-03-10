@@ -3,22 +3,14 @@ package com.app.pojos;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity
-@Table(name = "addresses")
+@Embeddable/*
+		 * to specify whatever follows is a value type(composite type) does not have its
+		 * own identity does not have independent life cycle, depends TOTALLY upon
+		 * owning entity
+		 */
 public class Address {
-//	UserId	FullName	MobileNo	PinCode 	AddLine1	Add line2	
+//PinCode 	AddLine1	Add line2	
 	// Landmark City State Country(India)
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer addressId;
-
-	@Column(length = 20, nullable = false)
-	@NotBlank(message = "required")
-	private String fullName;
-
-	@Column(length = 20, nullable = false)
-	@NotBlank(message = "required")
-	private String mobileNumber;
 
 	@Column(length = 10)
 	@NotBlank(message = "required")
@@ -48,23 +40,14 @@ public class Address {
 	@NotBlank(message = "required")
 	private String country;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User selectedUser;
-
 	public Address() {
 	}
 
-	public Address(Integer addressId, @NotBlank(message = "required") String fullName,
-			@NotBlank(message = "required") String mobileNumber, @NotBlank(message = "required") String pinCode,
-			@NotBlank(message = "required") String line1, @NotBlank(message = "required") String line2,
-			@NotBlank(message = "required") String landMark, @NotBlank(message = "required") String city,
-			@NotBlank(message = "required") String state, @NotBlank(message = "required") String country,
-			User selectedUser) {
+	public Address(@NotBlank(message = "required") String pinCode, @NotBlank(message = "required") String line1,
+			@NotBlank(message = "required") String line2, @NotBlank(message = "required") String landMark,
+			@NotBlank(message = "required") String city, @NotBlank(message = "required") String state,
+			@NotBlank(message = "required") String country) {
 		super();
-		this.addressId = addressId;
-		this.fullName = fullName;
-		this.mobileNumber = mobileNumber;
 		this.pinCode = pinCode;
 		this.line1 = line1;
 		this.line2 = line2;
@@ -72,31 +55,6 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.country = country;
-		this.selectedUser = selectedUser;
-	}
-
-	public Integer getUserId() {
-		return addressId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.addressId = userId;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
 	}
 
 	public String getPinCode() {
@@ -155,26 +113,9 @@ public class Address {
 		this.country = country;
 	}
 
-	public Integer getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
-	}
-
-	public Object getSelectedUser() {
-		return selectedUser;
-	}
-
-	public void setSelectedUser(User selectedUser) {
-		this.selectedUser = selectedUser;
-	}
-
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", fullName=" + fullName + ", mobileNumber=" + mobileNumber
-				+ ", pinCode=" + pinCode + ", line1=" + line1 + ", line2=" + line2 + ", landMark=" + landMark
+		return "Address [pinCode=" + pinCode + ", line1=" + line1 + ", line2=" + line2 + ", landMark=" + landMark
 				+ ", city=" + city + ", state=" + state + ", country=" + country + "]";
 	}
 
