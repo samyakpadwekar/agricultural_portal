@@ -19,7 +19,7 @@ public class GlobalExceptionHandller extends RuntimeException {
 	@ExceptionHandler(UserHandlingException.class)
 	public ResponseEntity<?> handleUserException(UserHandlingException e){
 		System.out.println("in handle user exc");
-		return new ResponseEntity<ErrorResponse>(new ErrorResponse("Invalid Login", "Wring Credentials"),HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity<ErrorResponse>(new ErrorResponse("Invalid Login", "Wrong Credentials"),HttpStatus.UNAUTHORIZED);
 	}
 	
 }
