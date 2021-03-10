@@ -72,7 +72,7 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seller", orphanRemoval = true)
 	private List<Product> products;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="cart_id")	
     private Cart cart;
 	
