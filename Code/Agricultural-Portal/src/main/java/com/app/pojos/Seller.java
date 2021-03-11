@@ -3,8 +3,17 @@ package com.app.pojos;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,7 +39,7 @@ public class Seller {
 
 	@Column(length = 50)
 	@NotBlank(message = "Required")
-	private String bussinessName;
+	private String businessName;
 
 	@Column(length = 50, unique = true, nullable = false)
 	@NotNull(message = "Required")
@@ -71,6 +80,14 @@ public class Seller {
 	public Seller() {
 	}
 
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 	public Seller(Integer sellerId, @NotBlank(message = "Required") String firstName,
 			@NotBlank(message = "Required") String lastName, @NotBlank(message = "Required") String bussinessName,
 			@NotNull(message = "Required") @NotBlank(message = "Required") @Email(message = "Enter valid email") String email,
@@ -82,7 +99,7 @@ public class Seller {
 		this.sellerId = sellerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.bussinessName = bussinessName;
+		this.businessName = bussinessName;
 		this.email = email;
 		this.mobileNo = mobileNo;
 		this.password = password;
@@ -115,12 +132,12 @@ public class Seller {
 		this.lastName = lastName;
 	}
 
-	public String getBussinessName() {
-		return bussinessName;
+	public String getBusinessName() {
+		return businessName;
 	}
 
-	public void setBussinessName(String bussinessName) {
-		this.bussinessName = bussinessName;
+	public void setBusinessName(String bussinessName) {
+		this.businessName = bussinessName;
 	}
 
 	public String getEmail() {
@@ -190,7 +207,7 @@ public class Seller {
 	@Override
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", bussinessName=" + bussinessName + ", email=" + email + ", mobileNo=" + mobileNo + ", password="
+				+ ", businessName=" + businessName + ", email=" + email + ", mobileNo=" + mobileNo + ", password="
 				+ password + ", gstin=" + gstin + ", regDate=" + regDate + ", address=" + address + ", bankDetail="
 				+ bankDetail + ", status=" + status + "]";
 	}
