@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.CategoryDTO;
 import com.app.dto.CustomerList;
 import com.app.dto.ProductList;
 import com.app.dto.SellerList;
@@ -66,5 +69,13 @@ public class AdminController {
 		}
 		return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
 	}
-
+	
+	
+	@PostMapping("/add-category")
+	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO){
+		System.out.println("in add category");
+		
+		return new ResponseEntity<>(userService.addCategory(catDTO), HttpStatus.CREATED);
+	}
+	
 }

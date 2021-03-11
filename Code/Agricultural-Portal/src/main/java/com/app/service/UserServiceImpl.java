@@ -4,13 +4,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
+import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
+import com.app.dto.CategoryDTO;
+import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
 import com.app.pojos.Seller;
@@ -28,6 +32,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ProductRepository productRepo;
+	
+	@Autowired
+	private CategoryRepository catRepo;
 
 	@Override
 	public User authenticateUser(String email, String password) {
@@ -51,6 +58,14 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<User> getAllCustomer() {
 		return userRepo.findByRole(Role.CUSTOMER);
+	}
+
+	@Override
+	public Category addCategory(CategoryDTO catDTO) {
+		
+		Category cat = new Category();
+		BeanUtils.copyProperties(catDTO, cat);
+		return catRepo.save(cat);
 	}
 
 }
