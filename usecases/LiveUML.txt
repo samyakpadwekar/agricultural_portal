@@ -1,0 +1,51 @@
+ADMIN : 
+
+@startuml
+
+:Admin: -up-> (Search Product's name/category)
+:Admin: -up-> (List Buyers)
+:Admin: -up-> (Products Report)
+:Admin: -up-> (Edit Profile)
+:Admin: -up-> (Search Product by Categories)
+:Admin: -right-> (Search Seller by \nProduct Name\n[Product details])
+:Admin: -left-> (Complaints Report \n1.Buyer’s Feedback\n2.Violation by Seller)
+:Admin: -down-> (Search Seller by Name)
+:Admin: -down-> (Sales Report)
+:Admin: -down-> (List Sellers)
+:Admin: -down-> (Add Categories)
+:Admin: -down-> (Edit Categories)
+:Admin: -down-> (Remove Categories)
+
+@enduml
+
+BUYER:
+
+@startuml
+:Buyer: -up-> (My Cart)
+:Buyer: -down-> (Shop by Categories)
+:Buyer: -left-> (Your Orders \n1.order history\n 2.order status)
+:Buyer: -down-> (Area-wise seller)
+:Buyer: -up-> (Search Product's\nname/category)
+:Buyer: -up-> (Seller Information)
+:Buyer: -up-> (Wish List)
+:Buyer: -down-> (FAQs)
+:Buyer: -down-> (Your Account)
+:Buyer: -down-> (Customer Service)
+:Buyer: -right-> (Feedback\n1.Rating\n2.Comments\n3.Report a Seller)
+@enduml
+
+
+SELLER:
+
+@startuml
+left to right direction
+:Seller: -left-> (Catalogue \n\ni.Add Product \nii. Edit Product)
+:Seller: -down-> (Inventory\n\ni. Manage Inventory\nii. Inventory Report)
+:Seller: -right-> (Orders\n\ni. View Orders Status\nii. Orders Status Update\niii. Pending Orders\niv. Return Order  )
+:Seller: -up-> (Perfomance\n\ni. Customer’s Feedback\nii. Rule Violation Notification\nii. Customer’s Feedback\n1. Comments\n2. Rating\n)
+:Seller: -up-> (Edit Profile)
+:Seller: -down-> (Pricing)
+:Seller: -down-> (Advertising for \nOffline Seller\n\ni. Free registration\nii. Paid registration)
+:Seller: -up-> (Reports\n\ni. Performance \nii. Sales Summary\niii. Payment Summary)
+@enduml
+
