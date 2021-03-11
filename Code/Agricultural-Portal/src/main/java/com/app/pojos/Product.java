@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -41,21 +43,22 @@ public class Product {
 	@NotNull(message = "required")
 	private double price;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;
+	
+	
+	private Integer unitsStock;
+	
+	
+	private Integer unitsSold;
+	
+	
+	private Double discount;
 
-	@Column(nullable = true)
-	private int unitsStock;
-
-	@Column(nullable = true)
-	private int unitsSold;
-
-	@Column(nullable = true)
-	private double discount;
-
-	@Column(nullable = true)
-	private double avgRating;
+	
+	private Double avgRating;
 	
 	@Lob
 	private byte[] picture;
@@ -65,8 +68,8 @@ public class Product {
 
 	public Product(Integer productId, String brandName, @NotBlank(message = "required") String productName,
 			@NotBlank(message = "required") String productDescription, Category category,
-			@NotNull(message = "required") double price, Seller seller, int unitsStock, int unitsSold, double discount,
-			double avgRating, byte[] picture) {
+			@NotNull(message = "required") double price, Seller seller, int unitsStock, int unitsSold, Double discount,
+			Double avgRating, byte[] picture) {
 		super();
 		this.productId = productId;
 		this.brandName = brandName;
@@ -130,19 +133,19 @@ public class Product {
 		this.unitsSold = unitsSold;
 	}
 
-	public double getDiscount() {
+	public Double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(double discount) {
+	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
 
-	public double getAvgRating() {
+	public Double getAvgRating() {
 		return avgRating;
 	}
 
-	public void setAvgRating(double avgRating) {
+	public void setAvgRating(Double avgRating) {
 		this.avgRating = avgRating;
 	}
 
