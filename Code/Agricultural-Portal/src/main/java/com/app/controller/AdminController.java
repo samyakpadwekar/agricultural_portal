@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CustomerList;
 import com.app.dto.ProductList;
+import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
+import com.app.service.ISellerService;
 import com.app.service.IUserService;
 
 @RestController
@@ -23,6 +25,9 @@ import com.app.service.IUserService;
 public class AdminController {
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private ISellerService sellerService;
 
 	@GetMapping("/list-all-customer")
 	public ResponseEntity<?> getAllCustomer() {
@@ -31,6 +36,15 @@ public class AdminController {
 		if (custList.size() == 0)
 			return new ResponseEntity<CustomerList>(new CustomerList(custList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(new CustomerList(custList), HttpStatus.OK);
+	}
+	
+	@GetMapping("/list-all-seller")
+	public ResponseEntity<?> getAllSeller() {
+		System.out.println("In a get all Seller");
+		List<Seller> sellerList = sellerService.getAllSeller();
+		if (sellerList.size() == 0)
+			return new ResponseEntity<SellerList>(new SellerList(sellerList), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(new SellerList(sellerList), HttpStatus.OK);
 	}
 
 	@GetMapping("/search-seller-by-businessname/{businessName}")
