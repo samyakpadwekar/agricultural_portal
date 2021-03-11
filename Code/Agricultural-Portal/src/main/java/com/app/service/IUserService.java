@@ -16,4 +16,6 @@ public interface IUserService {
 	List<Product> findProductsByCategory(String categoryName);
 	List<User> getAllCustomer();
 	Category addCategory(CategoryDTO catDTO);
+	
+	Category editCategory(int categoryId, CategoryDTO catDTO);
 }

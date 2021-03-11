@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ import com.app.service.IUserService;
 public class AdminController {
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private ISellerService sellerService;
 
@@ -40,7 +41,7 @@ public class AdminController {
 			return new ResponseEntity<CustomerList>(new CustomerList(custList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(new CustomerList(custList), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/list-all-seller")
 	public ResponseEntity<?> getAllSeller() {
 		System.out.println("In a get all Seller");
@@ -69,13 +70,17 @@ public class AdminController {
 		}
 		return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 	@PostMapping("/add-category")
-	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO){
+	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO) {
 		System.out.println("in add category");
-		
+
 		return new ResponseEntity<>(userService.addCategory(catDTO), HttpStatus.CREATED);
 	}
-	
+
+	@PutMapping("/edit-category/{categoryId}")
+	public ResponseEntity<?> editCategory(@PathVariable int categoryId, @RequestBody CategoryDTO catDTO) {
+		System.out.println("in edit category " + catDTO);
+		return new ResponseEntity<>(userService.editCategory(categoryId, catDTO), HttpStatus.OK);
+	}
 }

@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ProductRepository productRepo;
-	
+
 	@Autowired
 	private CategoryRepository catRepo;
 
@@ -62,10 +62,19 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public Category addCategory(CategoryDTO catDTO) {
-		
+
 		Category cat = new Category();
 		BeanUtils.copyProperties(catDTO, cat);
 		return catRepo.save(cat);
+	}
+
+	@Override
+	public Category editCategory(int categoryId, CategoryDTO catDTO) {
+		Category catDetails = catRepo.findById(categoryId).get();
+		System.out.println("in edir cat service before: " + catDetails);
+		BeanUtils.copyProperties(catDTO, catDetails);
+		System.out.println("in edir cat service after: " + catDetails);
+		return catDetails;
 	}
 
 }
