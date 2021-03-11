@@ -12,5 +12,5 @@ public interface IUserService {
 	Seller findSellerByBuisenessName(String name);
 	
 	List<Product> findProductsByCategory(String categoryName);
-	
+	List<User> getAllCustomer();
 }
