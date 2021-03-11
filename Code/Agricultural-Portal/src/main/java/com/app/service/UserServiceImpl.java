@@ -19,7 +19,7 @@ import com.app.pojos.User;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-	Role role = Role.CUSTOMER;
+
 	@Autowired
 	private UserRepository userRepo;
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<User> getAllCustomer() {
-		return userRepo.findByRole(role);
+		return userRepo.findByRole(Role.CUSTOMER);
 	}
 
 }
