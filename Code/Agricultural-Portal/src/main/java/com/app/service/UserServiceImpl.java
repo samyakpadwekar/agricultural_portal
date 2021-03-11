@@ -1,13 +1,17 @@
 package com.app.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
+import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
+import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
 
@@ -21,6 +25,9 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private SellerRepository sellerRepo;
 	
+	@Autowired
+	private ProductRepository productRepo;
+	
 	
 	
 	@Override
@@ -32,6 +39,12 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {		
 		return sellerRepo.findByBusinessName(businessName).orElseThrow(()->new UserHandlingException("Invalid Buiseness Name..!"));
+	}
+	
+	@Override
+	public List<Product> findProductsByCategory(String categoryName) {
+		
+		return productRepo.findByCategoryName(categoryName);
 	}
 
 }
