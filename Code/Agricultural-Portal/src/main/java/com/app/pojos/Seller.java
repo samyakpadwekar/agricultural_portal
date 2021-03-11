@@ -1,16 +1,10 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -68,8 +62,11 @@ public class Seller {
 	@Column(length = 12, nullable = false)
 	private SellerStatus status;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "soldBySeller", orphanRemoval = true)
-//	private List<Product> products;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seller", orphanRemoval = true)
+	private List<Product> products;
+	
+	
 
 	public Seller() {
 	}
