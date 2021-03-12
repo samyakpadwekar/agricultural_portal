@@ -18,4 +18,6 @@ public interface IUserService {
 	Category addCategory(CategoryDTO catDTO);
 	
 	Category editCategory(int categoryId, CategoryDTO catDTO);
+	
+	String deleteCategory(int categoryId);
 }

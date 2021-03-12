@@ -77,4 +77,11 @@ public class UserServiceImpl implements IUserService {
 		return catDetails;
 	}
 
+	@Override
+	public String deleteCategory(int categoryId) {
+		System.out.println("in delete category"+ categoryId);
+		catRepo.deleteById(categoryId);
+		return "ID: "+categoryId+" Category deleted";
+	}
+
 }
