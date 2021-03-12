@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.LoginRequest;
+import com.app.dto.ProductDTO;
 import com.app.dto.ProductList;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -28,6 +29,14 @@ public class SellerController {
 	public SellerController() {
 		// TODO Auto-generated constructor stub
 		System.out.println("in ctor of seller controller");
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> sellerLogin(@RequestBody LoginRequest login)
+	{
+		System.out.println("in seller login");
+		
+		return new ResponseEntity<>( sellerService.authenticateSeller(login.getEmail(), login.getPassword()), HttpStatus.OK);
 	}
 	
 	@GetMapping("/list-by-product")
@@ -46,13 +55,13 @@ public class SellerController {
 		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> sellerLogin(@RequestBody LoginRequest login)
-	{
-		System.out.println("in seller login");
-		
-		return new ResponseEntity<>( sellerService.authenticateSeller(login.getEmail(), login.getPassword()), HttpStatus.OK);
+	@PostMapping("/add-product/{sellerId}/{catId}")
+	public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Integer sellerId, @PathVariable Integer catId){
+		System.out.println("in add category");
+		return new ResponseEntity<>(sellerService.addProduct(productDTO, sellerId, catId), HttpStatus.CREATED);
 	}
+	
+	
 }
 
 
