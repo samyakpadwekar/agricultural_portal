@@ -21,6 +21,8 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "sellers")
 public class Seller {
@@ -71,7 +73,7 @@ public class Seller {
 	@Column(length = 12, nullable = false)
 	private SellerStatus status;
 
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seller", orphanRemoval = true)
 	private List<Product> products;
 	

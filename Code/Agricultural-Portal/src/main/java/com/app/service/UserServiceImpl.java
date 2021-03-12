@@ -99,5 +99,10 @@ public class UserServiceImpl implements IUserService {
 		if(i==0) return "Invalid seller id";
 		return "status changed to "+status+" successfully";
 	}
+	
+	@Override
+	public List<Seller> getAllSeller() {
+		return sellerRepo.findAll();
+	}
 
 }

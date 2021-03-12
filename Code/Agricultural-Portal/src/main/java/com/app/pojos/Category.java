@@ -31,7 +31,7 @@ public class Category {
 	@Lob
 	private byte[] picture;
 
-//	@JsonIgnore
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "category")
 	private List<Product> products = new ArrayList<>();
 

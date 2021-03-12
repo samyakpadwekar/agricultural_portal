@@ -21,7 +21,7 @@ INSERT INTO sellers values(default,'Nagpur','India','landMark','line1',null,4211
 INSERT INTO sellers values(default,'Pune','India','landMark','line1',null,421127,'Maharashtra','12345678548','HDFC05376','shop3','seller4@gmail.com','seller14','jtiourij45568791','seller4','+917897568934','abc#1234','2019-02-19','ACTIVE');
 
 INSERT INTO categories VALUES(default,'Pesticides','pestisides',null);
-INSERT INTO categories VALUES(default,'Crops','pestisides',null);
+INSERT INTO categories VALUES(default,'Crops','Wheat,rice,sugarcane etc',null);
 
 INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'Tractor','Tractor',10,20,1,1);
 INSERT INTO products values(DEFAULT,null,'Mahindra',null,null,50000,'Tractor','Tractor',10,20,1,3);

@@ -23,7 +23,6 @@ import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
-import com.app.service.ISellerService;
 import com.app.service.IUserService;
 
 @RestController
@@ -31,9 +30,6 @@ import com.app.service.IUserService;
 public class AdminController {
 	@Autowired
 	private IUserService userService;
-
-	@Autowired
-	private ISellerService sellerService;
 
 	@GetMapping("/list-all-customer")
 	public ResponseEntity<?> getAllCustomer() {
@@ -47,7 +43,7 @@ public class AdminController {
 	@GetMapping("/list-all-seller")
 	public ResponseEntity<?> getAllSeller() {
 		System.out.println("In a get all Seller");
-		List<Seller> sellerList = sellerService.getAllSeller();
+		List<Seller> sellerList = userService.getAllSeller();
 		if (sellerList.size() == 0)
 			return new ResponseEntity<SellerList>(new SellerList(sellerList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(new SellerList(sellerList), HttpStatus.OK);
@@ -85,26 +81,24 @@ public class AdminController {
 		System.out.println("in edit category " + catDTO);
 		return new ResponseEntity<>(userService.editCategory(categoryId, catDTO), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete-category/{categoryId}")
-	public ResponseEntity<?> deleteCategory(@PathVariable int categoryId){
-		System.out.println("in delete category "+categoryId);
+	public ResponseEntity<?> deleteCategory(@PathVariable int categoryId) {
+		System.out.println("in delete category " + categoryId);
 		return ResponseEntity.ok(userService.deleteCategory(categoryId));
 	}
-	
+
 	@PutMapping("/activate-seller/{id}")
-	public ResponseEntity<?> activateSellerAccount(@PathVariable int id)
-	{
+	public ResponseEntity<?> activateSellerAccount(@PathVariable int id) {
 		System.out.println("in activate seller");
-		
+
 		return new ResponseEntity<>(userService.changeSellerAccountStatus(id, SellerStatus.ACTIVE), HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/suspend-seller/{id}")
-	public ResponseEntity<?> suspendSellerAccount(@PathVariable int id)
-	{
+	public ResponseEntity<?> suspendSellerAccount(@PathVariable int id) {
 		System.out.println("in suspend seller");
-		
+
 		return new ResponseEntity<>(userService.changeSellerAccountStatus(id, SellerStatus.SUSPENDED), HttpStatus.OK);
 	}
 }
