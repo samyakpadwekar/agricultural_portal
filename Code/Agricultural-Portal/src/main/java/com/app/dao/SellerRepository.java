@@ -18,5 +18,7 @@ public interface SellerRepository extends JpaRepository<Seller, Integer> {
 	@Modifying
 	@Query("update Seller s set s.status=:st where s.id=:id")
 	int updateStatus(@Param("st") SellerStatus status, @Param("id") int id);
+	
+	Optional<Seller> findByEmailAndPassword(String email,String password);
 
 }
