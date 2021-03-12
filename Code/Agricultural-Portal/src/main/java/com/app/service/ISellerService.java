@@ -10,4 +10,5 @@ public interface ISellerService {
 	Seller authenticateSeller(String email,String password);
 	List<Product> getAllProductsBySellerId(Integer sellerId);
 	Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId);
+	String deleteProduct(Integer productId);
 }

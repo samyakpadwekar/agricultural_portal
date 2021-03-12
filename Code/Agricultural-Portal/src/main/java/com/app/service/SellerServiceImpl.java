@@ -51,5 +51,17 @@ public class SellerServiceImpl implements ISellerService {
 		product.setAvgRating(0.0);
 		return productRepo.save(product);
 	}
+	
+	@Override
+	public String deleteProduct(Integer productId) {
+		//productRepo.deleteById(productId);
+		Product product = productRepo.findById(productId).get();
+		int sellerId = product.getSeller().getSellerId();
+		//as it is bidirectional
+		boolean removed = sellerRepo.findById(sellerId).get().getProducts().remove(product);
+		System.out.println("removed from seller instance : "+removed);
+		productRepo.delete(product);
+		return "Id : "+productId+" product deleted";
+	}
 
 }
