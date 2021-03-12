@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.LoginRequest;
+import com.app.dto.ProductList;
+import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.service.ISellerService;
 
@@ -32,6 +35,15 @@ public class SellerController {
 	{
 		System.out.println("in ctor of show list of seller by product ");
 		return null;
+	}
+	
+	@GetMapping("/list-sellers-products/{sellerId}")
+	public ResponseEntity<?> getAllProducts(@PathVariable Integer sellerId){
+		System.out.println("in get all products of seller");
+		List<Product> productList = sellerService.getAllProductsBySellerId(sellerId);
+		if(productList.size() == 0)
+			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
 	}
 	
 	@PostMapping("/login")
