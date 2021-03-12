@@ -14,6 +14,7 @@ import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.CategoryDTO;
+import com.app.dto.UserResponse;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
@@ -103,6 +104,22 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<Seller> getAllSeller() {
 		return sellerRepo.findAll();
+	}
+	
+	@Override
+	public String userSignup(UserResponse userDto) {
+		User user=new User();
+		BeanUtils.copyProperties(userDto, user);
+		userRepo.save(user);		
+		return "Your account has been successfully created !";
+	}
+	
+	@Override
+	public String editProfile(UserResponse userDto) {
+		User user=new User();
+		BeanUtils.copyProperties(userDto, user);
+		userRepo.save(user);		
+		return "Your account has been successfully updated !";
 	}
 
 }

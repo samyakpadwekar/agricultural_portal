@@ -3,6 +3,7 @@ package com.app.service;
 import java.util.List;
 
 import com.app.dto.CategoryDTO;
+import com.app.dto.UserResponse;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -27,4 +28,8 @@ public interface IUserService {
 	List<Category> getAllCategories();
 	
 	List<Seller> getAllSeller();
+	
+	String editProfile(UserResponse user);
+	
+	String userSignup(UserResponse user);
 }
