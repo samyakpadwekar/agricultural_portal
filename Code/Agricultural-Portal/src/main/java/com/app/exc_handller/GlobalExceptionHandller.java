@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.app.custom_excs.SellerHandlingException;
 import com.app.custom_excs.UserHandlingException;
 import com.app.dto.ErrorResponse;
 
@@ -22,4 +23,10 @@ public class GlobalExceptionHandller extends RuntimeException {
 		return new ResponseEntity<ErrorResponse>(new ErrorResponse("Invalid Login", "Wrong Credentials"),HttpStatus.UNAUTHORIZED);
 	}
 	
+	@ExceptionHandler(SellerHandlingException.class)
+	public ResponseEntity<?> handleSellerException(SellerHandlingException e)
+	{
+		System.out.println("in handle seller exc");
+		return new ResponseEntity<>(new ErrorResponse("Seller error",e.getMessage()), HttpStatus.NOT_FOUND);
+	}
 }
