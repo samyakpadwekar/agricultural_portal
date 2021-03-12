@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "products")
@@ -36,7 +37,8 @@ public class Product {
 	@NotBlank(message = "required")
 	private String productDescription;
 
-	@OneToOne
+	@JsonIgnoreProperties(value = "picture")
+	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
