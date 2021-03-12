@@ -25,4 +25,6 @@ public interface IUserService {
 	String changeSellerAccountStatus(int id,SellerStatus status);
 	
 	List<Category> getAllCategories();
+	
+	List<Seller> getAllSeller();
 }
