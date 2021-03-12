@@ -18,6 +18,7 @@ import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
 import com.app.pojos.Seller;
+import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
 
 @Service
@@ -82,6 +83,14 @@ public class UserServiceImpl implements IUserService {
 		System.out.println("in delete category"+ categoryId);
 		catRepo.deleteById(categoryId);
 		return "ID: "+categoryId+" Category deleted";
+	}
+	
+	@Override
+	public String changeSellerAccountStatus(int id, SellerStatus status) {
+		
+		int i= sellerRepo.updateStatus(status, id);
+		if(i==0) return "Invalid seller id";
+		return "status changed to "+status+" successfully";
 	}
 
 }

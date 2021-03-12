@@ -6,6 +6,7 @@ import com.app.dto.CategoryDTO;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
+import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
 
 public interface IUserService {
@@ -20,4 +21,6 @@ public interface IUserService {
 	Category editCategory(int categoryId, CategoryDTO catDTO);
 	
 	String deleteCategory(int categoryId);
+	
+	String changeSellerAccountStatus(int id,SellerStatus status);
 }

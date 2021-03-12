@@ -21,6 +21,7 @@ import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
+import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
 import com.app.service.ISellerService;
 import com.app.service.IUserService;
@@ -54,7 +55,7 @@ public class AdminController {
 
 	@GetMapping("/search-seller-by-businessname/{businessName}")
 	public ResponseEntity<?> showSellerByBusinessName(@PathVariable String businessName) {
-		System.out.println("in ctor of show list of seller by product productName : " + businessName);
+		System.out.println("in show list of seller by product productName : " + businessName);
 		Seller s = userService.findSellerByBuisenessName(businessName);
 		if (s == null) {
 			return new ResponseEntity<>(s, HttpStatus.NO_CONTENT);
@@ -89,5 +90,21 @@ public class AdminController {
 	public ResponseEntity<?> deleteCategory(@PathVariable int categoryId){
 		System.out.println("in delete category "+categoryId);
 		return ResponseEntity.ok(userService.deleteCategory(categoryId));
+	}
+	
+	@PutMapping("/activate-seller/{id}")
+	public ResponseEntity<?> activateSellerAccount(@PathVariable int id)
+	{
+		System.out.println("in activate seller");
+		
+		return new ResponseEntity<>(userService.changeSellerAccountStatus(id, SellerStatus.ACTIVE), HttpStatus.OK);
+	}
+	
+	@PutMapping("/suspend-seller/{id}")
+	public ResponseEntity<?> suspendSellerAccount(@PathVariable int id)
+	{
+		System.out.println("in suspend seller");
+		
+		return new ResponseEntity<>(userService.changeSellerAccountStatus(id, SellerStatus.SUSPENDED), HttpStatus.OK);
 	}
 }
