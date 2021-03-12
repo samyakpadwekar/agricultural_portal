@@ -23,4 +23,6 @@ public interface IUserService {
 	String deleteCategory(int categoryId);
 	
 	String changeSellerAccountStatus(int id,SellerStatus status);
+	
+	List<Category> getAllCategories();
 }

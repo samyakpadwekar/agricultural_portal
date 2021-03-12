@@ -49,6 +49,13 @@ public class UserServiceImpl implements IUserService {
 		return sellerRepo.findByBusinessName(businessName)
 				.orElseThrow(() -> new UserHandlingException("Invalid Buiseness Name..!"));
 	}
+	
+	@Override
+	public List<Category> getAllCategories() {
+		
+		return catRepo.findAll();
+	}
+
 
 	@Override
 	public List<Product> findProductsByCategory(String categoryName) {
