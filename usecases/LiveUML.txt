@@ -43,9 +43,9 @@ left to right direction
 :Seller: -left-> (Catalogue \n\ni.Add Product \nii. Edit Product)
 :Seller: -down-> (Inventory\n\ni. Manage Inventory\nii. Inventory Report)
 :Seller: -right-> (Orders\n\ni. View Orders Status\nii. Orders Status Update\niii. Pending Orders\niv. Return Order  )
-:Seller: -up-> (Perfomance\n\ni. Customer’s Feedback\nii. Rule Violation Notification\nii. Customer’s Feedback\n1. Comments\n2. Rating\n)
+:Seller: -up-> (Perfomance\n\ni. Rule Violation Notification\nii. Customer’s Feedback\n1. Comments\n2. Rating\n)
 :Seller: -up-> (Edit Profile)
-:Seller: -down-> (Pricing)
+:Seller: -down-> (Search Product)
 :Seller: -down-> (Advertising for \nOffline Seller\n\ni. Free registration\nii. Paid registration)
 :Seller: -up-> (Reports\n\ni. Performance \nii. Sales Summary\niii. Payment Summary)
 @enduml
