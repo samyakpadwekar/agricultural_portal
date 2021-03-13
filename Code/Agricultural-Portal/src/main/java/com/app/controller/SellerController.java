@@ -70,6 +70,12 @@ public class SellerController {
 		System.out.println("in add category");
 		return new ResponseEntity<>(sellerService.addProduct(productDTO, sellerId, catId), HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/edit-product")
+	public ResponseEntity<?> editProduct(@RequestBody ProductDTO productDTO) {
+		System.out.println("in edit product"); 
+		return new ResponseEntity<>(sellerService.editProduct(productDTO) , HttpStatus.OK);
+	}
 
 	@DeleteMapping("/delete-product/{productId}")
 	public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {

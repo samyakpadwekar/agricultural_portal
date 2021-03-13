@@ -58,6 +58,18 @@ public class SellerServiceImpl implements ISellerService {
 		product.setAvgRating(0.0);
 		return productRepo.save(product);
 	}
+	
+	@Override
+	public String editProduct(ProductDTO productDTO) {
+		Product product = productRepo.findById(productDTO.getProductId()).get(); //product : persistent
+		System.out.println("in edit product service , before : "+product);
+		Seller seller = product.getSeller();
+		BeanUtils.copyProperties(productDTO, product);
+		product.setSeller(seller);
+		//dirty checking
+		System.out.println("in edit product service , after : "+product);
+		return "product : "+product.getProductName()+" updated successfully";
+	}
 
 	@Override
 	public String deleteProduct(Integer productId) {

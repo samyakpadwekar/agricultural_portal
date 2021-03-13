@@ -11,6 +11,7 @@ public interface ISellerService {
 	Seller authenticateSeller(String email,String password);
 	List<Product> getAllProductsBySellerId(Integer sellerId);
 	Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId);
+	String editProduct(ProductDTO productDTO);
 	String deleteProduct(Integer productId);
 	String editProfile(SellerDTO s);
 	String sellerSignup(SellerDTO s);
