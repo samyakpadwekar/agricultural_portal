@@ -1,11 +1,13 @@
 package com.app.dto;
 
 import com.app.pojos.Category;
+import com.app.pojos.ProductCatalogue;
 import com.app.pojos.Seller;
 
 public class ProductDTO {
 	
 	private Integer productId;
+	private ProductCatalogue productCatalogue;
 	private String brandName;
 //	private String productName;
 	private String productDescription;
@@ -22,11 +24,12 @@ public class ProductDTO {
 		System.out.println("in ctor of productDTO");
 	}
 
-	public ProductDTO(Integer productId, String brandName,  String productDescription,
-			Category category, double price, Seller seller, Integer unitsStock, Integer unitsSold, Double discount,
-			Double avgRating, byte[] picture) {
+	public ProductDTO(Integer productId, ProductCatalogue productCatalogue, String brandName, 
+			String productDescription, Category category, double price, Seller seller, Integer unitsStock,
+			Integer unitsSold, Double discount, Double avgRating, byte[] picture) {
 		super();
 		this.productId = productId;
+		this.productCatalogue = productCatalogue;
 		this.brandName = brandName;
 //		this.productName = productName;
 		this.productDescription = productDescription;
@@ -55,7 +58,7 @@ public class ProductDTO {
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
-
+	
 //	public String getProductName() {
 //		return productName;
 //	}
@@ -63,6 +66,14 @@ public class ProductDTO {
 //	public void setProductName(String productName) {
 //		this.productName = productName;
 //	}
+
+	public ProductCatalogue getProductCatalogue() {
+		return productCatalogue;
+	}
+
+	public void setProductCatalogue(ProductCatalogue productCatalogue) {
+		this.productCatalogue = productCatalogue;
+	}
 
 	public String getProductDescription() {
 		return productDescription;

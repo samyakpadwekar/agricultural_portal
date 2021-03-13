@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_excs.ProductHandlingException;
 import com.app.custom_excs.SellerHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
@@ -49,14 +50,24 @@ public class SellerServiceImpl implements ISellerService {
 
 	@Override
 	public Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId) {
-		Product product = new Product();
-		BeanUtils.copyProperties(productDTO, product);
-		product.setSeller(sellerRepo.findById(sellerId).get());
-		product.setCategory(categoryRepo.findById(catId).get());
-		// BL
-		product.setUnitsSold(0);
-		product.setAvgRating(0.0);
-		return productRepo.save(product);
+		Product product2 = null;
+		try {
+			Product product = new Product();
+			BeanUtils.copyProperties(productDTO, product);
+			Seller s = sellerRepo.findById(sellerId).get();
+			product.setSeller(s);
+			product.setCategory(categoryRepo.findById(catId).get());
+			
+			//BL
+			product.setUnitsSold(0);
+			product.setAvgRating(0.0);
+			product2 = productRepo.save(product);
+		} catch (Exception e) {
+			//yet to handle other exceptions
+			throw new ProductHandlingException("Duplicate product entry");
+		}
+		
+		return product2;
 	}
 	
 	@Override
@@ -68,7 +79,7 @@ public class SellerServiceImpl implements ISellerService {
 		product.setSeller(seller);
 		//dirty checking
 		System.out.println("in edit product service , after : "+product);
-		return "product : "+product.getProductName()+" updated successfully";
+		return "product : "+product.getProductCatalogue().getProductName()+" updated successfully";
 	}
 
 	@Override

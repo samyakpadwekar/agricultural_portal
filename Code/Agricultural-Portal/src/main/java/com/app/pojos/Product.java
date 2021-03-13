@@ -1,16 +1,7 @@
 package com.app.pojos;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "products")
+@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"productUid", "seller_id"}))
 public class Product {
 //	productId	Product name	Product Description	Category_Id	Unit Price	SellerId	
 //	Units_In_Stock	Units_sold	Discount_Available	Avg Rating	Picture
@@ -72,12 +63,14 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(Integer productId, String brandName, @NotBlank(message = "required") 
+	public Product(Integer productId, ProductCatalogue productCatalogue, String brandName,
+			@NotBlank(message = "required") String productName,
 			@NotBlank(message = "required") String productDescription, Category category,
-			@NotNull(message = "required") double price, Seller seller, int unitsStock, int unitsSold, Double discount,
-			Double avgRating, byte[] picture) {
+			@NotNull(message = "required") double price, Seller seller, Integer unitsStock, Integer unitsSold,
+			Double discount, Double avgRating, byte[] picture) {
 		super();
 		this.productId = productId;
+		this.productCatalogue = productCatalogue;
 		this.brandName = brandName;
 //		this.productName = productName;
 		this.productDescription = productDescription;
