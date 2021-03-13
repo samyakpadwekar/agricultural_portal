@@ -176,3 +176,41 @@ Body:Raw:JSON:
 }
 
 ```
+
+## Buyer:
+
+### Show Wishlist
+
+```json
+METHOD: GET
+http://localhost:8080/customer/wishlist/1
+
+Body:Raw:JSON:
+
+```
+
+### Add Wishlist
+
+```json
+METHOD: POST
+http://localhost:8080/customer/wishlist/add/1
+
+Body:Raw:JSON:
+{   
+      "productId": 1,
+            "brandName": "Tata",
+            "productName": "Tractor",
+            "productDescription": "Tractor",
+            "category": {
+                "categoryId": 1,
+                "catName": "Machinery",
+                "description": "Heavy duty agricultural machineries"
+            },
+            "price": 50000.0,
+            "unitsStock": 20,
+            "unitsSold": 10,
+            "discount": null,
+            "avgRating": null,
+            "picture": null
+}
+```
