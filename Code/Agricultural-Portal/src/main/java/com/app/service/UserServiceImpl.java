@@ -13,14 +13,17 @@ import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
+import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
 import com.app.dto.UserResponse;
+import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
 import com.app.pojos.Seller;
 import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
+import com.app.pojos.Wishlist;
 
 @Service
 @Transactional
@@ -37,7 +40,10 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private CategoryRepository catRepo;
-
+	
+	@Autowired
+	private WishListRepository wishListRepository;
+	
 	@Override
 	public User authenticateUser(String email, String password) {
 
@@ -121,4 +127,22 @@ public class UserServiceImpl implements IUserService {
 		return "Your account has been successfully updated !";
 	}
 
+	@Override
+	public List<Wishlist> readWishList(int userId) {
+		return wishListRepository.findAllByUserIdOrderByCreatedDateDesc(userId);
+	}
+
+	@Override
+	public WishlistDTO getWishlistDTO(Product product) {
+		WishlistDTO wishlistDTO = new WishlistDTO(product);
+		return wishlistDTO;
+	}
+
+	@Override
+	public Wishlist createWishlist(Wishlist wishList) {
+		System.out.println("wishlist "+wishList);
+		 return wishListRepository.save(wishList);
+	}
+
+	
 }

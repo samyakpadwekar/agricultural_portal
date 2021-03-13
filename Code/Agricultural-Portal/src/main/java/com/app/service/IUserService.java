@@ -4,11 +4,13 @@ import java.util.List;
 
 import com.app.dto.CategoryDTO;
 import com.app.dto.UserResponse;
+import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
+import com.app.pojos.Wishlist;
 
 public interface IUserService {
 	User authenticateUser(String email, String password);
@@ -32,4 +34,10 @@ public interface IUserService {
 	String editProfile(UserResponse user);
 	
 	String userSignup(UserResponse user);
+
+	List<Wishlist> readWishList(int user_id);
+	
+	WishlistDTO getWishlistDTO(Product product);
+
+	Wishlist createWishlist(Wishlist wishList);
 }

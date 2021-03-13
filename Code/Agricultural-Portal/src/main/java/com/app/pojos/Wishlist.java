@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 	//Defining the table
 	@Entity
@@ -28,7 +29,7 @@ import javax.validation.constraints.NotBlank;
 
 	    //user_id column
 	    @Column(name = "user_id")
-	    private @NotBlank Integer userId;
+	    private @NotNull Integer userId;
 
 
 	    //created_date column
