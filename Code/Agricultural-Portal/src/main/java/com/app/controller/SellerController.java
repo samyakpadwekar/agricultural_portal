@@ -33,7 +33,14 @@ public class SellerController {
 		// TODO Auto-generated constructor stub
 		System.out.println("in ctor of seller controller");
 	}
-
+	
+	@PostMapping("/signup")
+	public ResponseEntity<?> sellerSignup(@RequestBody SellerDTO s) {
+		System.out.println("in seller signup "+s);
+		return ResponseEntity.ok(sellerService.sellerSignup(s));
+	}
+		
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> sellerLogin(@RequestBody LoginRequest login) {
 		System.out.println("in seller login");

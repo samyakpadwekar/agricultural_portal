@@ -73,4 +73,13 @@ public class SellerServiceImpl implements ISellerService {
 		return "You account profile has been successfully updated..!";
 	}
 
+	@Override
+	public String sellerSignup(SellerDTO s) {
+		Seller newSeller = new Seller();
+		BeanUtils.copyProperties(s, newSeller);
+		sellerRepo.save(newSeller);
+		
+		return "Signup Successfully..!";
+	}
+
 }

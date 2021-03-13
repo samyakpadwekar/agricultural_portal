@@ -13,4 +13,5 @@ public interface ISellerService {
 	Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId);
 	String deleteProduct(Integer productId);
 	String editProfile(SellerDTO s);
+	String sellerSignup(SellerDTO s);
 }
