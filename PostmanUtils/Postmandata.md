@@ -109,3 +109,43 @@ Body:Raw:JSON:
 		"status": "ACTIVE"
 }
 ```
+
+### Get seller's product list
+
+```json
+METHOD: GET
+http://localhost:8080/seller/list-all-products/1
+
+Body:Raw:JSON:
+
+```
+
+### Add product
+
+```json
+METHOD: POST
+http://localhost:8080/seller/add-product/3/1
+/3(sellerid)/1(categoryid)
+Body:Raw:JSON:
+{
+    "brandName": "Ajay Industries",
+    "productName": "A-I PKV Mini Dall Mill Machine",
+    "productDescription": "PKV Mini Dall Mill Machine",
+    "price": 93500.0,
+    "unitsStock": 30,
+    "unitsSold": 10,
+    "discount": 17,
+    "picture": null
+}
+
+```
+
+### Delete product
+
+```json
+METHOD: DELETE
+http://localhost:8080/seller/delete-product/3
+
+Body:Raw:JSON:
+
+```
