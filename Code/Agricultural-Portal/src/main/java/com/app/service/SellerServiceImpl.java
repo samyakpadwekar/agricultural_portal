@@ -16,6 +16,7 @@ import com.app.dto.ProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
+import com.app.pojos.SellerStatus;
 
 @Service
 @Transactional
@@ -32,9 +33,13 @@ public class SellerServiceImpl implements ISellerService {
 
 	@Override
 	public Seller authenticateSeller(String email, String password) {
-
-		return sellerRepo.findByEmailAndPassword(email, password)
+		Seller s = sellerRepo.findByEmailAndPassword(email, password)
 				.orElseThrow(() -> new SellerHandlingException("Invalid login credentials"));
+		if(s.getStatus().equals(SellerStatus.PENDING))
+			throw new SellerHandlingException("Wait for the admin approval.");
+		if(s.getStatus().equals(SellerStatus.SUSPENDED))
+			throw new SellerHandlingException("Admin has suspended your account.");
+		return s;
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class SellerServiceImpl implements ISellerService {
 		Seller newSeller = new Seller();
 		BeanUtils.copyProperties(s, newSeller);
 		sellerRepo.save(newSeller);
-		
+
 		return "Signup Successfully..!";
 	}
 
