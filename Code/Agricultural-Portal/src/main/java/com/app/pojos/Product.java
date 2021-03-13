@@ -98,7 +98,7 @@ public class Product {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-
+	
 //	public String getProductName() {
 //		return productName;
 //	}
@@ -106,6 +106,14 @@ public class Product {
 //	public void setProductName(String productName) {
 //		this.productName = productName;
 //	}
+
+	public ProductCatalogue getProductCatalogue() {
+		return productCatalogue;
+	}
+
+	public void setProductCatalogue(ProductCatalogue productCatalogue) {
+		this.productCatalogue = productCatalogue;
+	}
 
 	public String getProductDescription() {
 		return productDescription;

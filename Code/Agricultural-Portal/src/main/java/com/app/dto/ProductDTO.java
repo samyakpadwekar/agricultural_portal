@@ -7,7 +7,7 @@ public class ProductDTO {
 	
 	private Integer productId;
 	private String brandName;
-	private String productName;
+//	private String productName;
 	private String productDescription;
 	private Category category;
 	private double price;
@@ -22,13 +22,13 @@ public class ProductDTO {
 		System.out.println("in ctor of productDTO");
 	}
 
-	public ProductDTO(Integer productId, String brandName, String productName, String productDescription,
+	public ProductDTO(Integer productId, String brandName,  String productDescription,
 			Category category, double price, Seller seller, Integer unitsStock, Integer unitsSold, Double discount,
 			Double avgRating, byte[] picture) {
 		super();
 		this.productId = productId;
 		this.brandName = brandName;
-		this.productName = productName;
+//		this.productName = productName;
 		this.productDescription = productDescription;
 		this.category = category;
 		this.price = price;
@@ -56,13 +56,13 @@ public class ProductDTO {
 		this.brandName = brandName;
 	}
 
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+//	public String getProductName() {
+//		return productName;
+//	}
+//
+//	public void setProductName(String productName) {
+//		this.productName = productName;
+//	}
 
 	public String getProductDescription() {
 		return productDescription;
@@ -138,7 +138,7 @@ public class ProductDTO {
 
 	@Override
 	public String toString() {
-		return "ProductDTO [productId=" + productId + ", brandName=" + brandName + ", productName=" + productName
+		return "ProductDTO [productId=" + productId + ", brandName=" + brandName 
 				+ ", productDescription=" + productDescription + ", price=" + price + ", unitsStock=" + unitsStock
 				+ ", unitsSold=" + unitsSold + ", discount=" + discount + ", avgRating=" + avgRating + "]";
 	}
