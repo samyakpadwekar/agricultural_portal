@@ -116,9 +116,8 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public String editProfile(UserResponse userDto) {
-		User user=new User();
-		BeanUtils.copyProperties(userDto, user);
-		userRepo.save(user);		
+		User persistUser= userRepo.findById(userDto.getUserId()).get();
+		BeanUtils.copyProperties(userDto, persistUser, "userId");
 		return "Your account has been successfully updated !";
 	}
 

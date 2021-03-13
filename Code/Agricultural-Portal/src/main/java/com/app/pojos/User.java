@@ -42,7 +42,7 @@ public class User {
 	private String mobileNo;
 
 	@Column(length = 20, nullable = false)
-	@Pattern(regexp = "((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})", message = "Invalid password!")
+//	@Pattern(regexp = "((?=.\\d)(?=.[a-z])(?=.[#@$]).{5,20})", message = "Invalid password!")
 	private String password;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
