@@ -149,3 +149,30 @@ http://localhost:8080/seller/delete-product/3
 Body:Raw:JSON:
 
 ```
+
+### Update product
+
+```json
+METHOD: PUT
+http://localhost:8080/seller/edit-product
+
+Body:Raw:JSON:
+{
+    "productId": 5,
+    "brandName": "Tata",
+    "productName": "Sugar cane",
+    "productDescription": "Gannna",
+    "category": {
+        "categoryId": 3,
+        "catName": "Crops",
+        "description": "Wheat,rice,sugarcane etc"
+    },
+    "price": 50000.0,
+    "unitsStock": 20,
+    "unitsSold": 10,
+    "discount": 10,
+    "avgRating": null,
+    "picture": null
+}
+
+```
