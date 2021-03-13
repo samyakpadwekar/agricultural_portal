@@ -22,8 +22,16 @@ INSERT INTO sellers values(default,'Pune','India','landMark','line1',null,421127
 INSERT INTO categories VALUES(default,'Pesticides','pestisides',null);
 INSERT INTO categories VALUES(default,'Crops','Wheat,rice,sugarcane etc',null);
 
-INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'Tractor','Tractor',10,20,1,1);
+INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'Tractor',10,20,1,1);
 INSERT INTO products values(DEFAULT,null,'Mahindra',null,null,50000,'Tractor','Tractor',10,20,1,3);
 INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'highly poisonous','pesticide',10,20,2,1);
 INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'Organic product','Wheat',10,20,3,1);
 INSERT INTO products values(DEFAULT,null,'Tata',null,null,50000,'KK','shugar cane',10,20,3,4);
+
+
+After adding catalogue
+insert into product_catalogue values(default, 'sugar cane');
+insert into product_catalogue values(default, 'Rice');
+insert into product_catalogue values(default, 'Tractor');
+
+INSERT INTO products values(DEFAULT,null,'Tata',null,null,900000,'Tractor descp',10,20,1,3,1);
