@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.app.custom_excs.ProductHandlingException;
 import com.app.custom_excs.SellerHandlingException;
 import com.app.custom_excs.UserHandlingException;
 import com.app.dto.ErrorResponse;
@@ -28,5 +29,11 @@ public class GlobalExceptionHandller extends RuntimeException {
 	{
 		System.out.println("in handle seller exc");
 		return new ResponseEntity<>(new ErrorResponse("Seller error",e.getMessage()), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ProductHandlingException.class)
+	public ResponseEntity<?> handleProductException(ProductHandlingException p){
+		System.out.println("in handle product exception");
+		return new ResponseEntity<>(new ErrorResponse("Product error", p.getMessage()), HttpStatus.CONFLICT);
 	}
 }
