@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,13 +25,17 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
-
+	
+	@OneToOne
+	@JoinColumn(name = "productUid")
+	private ProductCatalogue productCatalogue;
+	
 	@Column(length = 50)
 	private String brandName;
 
-	@Column(length = 30, nullable = false)
-	@NotBlank(message = "required")
-	private String productName;
+//	@Column(length = 30, nullable = false)
+//	@NotBlank(message = "required")
+//	private String productName;
 
 	@Column(length = 200)
 	@NotBlank(message = "required")
@@ -67,14 +72,14 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(Integer productId, String brandName, @NotBlank(message = "required") String productName,
+	public Product(Integer productId, String brandName, @NotBlank(message = "required") 
 			@NotBlank(message = "required") String productDescription, Category category,
 			@NotNull(message = "required") double price, Seller seller, int unitsStock, int unitsSold, Double discount,
 			Double avgRating, byte[] picture) {
 		super();
 		this.productId = productId;
 		this.brandName = brandName;
-		this.productName = productName;
+//		this.productName = productName;
 		this.productDescription = productDescription;
 		this.category = category;
 		this.price = price;
@@ -94,13 +99,13 @@ public class Product {
 		this.productId = productId;
 	}
 
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+//	public String getProductName() {
+//		return productName;
+//	}
+//
+//	public void setProductName(String productName) {
+//		this.productName = productName;
+//	}
 
 	public String getProductDescription() {
 		return productDescription;
@@ -184,7 +189,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", brandName=" + brandName + ", productName=" + productName
+		return "Product [productId=" + productId + ", brandName=" + brandName 
 				+ ", productDescription=" + productDescription + ", price=" + price + ", unitsStock=" + unitsStock
 				+ ", unitsSold=" + unitsSold + ", discount=" + discount + ", avgRating=" + avgRating + "]";
 	}
