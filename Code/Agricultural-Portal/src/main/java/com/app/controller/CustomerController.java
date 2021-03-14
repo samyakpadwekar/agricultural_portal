@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CategoryList;
 import com.app.dto.ProductList;
+import com.app.dto.SellerList;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
+import com.app.pojos.Seller;
 import com.app.pojos.Wishlist;
 import com.app.service.IUserService;
+
 
 @RestController
 @RequestMapping("/customer")
@@ -82,5 +85,21 @@ public class CustomerController {
 	            //return the response
 
 	    }
+	    
+
+	    
+	    @GetMapping("/near-by-seller/{pincode}")
+	    public ResponseEntity<?> showNearBySeller(@PathVariable String pincode)
+		{
+			System.out.println("in showNearBySeller : "+pincode);
+			List<Seller> sellerList= userService.getSellerByArea(pincode);
+			System.out.println("Sellerlist : "+sellerList);
+			if(sellerList.isEmpty())
+			{
+				return new ResponseEntity<>(new SellerList(sellerList), HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(new SellerList(sellerList), HttpStatus.OK);
+		}
+
 
 }
