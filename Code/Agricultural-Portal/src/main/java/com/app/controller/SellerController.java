@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.LoginRequest;
 import com.app.dto.ProductDTO;
 import com.app.dto.ProductList;
+import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -84,6 +85,13 @@ public class SellerController {
 	public ResponseEntity<?> editProduct(@RequestBody ProductDTO productDTO) {
 		System.out.println("in edit product"); 
 		return new ResponseEntity<>(sellerService.editProduct(productDTO) , HttpStatus.OK);
+	}
+	
+	//manage inventory
+	@PutMapping("/restock")
+	public ResponseEntity<?> restockProduct(@RequestBody RestockProductDTO restockProductDTO){
+		System.out.println("in restock product");
+		return new ResponseEntity<>(sellerService.restockProduct(restockProductDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete-product/{productId}")

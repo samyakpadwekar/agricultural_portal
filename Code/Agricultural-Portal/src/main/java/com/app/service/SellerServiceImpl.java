@@ -14,6 +14,7 @@ import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dto.ProductDTO;
+import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -80,6 +81,16 @@ public class SellerServiceImpl implements ISellerService {
 		//dirty checking
 		System.out.println("in edit product service , after : "+product);
 		return "product : "+product.getProductCatalogue().getProductName()+" updated successfully";
+	}
+	
+	@Override
+	public String restockProduct(RestockProductDTO restockProductDTO) {
+		Product product = productRepo.findById(restockProductDTO.getProductId()).get();
+		int oldStock = product.getUnitsStock();
+		System.out.println("in restock product, old stock :"+oldStock);
+		product.setUnitsStock(oldStock+restockProductDTO.getQuantity());
+		System.out.println("in restock product, new stock :"+product.getUnitsStock());
+		return "Product restocked from :"+oldStock+" to :"+product.getUnitsStock();
 	}
 
 	@Override

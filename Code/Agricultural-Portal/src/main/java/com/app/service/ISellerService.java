@@ -3,6 +3,7 @@ package com.app.service;
 import java.util.List;
 
 import com.app.dto.ProductDTO;
+import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -15,4 +16,5 @@ public interface ISellerService {
 	String deleteProduct(Integer productId);
 	String editProfile(SellerDTO s);
 	String sellerSignup(SellerDTO s);
+	String restockProduct(RestockProductDTO restockProductDTO);
 }
