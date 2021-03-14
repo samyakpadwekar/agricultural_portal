@@ -40,4 +40,7 @@ public interface IUserService {
 	WishlistDTO getWishlistDTO(Product product);
 
 	Wishlist createWishlist(Wishlist wishList);
+	
+	List<Seller> getSellerByArea(String pincode);
+
 }

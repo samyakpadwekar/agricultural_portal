@@ -144,5 +144,13 @@ public class UserServiceImpl implements IUserService {
 		 return wishListRepository.save(wishList);
 	}
 
+	@Override
+	public List<Seller> getSellerByArea(String pincode) {
+		System.out.println("pincode :"+pincode);
+		return sellerRepo.findByPinCode(pincode);
+	}
+
+	
+	
 	
 }

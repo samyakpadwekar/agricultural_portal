@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,8 @@ public interface SellerRepository extends JpaRepository<Seller, Integer> {
 	int updateStatus(@Param("st") SellerStatus status, @Param("id") int id);
 	
 	Optional<Seller> findByEmailAndPassword(String email,String password);
+	
+	@Query("select s from Seller s left outer join fetch s.address where s.address.pinCode=:pincode")
+	List<Seller> findByPinCode(@Param("pincode") String pinCode);
 
 }
