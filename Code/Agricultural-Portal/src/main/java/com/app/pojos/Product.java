@@ -17,7 +17,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "productUid")
 	private ProductCatalogue productCatalogue;
 	
@@ -33,7 +33,7 @@ public class Product {
 	private String productDescription;
 
 	@JsonIgnoreProperties(value = "picture")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
