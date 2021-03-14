@@ -63,6 +63,15 @@ public class SellerController {
 			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
 	}
+	
+	@GetMapping("/inventory-report/{sellerId}")
+	public ResponseEntity<?> inventoryReport(@PathVariable Integer sellerId) {
+		System.out.println("in inventory report of seller");
+		List<Product> productList = sellerService.getAllProductsBySellerId(sellerId);
+		if (productList.size() == 0)
+			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
+	}
 
 	@PostMapping("/add-product/{sellerId}/{catId}")
 	public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Integer sellerId,
