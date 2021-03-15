@@ -24,5 +24,6 @@ public interface SellerRepository extends JpaRepository<Seller, Integer> {
 	
 	@Query("select s from Seller s left outer join fetch s.address where s.address.pinCode=:pincode")
 	List<Seller> findByPinCode(@Param("pincode") String pinCode);
-
+	
+	Seller findByUserName(String userName);
 }
