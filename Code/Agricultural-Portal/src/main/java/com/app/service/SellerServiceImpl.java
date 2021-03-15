@@ -1,28 +1,37 @@
 package com.app.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.ProductHandlingException;
-import com.app.custom_excs.SellerHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dto.ProductDTO;
 import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
+import com.app.dto.SellerSignupRequest;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.SellerStatus;
 
 @Service
 @Transactional
-public class SellerServiceImpl implements ISellerService {
+public class SellerServiceImpl implements ISellerService, UserDetailsService {
+
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 
 	@Autowired
 	private SellerRepository sellerRepo;
@@ -32,17 +41,6 @@ public class SellerServiceImpl implements ISellerService {
 
 	@Autowired
 	private CategoryRepository categoryRepo;
-
-	@Override
-	public Seller authenticateSeller(String email, String password) {
-		Seller s = sellerRepo.findByEmailAndPassword(email, password)
-				.orElseThrow(() -> new SellerHandlingException("Invalid login credentials"));
-		if(s.getStatus().equals(SellerStatus.PENDING))
-			throw new SellerHandlingException("Wait for the admin approval.");
-		if(s.getStatus().equals(SellerStatus.SUSPENDED))
-			throw new SellerHandlingException("Admin has suspended your account.");
-		return s;
-	}
 
 	@Override
 	public List<Product> getAllProductsBySellerId(Integer sellerId) {
@@ -58,39 +56,39 @@ public class SellerServiceImpl implements ISellerService {
 			Seller s = sellerRepo.findById(sellerId).get();
 			product.setSeller(s);
 			product.setCategory(categoryRepo.findById(catId).get());
-			
-			//BL
+
+			// BL
 			product.setUnitsSold(0);
 			product.setAvgRating(0.0);
 			product2 = productRepo.save(product);
 		} catch (Exception e) {
-			//yet to handle other exceptions
+			// yet to handle other exceptions
 			throw new ProductHandlingException("Duplicate product entry");
 		}
-		
+
 		return product2;
 	}
-	
+
 	@Override
 	public String editProduct(ProductDTO productDTO) {
-		Product product = productRepo.findById(productDTO.getProductId()).get(); //product : persistent
-		System.out.println("in edit product service , before : "+product);
+		Product product = productRepo.findById(productDTO.getProductId()).get(); // product : persistent
+		System.out.println("in edit product service , before : " + product);
 		Seller seller = product.getSeller();
 		BeanUtils.copyProperties(productDTO, product);
 		product.setSeller(seller);
-		//dirty checking
-		System.out.println("in edit product service , after : "+product);
-		return "product : "+product.getProductCatalogue().getProductName()+" updated successfully";
+		// dirty checking
+		System.out.println("in edit product service , after : " + product);
+		return "product : " + product.getProductCatalogue().getProductName() + " updated successfully";
 	}
-	
+
 	@Override
 	public String restockProduct(RestockProductDTO restockProductDTO) {
 		Product product = productRepo.findById(restockProductDTO.getProductId()).get();
 		int oldStock = product.getUnitsStock();
-		System.out.println("in restock product, old stock :"+oldStock);
-		product.setUnitsStock(oldStock+restockProductDTO.getQuantity());
-		System.out.println("in restock product, new stock :"+product.getUnitsStock());
-		return "Product restocked from :"+oldStock+" to :"+product.getUnitsStock();
+		System.out.println("in restock product, old stock :" + oldStock);
+		product.setUnitsStock(oldStock + restockProductDTO.getQuantity());
+		System.out.println("in restock product, new stock :" + product.getUnitsStock());
+		return "Product restocked from :" + oldStock + " to :" + product.getUnitsStock();
 	}
 
 	@Override
@@ -112,13 +110,36 @@ public class SellerServiceImpl implements ISellerService {
 		return "You account profile has been successfully updated..!";
 	}
 
-	@Override
-	public String sellerSignup(SellerDTO s) {
-		Seller newSeller = new Seller();
-		BeanUtils.copyProperties(s, newSeller);
-		sellerRepo.save(newSeller);
+//	@Override
+//	public String sellerSignup(SellerDTO s) {
+//		Seller newSeller = new Seller();
+//		BeanUtils.copyProperties(s, newSeller);
+//		sellerRepo.save(newSeller);
+//
+//		return "Signup Successfully..!";
+//	}
 
-		return "Signup Successfully..!";
+	@Override
+	public Seller saveSeller(SellerSignupRequest seller) {
+		Seller newSeller = new Seller();
+		BeanUtils.copyProperties(seller, newSeller, "password");
+		System.out.println("newUser:" + newSeller);
+		newSeller.setPassword(bcryptEncoder.encode(seller.getPassword()));
+		newSeller.setStatus(SellerStatus.PENDING);
+		newSeller.setRegDate(LocalDate.now());
+		
+		return sellerRepo.save(newSeller); // DirtyChecking and insert query
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("In line 148 of SELLERSERVICEIMPL");
+		Seller seller = sellerRepo.findByUserName(username);
+		if (seller == null) {
+			throw new UsernameNotFoundException("Seller not found with username: " + username);
+		}
+		return new org.springframework.security.core.userdetails.User(seller.getUserName(), seller.getPassword(),
+				new ArrayList<>());
 	}
 
 }
