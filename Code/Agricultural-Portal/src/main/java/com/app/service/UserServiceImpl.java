@@ -1,11 +1,17 @@
 package com.app.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
@@ -15,6 +21,7 @@ import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
 import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
+import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
@@ -27,8 +34,11 @@ import com.app.pojos.Wishlist;
 
 @Service
 @Transactional
-public class UserServiceImpl implements IUserService {
-
+public class UserServiceImpl implements IUserService, UserDetailsService {
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	
 	@Autowired
 	private UserRepository userRepo;
 
@@ -44,12 +54,12 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private WishListRepository wishListRepository;
 	
-	@Override
-	public User authenticateUser(String email, String password) {
-
-		return userRepo.findByEmailAndPassword(email, password)
-				.orElseThrow(() -> new UserHandlingException("Invalid Credentials..!"));
-	}
+//	@Override
+//	public User authenticateUser(String email, String password) {
+//
+//		return userRepo.findByEmailAndPassword(email, password)
+//				.orElseThrow(() -> new UserHandlingException("Invalid Credentials..!"));
+//	}
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
@@ -150,7 +160,26 @@ public class UserServiceImpl implements IUserService {
 		return sellerRepo.findByPinCode(pincode);
 	}
 
-	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		com.app.pojos.User user = userRepo.findByUserName(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+				new ArrayList<>());
+	}
+
+	@Override
+	public com.app.pojos.User saveUser(SignupRequest signupRequest) {
+		com.app.pojos.User newUser = new User();
+		BeanUtils.copyProperties(signupRequest, newUser, "password", "role");
+		System.out.println("newUser:" + newUser);
+		newUser.setPassword(bcryptEncoder.encode(signupRequest.getPassword()));
+		newUser.setRole(Role.valueOf(signupRequest.getRole().toUpperCase()));
+		newUser.setRegDate(LocalDate.now());
+		return userRepo.save(newUser); // DirtyChecking and insert query
+	}
 	
 	
 }

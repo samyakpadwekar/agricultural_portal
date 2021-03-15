@@ -2,7 +2,11 @@ package com.app.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.app.dto.CategoryDTO;
+import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
@@ -13,7 +17,8 @@ import com.app.pojos.User;
 import com.app.pojos.Wishlist;
 
 public interface IUserService {
-	User authenticateUser(String email, String password);
+//	User authenticateUser(String email, String password);
+	User saveUser(SignupRequest signupRequest);
 	
 	Seller findSellerByBuisenessName(String name);
 	
@@ -42,5 +47,5 @@ public interface IUserService {
 	Wishlist createWishlist(Wishlist wishList);
 	
 	List<Seller> getSellerByArea(String pincode);
-
+	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
