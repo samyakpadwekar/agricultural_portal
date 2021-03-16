@@ -2,24 +2,30 @@ package com.app.dto;
 
 import java.util.List;
 
+import com.app.pojos.Cart;
+
 public class CartDTO {
-	private List<CartItemDto> cartItems;
+	private List<Cart> cartItems;
     private double totalCost;
 
-    public CartDTO(List<CartItemDto> cartItemDtoList, double totalCost) {
-        this.cartItems = cartItemDtoList;
-        this.totalCost = totalCost;
-    }
+    public CartDTO() {
+	}
 
-    public List<CartItemDto> getcartItems() {
-        return cartItems;
-    }
+    public CartDTO(List<Cart> cartItems, double totalCost) {
+		super();
+		this.cartItems = cartItems;
+		this.totalCost = totalCost;
+	}
+    
+	public List<Cart> getCartItems() {
+		return cartItems;
+	}
 
-    public void setCartItems(List<CartItemDto> cartItemDtoList) {
-        this.cartItems = cartItemDtoList;
-    }
+	public void setCartItems(List<Cart> cartItems) {
+		this.cartItems = cartItems;
+	}
 
-    public double getTotalCost() {
+	public double getTotalCost() {
         return totalCost;
     }
 
