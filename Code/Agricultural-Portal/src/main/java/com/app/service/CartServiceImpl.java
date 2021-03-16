@@ -26,45 +26,39 @@ import com.app.pojos.Wishlist;
 @Service
 @Transactional
 public class CartServiceImpl implements ICartService {
-	
-	@Autowired
-    private CartRepository cartRepository;
-	
-	//@Autowired
-	//private UserRepository userRepo;
 
-    public CartServiceImpl() {}
-	
+	@Autowired
+	private CartRepository cartRepository;
+
+	// @Autowired
+	// private UserRepository userRepo;
+
+	public CartServiceImpl() {
+	}
 
 	public CartDTO listCartItems(int buyerId) {
 		List<Cart> cartList = cartRepository.findAllByUserIdOrderByCreatedDateDesc(buyerId);
-		List<CartItemDto> cartItems = new ArrayList<>();
-		for (Cart cart : cartList) {
-			CartItemDto cartItemDto = getDtoFromCart(cart);
-			cartItems.add(cartItemDto);
-		}
 		double totalCost = 0;
-		for (CartItemDto cartItemDto : cartItems) {
-			totalCost += (cartItemDto.getProduct().getPrice() * cartItemDto.getQuantity());
+		for (Cart cart : cartList) {
+			System.out.println("cart : " + cart);
+			System.out.println("product : " + cart.getProduct());
+
+			totalCost += (cart.getProduct().getPrice() * cart.getQuantity() * (100 - cart.getProduct().getDiscount())
+					/ 100);
+//			cost = price*quantity - disc = price*quantity - price*quantity * disc = price*quantity*(100-disc)/100 
 		}
-		CartDTO cartDto = new CartDTO(cartItems, totalCost);
+		CartDTO cartDto = new CartDTO(cartList, totalCost);
 		return cartDto;
 	}
 
-	 public static CartItemDto getDtoFromCart(Cart cart) {
-		CartItemDto cartItemDto = new CartItemDto(cart);
-		return cartItemDto;
+	// <a href="aaa" value=product name="abc">btn
+	public Cart addToCart(AddToCartDto addToCartDto, int userId) {
+		// Cart cart = getAddToCartFromDto(addToCartDto,userId);
+		// User user=userRepo.findById(addToCartDto.getUserId()).get();
+		System.out.println("AddToCartDTO : " + addToCartDto);
+		Cart cart = new Cart(userId, addToCartDto.getProductId(), addToCartDto.getQuantity());
+		return cartRepository.save(cart);
 	}
-	
-	 //<a href="aaa" value=product name="abc">btn
-	 public Cart addToCart(AddToCartDto addToCartDto,int userId){
-	        //Cart cart = getAddToCartFromDto(addToCartDto,userId);
-		 //User user=userRepo.findById(addToCartDto.getUserId()).get();
-		 System.out.println("AddToCartDTO : "+addToCartDto);
-	        Cart cart = new Cart(userId,addToCartDto.getProductId(),addToCartDto.getQuantity());
-	        return cartRepository.save(cart);
-	    }
-
 
 	@Override
 	public String updateCartItem(@Valid AddToCartDto cartDto) {
@@ -74,14 +68,12 @@ public class CartServiceImpl implements ICartService {
 		return "Cart has been updated";
 	}
 
-
 	@Override
 	public String deleteCartItem(int cartId) throws CartItemNotExistException {
-        if (!cartRepository.existsById(cartId))
-            throw new CartItemNotExistException("Cart id is invalid : " + cartId);
-        cartRepository.deleteById(cartId);
-        return "Cart Successfully deleted";
-    }
-	
-	
+		if (!cartRepository.existsById(cartId))
+			throw new CartItemNotExistException("Cart id is invalid : " + cartId);
+		cartRepository.deleteById(cartId);
+		return "Cart Successfully deleted";
+	}
+
 }
