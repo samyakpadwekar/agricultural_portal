@@ -1,0 +1,22 @@
+.search-box .btn-light {
+  border: 1px solid #ced4da;
+}
+
+#navBarSearchForm input[type=text]{width:800px !important;}
+
+#brand { color:green;font-size:170% ;}
+
+a{ text-decoration: none;}
+
+.navbar-nav > li{
+  padding-left:2px;
+  padding-right:2px;
+}
+
+.navbar-nav > li{
+  margin-left:5px;
+  margin-right:5px;
+}
+
+a{font-size:100%;font-weight: bold;}
+
