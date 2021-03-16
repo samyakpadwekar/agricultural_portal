@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
 import com.app.dao.CategoryRepository;
+import com.app.dao.ComplaintRepository;
 import com.app.dao.FeedbackRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
@@ -23,10 +24,13 @@ import com.app.dao.UserRepository;
 import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductFeedDTO;
+import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
+import com.app.pojos.Complaint;
+import com.app.pojos.ComplaintStatus;
 import com.app.pojos.Feedback;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
@@ -59,6 +63,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	
 	@Autowired
 	private FeedbackRepository feedRepo;
+	
+	@Autowired
+	private ComplaintRepository compRepo;
 	
 //	@Override
 //	public User authenticateUser(String email, String password) {
@@ -196,6 +203,14 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         return "Product Review has been submitted";
 	}
 	
-	
+	@Override
+	public String addComplaint(SellerCompDTO sellerComplaintDto, int productId) {
+		System.out.println("SellerCompDTO : "+sellerComplaintDto);
+		System.out.println("ProductId : "+productId);
+		//@NotNull Integer userId, @NotNull Integer productId, String complaint, Status status
+		Complaint complaint = new Complaint(sellerComplaintDto.getUserId(),productId,sellerComplaintDto.getComplaint(),ComplaintStatus.RAISED);
+        compRepo.save(complaint);
+        return "Seller complaint has been registered";
+	}
 	
 }

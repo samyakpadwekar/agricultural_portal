@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.CategoryList;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.ProductList;
+import com.app.dto.SellerCompDTO;
 import com.app.dto.SellerList;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
@@ -111,6 +112,15 @@ public class CustomerController {
 
 			// int userId = authenticationService.getUser(token).getId();
 			return new ResponseEntity<String>(userService.addFeedback(productFeedbackDto, productId), HttpStatus.ACCEPTED);
+	    }
+	    
+	    @PostMapping("/complaint/{productId}")
+	    public ResponseEntity<?> addSellerComp(@RequestBody SellerCompDTO sellerComplaintDto,@PathVariable int productId)
+	    {
+	    	// authenticationService.authenticate(token);
+
+			// int userId = authenticationService.getUser(token).getId();
+			return new ResponseEntity<String>(userService.addComplaint(sellerComplaintDto, productId), HttpStatus.ACCEPTED);
 	    }
 
 }

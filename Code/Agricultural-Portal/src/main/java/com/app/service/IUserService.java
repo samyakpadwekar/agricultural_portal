@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductFeedDTO;
+import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
@@ -52,4 +53,6 @@ public interface IUserService {
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 	String addFeedback(ProductFeedDTO productFeedbackDto, int productId);
+
+	String addComplaint(SellerCompDTO sellerComplaintDto, int productId);
 }
