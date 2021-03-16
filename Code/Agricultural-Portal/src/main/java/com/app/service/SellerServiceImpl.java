@@ -1,20 +1,16 @@
 package com.app.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.ProductHandlingException;
+import com.app.custom_excs.SellerHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
@@ -28,10 +24,7 @@ import com.app.pojos.Seller;
 
 @Service
 @Transactional
-public class SellerServiceImpl implements ISellerService, UserDetailsService {
-
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
+public class SellerServiceImpl implements ISellerService{
 
 	@Autowired
 	private SellerRepository sellerRepo;
@@ -41,6 +34,13 @@ public class SellerServiceImpl implements ISellerService, UserDetailsService {
 
 	@Autowired
 	private CategoryRepository categoryRepo;
+
+	@Override
+	public Seller authenticateSeller(String username, String password) {
+
+		return sellerRepo.findByUserNameAndPassword(username, password)
+				.orElseThrow(() -> new SellerHandlingException("Invalid login credentials"));
+	}
 
 	@Override
 	public List<Product> getAllProductsBySellerId(Integer sellerId) {
@@ -110,36 +110,18 @@ public class SellerServiceImpl implements ISellerService, UserDetailsService {
 		return "You account profile has been successfully updated..!";
 	}
 
-//	@Override
-//	public String sellerSignup(SellerDTO s) {
-//		Seller newSeller = new Seller();
-//		BeanUtils.copyProperties(s, newSeller);
-//		sellerRepo.save(newSeller);
-//
-//		return "Signup Successfully..!";
-//	}
 
 	@Override
 	public Seller saveSeller(SellerSignupRequest seller) {
 		Seller newSeller = new Seller();
-		BeanUtils.copyProperties(seller, newSeller, "password");
+		BeanUtils.copyProperties(seller, newSeller);
 		System.out.println("newUser:" + newSeller);
-		newSeller.setPassword(bcryptEncoder.encode(seller.getPassword()));
 		newSeller.setStatus(SellerStatus.PENDING);
 		newSeller.setRegDate(LocalDate.now());
-		
+
 		return sellerRepo.save(newSeller); // DirtyChecking and insert query
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("In line 148 of SELLERSERVICEIMPL");
-		Seller seller = sellerRepo.findByUserName(username);
-		if (seller == null) {
-			throw new UsernameNotFoundException("Seller not found with username: " + username);
-		}
-		return new org.springframework.security.core.userdetails.User(seller.getUserName(), seller.getPassword(),
-				new ArrayList<>());
-	}
+	
 
 }

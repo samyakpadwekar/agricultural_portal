@@ -20,10 +20,9 @@ public interface SellerRepository extends JpaRepository<Seller, Integer> {
 	@Query("update Seller s set s.status=:st where s.id=:id")
 	int updateStatus(@Param("st") SellerStatus status, @Param("id") int id);
 	
-	Optional<Seller> findByEmailAndPassword(String email,String password);
+	Optional<Seller> findByUserNameAndPassword(String username,String password);
 	
 	@Query("select s from Seller s left outer join fetch s.address where s.address.pinCode=:pincode")
 	List<Seller> findByPinCode(@Param("pincode") String pinCode);
 	
-	Seller findByUserName(String userName);
 }

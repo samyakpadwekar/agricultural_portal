@@ -5,11 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.config.JwtTokenUtil;
+import com.app.dto.LoginRequest;
 import com.app.dto.ProductDTO;
 import com.app.dto.ProductList;
 import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
-import com.app.model.JwtRequest;
-import com.app.model.JwtResponse;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.service.ISellerService;
@@ -38,16 +31,9 @@ import com.app.service.ISellerService;
 public class SellerController {
 
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
-	@Autowired
 	private ISellerService sellerService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
 	public SellerController() {
-		// TODO Auto-generated constructor stub
 		System.out.println("in ctor of seller controller");
 	}
 
@@ -59,26 +45,11 @@ public class SellerController {
 	}
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-		System.out.println("above authenticate " + authenticationRequest);
-//		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		System.out.println("bellow authenticate " + authenticationRequest);
-		final UserDetails userDetails = sellerService.loadUserByUsername(authenticationRequest.getUsername());
+	public ResponseEntity<?> sellerLogin(@RequestBody LoginRequest login) {
+		System.out.println("in seller login");
 
-		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
-	}
-
-	private void authenticate(String username, String password) throws Exception {
-		try {
-			System.out.println("In line 80 of authenticate");
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
+		return new ResponseEntity<>(sellerService.authenticateSeller(login.getUsername(), login.getPassword()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/list-by-product")

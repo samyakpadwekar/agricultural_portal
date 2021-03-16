@@ -2,25 +2,25 @@ package com.app.dto;
 
 public class LoginRequest {
 
-	private String email;
+	private String username;
 	private String password;
 
 	public LoginRequest() {
 		System.out.println("In ctor of LoginRequest");
 	}
 
-	public LoginRequest(String email, String password) {
+	public LoginRequest(String username, String password) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -33,7 +33,7 @@ public class LoginRequest {
 
 	@Override
 	public String toString() {
-		return "LoginRequest [email=" + email + ", password=" + password + "]";
+		return "LoginRequest [username=" + username + ", password=" + password + "]";
 	}
 
 }

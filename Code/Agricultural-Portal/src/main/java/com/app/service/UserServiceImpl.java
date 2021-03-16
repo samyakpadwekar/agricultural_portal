@@ -1,17 +1,12 @@
 package com.app.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
@@ -41,11 +36,8 @@ import com.app.pojos.Wishlist;
 
 @Service
 @Transactional
-public class UserServiceImpl implements IUserService, UserDetailsService {
-	
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
-	
+public class UserServiceImpl implements IUserService {
+
 	@Autowired
 	private UserRepository userRepo;
 
@@ -57,35 +49,28 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Autowired
 	private CategoryRepository catRepo;
-	
+
 	@Autowired
 	private WishListRepository wishListRepository;
-	
+
 	@Autowired
 	private FeedbackRepository feedRepo;
-	
+
 	@Autowired
 	private ComplaintRepository compRepo;
-	
-//	@Override
-//	public User authenticateUser(String email, String password) {
-//
-//		return userRepo.findByEmailAndPassword(email, password)
-//				.orElseThrow(() -> new UserHandlingException("Invalid Credentials..!"));
-//	}
+
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
 		return sellerRepo.findByBusinessName(businessName)
 				.orElseThrow(() -> new UserHandlingException("Invalid Buiseness Name..!"));
 	}
-	
+
 	@Override
 	public List<Category> getAllCategories() {
-		
+
 		return catRepo.findAll();
 	}
-
 
 	@Override
 	public List<Product> findProductsByCategory(String categoryName) {
@@ -117,35 +102,36 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	public String deleteCategory(int categoryId) {
-		System.out.println("in delete category"+ categoryId);
+		System.out.println("in delete category" + categoryId);
 		catRepo.deleteById(categoryId);
-		return "ID: "+categoryId+" Category deleted";
+		return "ID: " + categoryId + " Category deleted";
 	}
-	
+
 	@Override
 	public String changeSellerAccountStatus(int id, SellerStatus status) {
-		
-		int i= sellerRepo.updateStatus(status, id);
-		if(i==0) return "Invalid seller id";
-		return "status changed to "+status+" successfully";
+
+		int i = sellerRepo.updateStatus(status, id);
+		if (i == 0)
+			return "Invalid seller id";
+		return "status changed to " + status + " successfully";
 	}
-	
+
 	@Override
 	public List<Seller> getAllSeller() {
 		return sellerRepo.findAll();
 	}
-	
+
 	@Override
 	public String userSignup(UserResponse userDto) {
-		User user=new User();
+		User user = new User();
 		BeanUtils.copyProperties(userDto, user);
-		userRepo.save(user);		
+		userRepo.save(user);
 		return "Your account has been successfully created !";
 	}
-	
+
 	@Override
 	public String editProfile(UserResponse userDto) {
-		User persistUser= userRepo.findById(userDto.getUserId()).get();
+		User persistUser = userRepo.findById(userDto.getUserId()).get();
 		BeanUtils.copyProperties(userDto, persistUser, "userId");
 		return "Your account has been successfully updated !";
 	}
@@ -163,32 +149,21 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	public Wishlist createWishlist(Wishlist wishList) {
-		System.out.println("wishlist "+wishList);
-		 return wishListRepository.save(wishList);
+		System.out.println("wishlist " + wishList);
+		return wishListRepository.save(wishList);
 	}
 
 	@Override
 	public List<Seller> getSellerByArea(String pincode) {
-		System.out.println("pincode :"+pincode);
+		System.out.println("pincode :" + pincode);
 		return sellerRepo.findByPinCode(pincode);
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.app.pojos.User user = userRepo.findByUserName(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
-		}
-		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
-				new ArrayList<>());
 	}
 
 	@Override
 	public com.app.pojos.User saveUser(SignupRequest signupRequest) {
 		com.app.pojos.User newUser = new User();
-		BeanUtils.copyProperties(signupRequest, newUser, "password", "role");
+		BeanUtils.copyProperties(signupRequest, newUser, "role");
 		System.out.println("newUser:" + newUser);
-		newUser.setPassword(bcryptEncoder.encode(signupRequest.getPassword()));
 		newUser.setRole(Role.valueOf(signupRequest.getRole().toUpperCase()));
 		newUser.setRegDate(LocalDate.now());
 		return userRepo.save(newUser); // DirtyChecking and insert query
@@ -196,21 +171,30 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	public String addFeedback(ProductFeedDTO productFeedbackDto, int productId) {
-		System.out.println("ProductFeedDTO : "+productFeedbackDto);
-		System.out.println("ProductId : "+productId);
-		Feedback feedback = new Feedback(productFeedbackDto.getUserId(),productId,productFeedbackDto.getFeedback(),productFeedbackDto.getRating());
-        feedRepo.save(feedback);
-        return "Product Review has been submitted";
+		System.out.println("ProductFeedDTO : " + productFeedbackDto);
+		System.out.println("ProductId : " + productId);
+		Feedback feedback = new Feedback(productFeedbackDto.getUserId(), productId, productFeedbackDto.getFeedback(),
+				productFeedbackDto.getRating());
+		feedRepo.save(feedback);
+		return "Product Review has been submitted";
 	}
-	
+
 	@Override
 	public String addComplaint(SellerCompDTO sellerComplaintDto, int productId) {
-		System.out.println("SellerCompDTO : "+sellerComplaintDto);
-		System.out.println("ProductId : "+productId);
-		//@NotNull Integer userId, @NotNull Integer productId, String complaint, Status status
-		Complaint complaint = new Complaint(sellerComplaintDto.getUserId(),productId,sellerComplaintDto.getComplaint(),ComplaintStatus.RAISED);
-        compRepo.save(complaint);
-        return "Seller complaint has been registered";
+		System.out.println("SellerCompDTO : " + sellerComplaintDto);
+		System.out.println("ProductId : " + productId);
+		// @NotNull Integer userId, @NotNull Integer productId, String complaint, Status
+		// status
+		Complaint complaint = new Complaint(sellerComplaintDto.getUserId(), productId,
+				sellerComplaintDto.getComplaint(), ComplaintStatus.RAISED);
+		compRepo.save(complaint);
+		return "Seller complaint has been registered";
 	}
-	
+
+	@Override
+	public User authenticateUser(String username, String password) {
+		return userRepo.findByUserNameAndPassword(username, password)
+				.orElseThrow(() -> new UserHandlingException("Invalid Credentials..!"));
+	}
+
 }
