@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.app.pojos.Role;
 import com.app.pojos.User;
@@ -15,5 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //	Optional<User> findByEmailAndPassword(@Param("em") String email, @Param("pass") String password);
 	
 	List<User> findByRole(Role role);
+	
 	User findByUserName(String userName);
 }

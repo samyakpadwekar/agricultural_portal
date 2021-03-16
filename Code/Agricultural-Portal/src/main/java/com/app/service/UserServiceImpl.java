@@ -16,15 +16,18 @@ import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.UserHandlingException;
 import com.app.dao.CategoryRepository;
+import com.app.dao.FeedbackRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
 import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
+import com.app.dto.ProductFeedDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
+import com.app.pojos.Feedback;
 import com.app.pojos.Product;
 import com.app.pojos.Role;
 import com.app.pojos.Seller;
@@ -53,6 +56,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	
 	@Autowired
 	private WishListRepository wishListRepository;
+	
+	@Autowired
+	private FeedbackRepository feedRepo;
 	
 //	@Override
 //	public User authenticateUser(String email, String password) {
@@ -180,6 +186,16 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		newUser.setRegDate(LocalDate.now());
 		return userRepo.save(newUser); // DirtyChecking and insert query
 	}
+
+	@Override
+	public String addFeedback(ProductFeedDTO productFeedbackDto, int productId) {
+		System.out.println("ProductFeedDTO : "+productFeedbackDto);
+		System.out.println("ProductId : "+productId);
+		Feedback feedback = new Feedback(productFeedbackDto.getUserId(),productId,productFeedbackDto.getFeedback(),productFeedbackDto.getRating());
+        feedRepo.save(feedback);
+        return "Product Review has been submitted";
+	}
+	
 	
 	
 }

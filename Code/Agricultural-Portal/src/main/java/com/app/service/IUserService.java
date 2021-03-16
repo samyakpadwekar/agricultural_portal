@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.app.dto.CategoryDTO;
+import com.app.dto.ProductFeedDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
@@ -47,5 +48,8 @@ public interface IUserService {
 	Wishlist createWishlist(Wishlist wishList);
 	
 	List<Seller> getSellerByArea(String pincode);
+	
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+	String addFeedback(ProductFeedDTO productFeedbackDto, int productId);
 }
