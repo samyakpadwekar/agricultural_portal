@@ -1,4 +1,4 @@
-package com.app.pojos;
+package com.app.enums;
 
 public enum Role {
 	CUSTOMER, ADMIN, SELLER

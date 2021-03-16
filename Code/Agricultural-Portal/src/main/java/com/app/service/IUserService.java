@@ -11,10 +11,10 @@ import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
+import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
-import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
 import com.app.pojos.Wishlist;
 

@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.app.enums.ComplaintStatus;
+
 @Entity
 @Table(name="complaint",uniqueConstraints=
 @UniqueConstraint(columnNames={"uid", "pid"}))

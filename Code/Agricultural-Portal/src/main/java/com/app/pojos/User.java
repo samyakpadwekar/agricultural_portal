@@ -16,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.app.enums.Role;
+
 @Entity
 @Table(name = "users")
 public class User {

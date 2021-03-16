@@ -22,9 +22,9 @@ import com.app.dto.ProductDTO;
 import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
+import com.app.enums.SellerStatus;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
-import com.app.pojos.SellerStatus;
 
 @Service
 @Transactional

@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.app.enums.SellerStatus;
 import com.app.pojos.Seller;
-import com.app.pojos.SellerStatus;
 
 public interface SellerRepository extends JpaRepository<Seller, Integer> {
 

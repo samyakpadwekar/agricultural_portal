@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.app.pojos.Role;
+import com.app.enums.Role;
 import com.app.pojos.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.UserRepository;
 import com.app.dto.SignupRequest;
-import com.app.pojos.Role;
+import com.app.enums.Role;
 import com.app.pojos.User;
 
 //import com.javainuse.dao.UserDao; //userRepo

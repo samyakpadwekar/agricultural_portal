@@ -20,9 +20,9 @@ import com.app.dto.CustomerList;
 import com.app.dto.ProductList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
+import com.app.enums.SellerStatus;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
-import com.app.pojos.SellerStatus;
 import com.app.pojos.User;
 import com.app.service.IUserService;
 

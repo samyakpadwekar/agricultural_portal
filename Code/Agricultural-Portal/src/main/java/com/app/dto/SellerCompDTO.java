@@ -2,7 +2,7 @@ package com.app.dto;
 
 import javax.validation.constraints.NotNull;
 
-import com.app.pojos.ComplaintStatus;
+import com.app.enums.ComplaintStatus;
 
 public class SellerCompDTO {
 

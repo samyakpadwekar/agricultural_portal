@@ -18,9 +18,9 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.app.enums.Role;
 import com.app.pojos.Address;
 import com.app.pojos.BankDetails;
-import com.app.pojos.Role;
 
 public class UserResponse {
 

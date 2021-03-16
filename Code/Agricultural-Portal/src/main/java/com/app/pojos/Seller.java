@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.app.enums.SellerStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity

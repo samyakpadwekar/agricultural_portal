@@ -2,9 +2,9 @@ package com.app.dto;
 
 import java.time.LocalDate;
 
+import com.app.enums.SellerStatus;
 import com.app.pojos.Address;
 import com.app.pojos.BankDetails;
-import com.app.pojos.SellerStatus;
 
 public class SellerDTO {
 	private Integer sellerId;
