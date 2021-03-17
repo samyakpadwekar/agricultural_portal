@@ -9,11 +9,7 @@ const ChangePassword = () => {
               <div className="form-group">
                 <label className="col-md-3 control-label">New Password:</label>
                 <div className="col-md-6">
-                  <input
-                    className="form-control"
-                    type="password"
-                    value="11111122333"
-                  />
+                  <input className="form-control" type="password" />
                 </div>
               </div>
               <div className="form-group">
@@ -21,11 +17,7 @@ const ChangePassword = () => {
                   Confirm password:
                 </label>
                 <div className="col-md-6">
-                  <input
-                    className="form-control"
-                    type="password"
-                    value="11111122333"
-                  />
+                  <input className="form-control" type="password" />
                 </div>
               </div>
             </td>
