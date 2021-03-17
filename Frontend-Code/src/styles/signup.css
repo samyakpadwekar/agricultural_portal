@@ -1,0 +1,13 @@
+.form{
+  width: 500px;
+  height: 550px;
+  border: 1px solid black;
+  padding: 40px;
+  margin: 20px auto;
+}
+
+.container{
+  margin: 30px auto;
+  width:50% /* value of your choice which suits your alignment */
+}
+
