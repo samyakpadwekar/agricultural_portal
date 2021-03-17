@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from './components/Navigation'
+import SellerNavigation from './components/SellerNavigation'
 import { React } from 'react'
 import './styles/App.css'
 
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <Router>
         <Navigation />
+        <SellerNavigation /> {/* should be visible only for seller */}
         <div className="container">
           <Switch>
             <Route path="/home" component={HomeScreen} />
