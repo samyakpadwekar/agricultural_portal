@@ -11,6 +11,7 @@ import UserEditProfileScreen from './screens/users/UserEditProfileScreen'
 import SellerHomeScreen from './screens/sellers/SellerHomeScreen'
 import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
 import SellerSignupScreen from './screens/sellers/SellerSignup'
+import ProductListScreen from './screens/sellers/ProductListScreen'
 
 import SignupScreen from './screens/users/Signup'
 
@@ -30,6 +31,7 @@ function App() {
               component={SellerEditProfileScreen}
             />
             <Route path="/seller/home" component={SellerHomeScreen} />
+            <Route path="/seller/product-catalogue" component={ProductListScreen} />
             <Route path="/seller-signup" component={SellerSignupScreen} />
             <Route path="/signup" component={SignupScreen} />
           </Switch>
