@@ -7,8 +7,11 @@ import './styles/App.css'
 import LoginScreen from './screens/users/LoginScreen'
 import HomeScreen from './screens/HomeScreen'
 import UserEditProfileScreen from './screens/users/UserEditProfileScreen'
+
+import SellerHomeScreen from './screens/sellers/SellerHomeScreen'
 import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
 import SellerSignupScreen from './screens/sellers/SellerSignup'
+
 import SignupScreen from './screens/users/Signup'
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
               path="/seller-edit-profile"
               component={SellerEditProfileScreen}
             />
+            <Route path="/seller/home" component={SellerHomeScreen} />
             <Route path="/seller-signup" component={SellerSignupScreen} />
             <Route path="/signup" component={SignupScreen} />
           </Switch>
