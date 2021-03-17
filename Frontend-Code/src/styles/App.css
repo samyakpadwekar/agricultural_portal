@@ -12,6 +12,10 @@ nav a {
   text-align: center;
 }
 
+.header {
+  text-align: center;
+}
+
 .col-md-8 {
   /* padding: 10px; */
   align-items: center;
@@ -19,5 +23,13 @@ nav a {
 
 .btn {
   padding: 10px;
-  margin: 0px 20px 10px 20px;
+  /* margin: 0px 20px 10px 20px; */
+}
+
+.sellerSignup {
+  width: 500px;
+  height: 810px;
+  border: 1px solid black;
+  padding: 40px;
+  margin: 20px auto;
 }

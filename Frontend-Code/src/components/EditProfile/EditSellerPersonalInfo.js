@@ -64,7 +64,7 @@ const EditSellerPersonalInfo = () => {
           <tr>
             <td>
               <div className="form-group">
-                <label className="col-lg-3 control-label">PAN No :</label>
+                <label className="col-lg-6 control-label">PAN Card No :</label>
                 <div className="col-lg-12">
                   <input className="form-control" type="text" />
                 </div>
@@ -72,7 +72,7 @@ const EditSellerPersonalInfo = () => {
             </td>
             <td>
               <div className="form-group">
-                <label className="col-lg-3 control-label">AAdhar No :</label>
+                <label className="col-lg-6 control-label">AAdhar No :</label>
                 <div className="col-lg-12">
                   <input className="form-control" type="text" />
                 </div>
