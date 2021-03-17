@@ -40,6 +40,16 @@ const SignupScreen = () => {
             placeholder="*****"></input>
         </div>
         <div className="mb-3">
+          <label className="form-label">Role</label>
+          <input
+            type="Phone"
+            className="form-control"
+            placeholder="Phone"
+            value="Buyer"
+            readOnly ="true"
+          />
+        </div>
+        <div className="mb-3">
           <button className="btn btn-success">
             Signup
           </button>
