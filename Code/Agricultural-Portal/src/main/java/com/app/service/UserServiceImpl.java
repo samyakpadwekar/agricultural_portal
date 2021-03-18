@@ -82,6 +82,7 @@ public class UserServiceImpl implements IUserService {
 	public List<Product> findProductsByCategory(String categoryName) {
 
 		return productRepo.findByCategoryName(categoryName);
+	
 	}
 
 	@Override
@@ -166,7 +167,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public com.app.pojos.User saveUser(SignupRequest signupRequest) {
+	public User saveUser(SignupRequest signupRequest) {
 		com.app.pojos.User newUser = new User();
 		BeanUtils.copyProperties(signupRequest, newUser, "role");
 		System.out.println("newUser:" + newUser);

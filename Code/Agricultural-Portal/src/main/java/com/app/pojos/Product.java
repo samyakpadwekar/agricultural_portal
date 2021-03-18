@@ -17,7 +17,8 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	
+	@OneToOne
 	@JoinColumn(name = "productUid")
 	private ProductCatalogue productCatalogue;
 	

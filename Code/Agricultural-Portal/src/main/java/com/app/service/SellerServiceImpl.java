@@ -55,6 +55,7 @@ public class SellerServiceImpl implements ISellerService{
 	@Override
 	public Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId) {
 		Product product2 = null;
+		System.out.println("productDTO "+productDTO);
 		try {
 			Product product = new Product();
 			BeanUtils.copyProperties(productDTO, product);
@@ -65,10 +66,11 @@ public class SellerServiceImpl implements ISellerService{
 			// BL
 			product.setUnitsSold(0);
 			product.setAvgRating(0.0);
+			System.out.println("product "+product);
 			product2 = productRepo.save(product);
 		} catch (Exception e) {
 			// yet to handle other exceptions
-			throw new ProductHandlingException("Duplicate product entry");
+			throw new ProductHandlingException(e.getMessage());
 		}
 
 		return product2;
