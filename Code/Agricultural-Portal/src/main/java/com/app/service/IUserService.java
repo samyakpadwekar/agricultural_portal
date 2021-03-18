@@ -10,6 +10,7 @@ import com.app.dto.UserResponse;
 import com.app.dto.WishlistDTO;
 import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
+import com.app.pojos.Complaint;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
@@ -53,4 +54,6 @@ public interface IUserService {
 	String addFeedback(ProductFeedDTO productFeedbackDto, int productId);
 
 	String addComplaint(SellerCompDTO sellerComplaintDto, int productId);
+	
+	List<Complaint> getAllComplaints();
 }

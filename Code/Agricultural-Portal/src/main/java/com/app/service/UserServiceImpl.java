@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ComplaintRepository compRepo;
-
+	
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
@@ -195,6 +195,12 @@ public class UserServiceImpl implements IUserService {
 	public User authenticateUser(String username, String password) {
 		return userRepo.findByUserNameAndPassword(username, password)
 				.orElseThrow(() -> new UserHandlingException("Invalid Credentials..!"));
+	}
+
+	@Override
+	public List<Complaint> getAllComplaints() {
+		
+		return compRepo.findAll();
 	}
 
 }

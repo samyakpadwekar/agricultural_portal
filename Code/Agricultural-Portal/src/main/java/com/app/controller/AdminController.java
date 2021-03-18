@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CategoryDTO;
+import com.app.dto.ComplaintList;
 import com.app.dto.CustomerList;
 import com.app.dto.ProductList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.enums.SellerStatus;
+import com.app.pojos.Complaint;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
@@ -102,5 +104,15 @@ public class AdminController {
 		System.out.println("in suspend seller");
 
 		return new ResponseEntity<>(userService.changeSellerAccountStatus(id, SellerStatus.SUSPENDED), HttpStatus.OK);
+	}
+	
+	@GetMapping("/list-all-complaints")
+	public ResponseEntity<?> getAllComplaints(){
+		System.out.println("in admin get all Complaints");
+		List<Complaint> complaintList = userService.getAllComplaints();
+		if (!complaintList.isEmpty()) {
+			return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.NO_CONTENT);
 	}
 }
