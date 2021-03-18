@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.app.custom_excs.ProductHandlingException;
 import com.app.custom_excs.SellerHandlingException;
 import com.app.dao.CategoryRepository;
+import com.app.dao.ComplaintRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dto.ProductDTO;
@@ -19,6 +20,7 @@ import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
 import com.app.enums.SellerStatus;
+import com.app.pojos.Complaint;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 
@@ -34,6 +36,9 @@ public class SellerServiceImpl implements ISellerService{
 
 	@Autowired
 	private CategoryRepository categoryRepo;
+	
+	@Autowired
+	private ComplaintRepository compRepo;
 
 	@Override
 	public Seller authenticateSeller(String username, String password) {
@@ -120,6 +125,11 @@ public class SellerServiceImpl implements ISellerService{
 		newSeller.setRegDate(LocalDate.now());
 
 		return sellerRepo.save(newSeller); // DirtyChecking and insert query
+	}
+
+	@Override
+	public List<Complaint> getAllComplaintsBySellerId(Integer sellerId) {
+		return compRepo.findAll();
 	}
 
 	

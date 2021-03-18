@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.ComplaintList;
 import com.app.dto.LoginRequest;
 import com.app.dto.ProductDTO;
 import com.app.dto.ProductList;
 import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
+import com.app.pojos.Complaint;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.service.ISellerService;
@@ -107,4 +109,13 @@ public class SellerController {
 		System.out.println("In edit profile of Seller" + s);
 		return ResponseEntity.ok(sellerService.editProfile(s));
 	}
+	
+//	@GetMapping("/list-all-complaints/{sellerId}")
+//	public ResponseEntity<?> listAllComplaints(@PathVariable Integer sellerId) {
+//		System.out.println("in list all complaints report of seller");
+//		List<Complaint> complaintList = sellerService.getAllComplaintsBySellerId(sellerId);
+//		if (complaintList.size() == 0)
+//			return null;//new ResponseEntity<ProductList>(new ComplaintList(complaintList), HttpStatus.NO_CONTENT);
+//		return null;//new ResponseEntity<ProductList>(new ComplaintList(complaintList), HttpStatus.OK);
+//	}
 }

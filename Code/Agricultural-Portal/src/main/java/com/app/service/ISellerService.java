@@ -6,6 +6,7 @@ import com.app.dto.ProductDTO;
 import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
+import com.app.pojos.Complaint;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 
@@ -25,4 +26,6 @@ public interface ISellerService {
 	Seller saveSeller(SellerSignupRequest seller);
 
 	String restockProduct(RestockProductDTO restockProductDTO);
+	
+	List<Complaint> getAllComplaintsBySellerId(Integer sellerId);
 }
