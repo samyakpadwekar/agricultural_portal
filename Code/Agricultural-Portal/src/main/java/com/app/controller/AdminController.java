@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ComplaintList;
 import com.app.dto.CustomerList;
+import com.app.dto.FeedbackList;
 import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.enums.SellerStatus;
 import com.app.pojos.Complaint;
+import com.app.pojos.Feedback;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
@@ -122,5 +124,15 @@ public class AdminController {
 	{
 		System.out.println("in add product catalogue");
 		return new ResponseEntity<>(userService.addProductCatalogue(productCatal), HttpStatus.OK);
+	}
+	
+	@GetMapping("/customer-feedbacks")
+	public ResponseEntity<?> getAllFeedbacks(){
+		System.out.println("in admin get all feedbacks");
+		List<Feedback> feedbackList = userService.getAllFeedbacks();
+		if (!feedbackList.isEmpty()) {
+			return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.NO_CONTENT);
 	}
 }

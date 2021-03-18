@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 	public List<Product> findProductsByCategory(String categoryName) {
 
 		return productRepo.findByCategoryName(categoryName);
-	
+
 	}
 
 	@Override
@@ -220,6 +220,11 @@ public class UserServiceImpl implements IUserService {
 			throw new ProductCatalogueHandlingException("Enter Unique Product name..!");
 		}
 		return "Product added to catalogue successfully";
+	}
+
+	@Override
+	public List<Feedback> getAllFeedbacks() {
+		return feedRepo.findAll();
 	}
 
 }

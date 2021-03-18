@@ -12,6 +12,7 @@ import com.app.dto.WishlistDTO;
 import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Complaint;
+import com.app.pojos.Feedback;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
@@ -59,4 +60,6 @@ public interface IUserService {
 	List<Complaint> getAllComplaints();
 	
 	String addProductCatalogue(ProductCatalogueDTO productCatal);
+	
+	List<Feedback> getAllFeedbacks();
 }
