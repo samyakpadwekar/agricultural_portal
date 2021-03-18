@@ -177,11 +177,17 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public String addFeedback(ProductFeedDTO productFeedbackDto, int productId) {
+	public String addFeedback(ProductFeedDTO productFeedbackDto) {
 		System.out.println("ProductFeedDTO : " + productFeedbackDto);
-		System.out.println("ProductId : " + productId);
-		Feedback feedback = new Feedback(productFeedbackDto.getUserId(), productId, productFeedbackDto.getFeedback(),
+		System.out.println("ProductId : " + productFeedbackDto.getProductId());
+		Feedback feedback = new Feedback(productFeedbackDto.getUserId(), productFeedbackDto.getProductId(), productFeedbackDto.getFeedback(),
 				productFeedbackDto.getRating());
+		Product product=productRepo.findById(productFeedbackDto.getProductId()).get();
+		System.out.println("product"+product);
+		if(product.getAvgRating()!=null)
+			product.setAvgRating((productFeedbackDto.getRating()+product.getAvgRating())/2);
+		product.setAvgRating(productFeedbackDto.getRating());
+		
 		feedRepo.save(feedback);
 		return "Product Review has been submitted";
 	}

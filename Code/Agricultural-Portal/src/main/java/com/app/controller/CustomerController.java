@@ -105,13 +105,13 @@ public class CustomerController {
 			return new ResponseEntity<>(new SellerList(sellerList), HttpStatus.OK);
 		}
 	    
-	    @PostMapping("/feedback/{productId}")
-	    public ResponseEntity<?> addProductReview(@RequestBody ProductFeedDTO productFeedbackDto,@PathVariable int productId)
+	    @PostMapping("/feedback")
+	    public ResponseEntity<?> addProductReview(@RequestBody ProductFeedDTO productFeedbackDto)
 	    {
 	    	// authenticationService.authenticate(token);
 
 			// int userId = authenticationService.getUser(token).getId();
-			return new ResponseEntity<String>(userService.addFeedback(productFeedbackDto, productId), HttpStatus.ACCEPTED);
+			return new ResponseEntity<String>(userService.addFeedback(productFeedbackDto), HttpStatus.ACCEPTED);
 	    }
 	    
 	    @PostMapping("/complaint/{productId}")

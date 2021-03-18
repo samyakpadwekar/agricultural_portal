@@ -52,7 +52,7 @@ public interface IUserService {
 
 	List<Seller> getSellerByArea(String pincode);
 
-	String addFeedback(ProductFeedDTO productFeedbackDto, int productId);
+	String addFeedback(ProductFeedDTO productFeedbackDto);
 
 	String addComplaint(SellerCompDTO sellerComplaintDto, int productId);
 	
