@@ -15,6 +15,8 @@ import com.app.custom_excs.UserHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ComplaintRepository;
 import com.app.dao.FeedbackRepository;
+import com.app.dao.OrderDetailsRepository;
+import com.app.dao.OrderRepository;
 import com.app.dao.ProductCatalogueRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
@@ -34,6 +36,7 @@ import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
+import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.ProductCatalogue;
 import com.app.pojos.Seller;
@@ -67,6 +70,13 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ProductCatalogueRepository productCatalRepo;
+	
+	@Autowired
+	private OrderRepository orderRepo;
+	
+	@Autowired
+	private OrderDetailsRepository orderDetRepo;
+
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
@@ -257,5 +267,13 @@ public class UserServiceImpl implements IUserService {
 		  return report;
 	
 	}
+	
+	@Override
+	public List<OrderDetails> getOrdersByBuyerId(int buyerId) {
+		System.out.println("ByerId :" + buyerId);
+		int orderId=orderRepo.findByBuyerUserId(buyerId).getOrderId();
+		return orderDetRepo.findByOrderOrderId(orderId);
+	}
+
 
 }

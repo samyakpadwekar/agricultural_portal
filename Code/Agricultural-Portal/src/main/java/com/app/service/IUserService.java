@@ -14,6 +14,7 @@ import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
+import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
@@ -65,4 +66,6 @@ public interface IUserService {
 	List<Feedback> getAllFeedbacks();
 	
 	List<ProductReportDto> productReport();
+
+	List<OrderDetails> getOrdersByBuyerId(int buyerId);
 }

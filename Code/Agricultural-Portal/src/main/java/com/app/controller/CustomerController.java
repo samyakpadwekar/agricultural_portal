@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CategoryList;
+import com.app.dto.OrderDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.ProductList;
 import com.app.dto.SellerCompDTO;
 import com.app.dto.SellerList;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
+import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.Wishlist;
@@ -123,4 +125,17 @@ public class CustomerController {
 			return new ResponseEntity<String>(userService.addComplaint(sellerComplaintDto, productId), HttpStatus.ACCEPTED);
 	    }
 
+	    
+	    @GetMapping("/your-order/{buyerId}")
+	    public ResponseEntity<?> getAllOrders(@PathVariable Integer buyerId)
+		{
+			System.out.println("in getAllOrders : "+buyerId);
+			List<OrderDetails> orderlist= userService.getOrdersByBuyerId(buyerId);
+			System.out.println("Sellerlist : "+orderlist);
+			if(orderlist.isEmpty())
+			{
+				return new ResponseEntity<>(new OrderDTO(orderlist), HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(new OrderDTO(orderlist), HttpStatus.OK);
+		}
 }

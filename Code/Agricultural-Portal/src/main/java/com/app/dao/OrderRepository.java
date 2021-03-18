@@ -11,4 +11,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 //	Order findOrderByUserId(@Param("uId") Integer userId);
 	
 	Order findFirstByOrderByOrderIdDesc();
+
+	Order findByBuyerUserId(int user);
 }
