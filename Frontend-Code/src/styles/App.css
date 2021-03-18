@@ -1,29 +1,64 @@
-nav a {
-  text-decoration: none;
-  color: black !important;
+.search-box .btn-light {
+  border: 1px solid #ced4da;
+}
+
+#navBarSearchForm input[type=text]{width:450px !important;}
+
+#admin-manage-buyer input[type=text]{width:600px !important;}
+
+#brand { color:green;font-size:170% ;}
+
+a{ text-decoration: none;font-size:100%;font-weight: bold;}
+
+
+.navbar-nav > li{
+  padding-left:2px;
+  padding-right:2px;
+  margin-left:12px;
+  margin-right:12px;
+}
+
+
+.navbar{
+  height: 100px;
+}
+
+.nav-btn{
+  border: 2px solid rgb(181, 175, 175);
+  background-color: white;
+  color: black;
+  padding: 5px 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .container {
   padding: 20px;
-  align-items: center;
 }
 
 .title {
-  text-align: center;
+ text-align: center
 }
 
-.header {
-  text-align: center;
+.form-signup{
+  width: 500px;
+  height: 620px;
+  border: 1px solid black;
+  padding: 40px;
+  margin: 20px auto;
 }
 
-.col-md-8 {
-  /* padding: 10px; */
-  align-items: center;
+.form-signin{
+  width: 500px;
+  height: 300px;
+  border: 1px solid black;
+  padding: 40px;
+  margin: 20px auto;
 }
 
-.btn {
-  padding: 10px;
-  /* margin: 0px 20px 10px 20px; */
+.buyerlist-wrapper{
+  display:flex;
+  flex-direction: column;
 }
 
 .sellerSignup {
