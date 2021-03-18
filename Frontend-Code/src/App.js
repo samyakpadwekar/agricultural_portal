@@ -1,44 +1,53 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Navigation from './components/Navigation'
+import Navigation from "./components/Navigation";
 import SellerNavigation from './components/SellerNavigation'
-import { React } from 'react'
-import './styles/App.css'
-
-import LoginScreen from './screens/users/LoginScreen'
-import HomeScreen from './screens/HomeScreen'
-import UserEditProfileScreen from './screens/users/UserEditProfileScreen'
-
-import SellerHomeScreen from './screens/sellers/SellerHomeScreen'
-import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
-import SellerSignupScreen from './screens/sellers/SellerSignup'
-import ProductListScreen from './screens/sellers/ProductListScreen'
-
-import SignupScreen from './screens/users/Signup'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SignupScreen from "./screens/buyers/Signup";
+import Buyerlist from "./screens/admin/buyerslist";
+import CategoryList from "./screens/admin/categorylist";
+import AddCategory from "./screens/admin/addcategory";
+import SellerList from "./screens/admin/sellerlist";
+import LoginScreen from "./screens/users/LoginScreen";
+import HomeScreen from "./screens/users/HomeScreen";
+import UserEditProfileScreen from "./screens/users/UserEditProfileScreen";
+import SellerHomeScreen from "./screens/sellers/SellerHomeScreen";
+import SellerEditProfileScreen from "./screens/sellers/SellerEditProfileScreen";
+import SellerSignupScreen from "./screens/sellers/SellerSignup";
+import ProductListScreen from "./screens/sellers/ProductListScreen";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div>
         <Navigation />
-        <SellerNavigation /> {/* should be visible only for seller */}
+        <SellerNavigation />
         <div className="container">
           <Switch>
             <Route path="/home" component={HomeScreen} />
+            <Route path="/signup" exact component={SignupScreen} />
             <Route path="/login" component={LoginScreen} />
-            <Route path="/edit-profile" component={UserEditProfileScreen} />
+            <Route path="/admin/buyer-list" component={Buyerlist} />
+            <Route path="/admin/category-list" component={CategoryList} />
+            <Route path="/admin/add-category" component={AddCategory} />
+            <Route path="/admin/seller-list" component={SellerList} />
             <Route
-              path="/seller-edit-profile"
+              path="/user/edit-profile"
+              component={UserEditProfileScreen}
+            />
+            <Route
+              path="/seller/edit-profile"
               component={SellerEditProfileScreen}
             />
             <Route path="/seller/home" component={SellerHomeScreen} />
-            <Route path="/seller/product-catalogue" component={ProductListScreen} />
+            <Route
+              path="/seller/product-catalogue"
+              component={ProductListScreen}
+            />
             <Route path="/seller-signup" component={SellerSignupScreen} />
-            <Route path="/signup" component={SignupScreen} />
           </Switch>
         </div>
-      </Router>
-    </div>
-  )
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
