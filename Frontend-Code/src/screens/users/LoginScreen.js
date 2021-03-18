@@ -29,45 +29,39 @@ const LoginScreen = (props) => {
   }, [loading, error, response])
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-8 mx-auto">
-          <div>
-            <Header title="Signin" />
-            <div className="form">
-              <div className="mb-3">
-                <label className="form-label">Username</label>
-                <input
-                  onChange={(e) => {
-                    setUsername(e.target.value)
-                  }}
-                  type="text"
-                  className="form-control"
-                  placeholder="username"
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
-                  className="form-control"
-                  placeholder="*****"></input>
-              </div>
-              <div className="mb-3">
-                <button onClick={onSignin} className="btn btn-success">
-                  Singin
-                </button>
-                <div className="float-end">
-                  New User? <Link to="/signup">Signup here</Link>
-                </div>
-              </div>
-            </div>
-            {loading && <div>waiting for response</div>}
+    <div>
+      <Header title="Signin" />
+      <div className="form form-signin">
+        <div className="mb-3">
+          <label className="form-label">Username</label>
+          <input
+            onChange={(e) => {
+              setUsername(e.target.value)
+            }}
+            type="text"
+            className="form-control"
+            placeholder="username"
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
+            className="form-control"
+            placeholder="*****"></input>
+        </div>
+        <div className="mb-3">
+          <button onClick={onSignin} className="btn btn-success">
+            Signin
+          </button>
+          <div className="float-end">
+            New User? <Link to="/signup">Signup here</Link>
           </div>
         </div>
       </div>
+      {loading && <div>waiting for response</div>}
     </div>
   )
 }
