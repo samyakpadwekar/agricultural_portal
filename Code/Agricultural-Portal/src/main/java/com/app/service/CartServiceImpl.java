@@ -1,27 +1,18 @@
 package com.app.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.app.custom_excs.CartItemNotExistException;
 import com.app.dao.CartRepository;
-import com.app.dao.UserRepository;
 import com.app.dto.AddToCartDto;
-import com.app.dto.CartDTO;
-import com.app.dto.CartItemDto;
+import com.app.dto.CartListDTO;
 import com.app.pojos.Cart;
-import com.app.pojos.Product;
-import com.app.pojos.Wishlist;
 
 @Service
 @Transactional
@@ -36,8 +27,9 @@ public class CartServiceImpl implements ICartService {
 	public CartServiceImpl() {
 	}
 
-	public CartDTO listCartItems(int buyerId) {
+	public CartListDTO listCartItems(int buyerId) {
 		List<Cart> cartList = cartRepository.findAllByUserIdOrderByCreatedDateDesc(buyerId);
+		
 		double totalCost = 0;
 		for (Cart cart : cartList) {
 			System.out.println("cart : " + cart);
@@ -47,16 +39,19 @@ public class CartServiceImpl implements ICartService {
 					/ 100);
 //			cost = price*quantity - disc = price*quantity - price*quantity * disc = price*quantity*(100-disc)/100 
 		}
-		CartDTO cartDto = new CartDTO(cartList, totalCost);
+		
+		CartListDTO cartDto = new CartListDTO(cartList, totalCost);
+		
+		
 		return cartDto;
 	}
 
 	// <a href="aaa" value=product name="abc">btn
-	public Cart addToCart(AddToCartDto addToCartDto, int userId) {
+	public Cart addToCart(AddToCartDto addToCartDto) {
 		// Cart cart = getAddToCartFromDto(addToCartDto,userId);
 		// User user=userRepo.findById(addToCartDto.getUserId()).get();
 		System.out.println("AddToCartDTO : " + addToCartDto);
-		Cart cart = new Cart(userId, addToCartDto.getProductId(), addToCartDto.getQuantity());
+		Cart cart = new Cart(addToCartDto.getUserId(), addToCartDto.getProductId(), addToCartDto.getQuantity());
 		return cartRepository.save(cart);
 	}
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AddToCartDto;
-import com.app.dto.CartDTO;
+import com.app.dto.CartListDTO;
 import com.app.pojos.Cart;
 import com.app.service.ICartService;
 
@@ -30,19 +30,20 @@ public class CartController {
 //	 private IProductService productService;
 
 	@GetMapping("/{buyerId}")
-	public ResponseEntity<CartDTO> getCartItems(@PathVariable int buyerId) {
+	public ResponseEntity<CartListDTO> getCartItems(@PathVariable int buyerId) {
 		// authenticationService.authenticate(token);
 		// int userId = authenticationService.getUser(token).getId();
-		CartDTO cartDto = cartService.listCartItems(buyerId);
-		return new ResponseEntity<CartDTO>(cartDto, HttpStatus.OK);
+		
+	
+		return new ResponseEntity<CartListDTO>(cartService.listCartItems(buyerId), HttpStatus.OK);
 	}
 
-	@PostMapping("/add/{buyerId}")
-	public ResponseEntity<Cart> addToCart(@RequestBody AddToCartDto addToCartDto, @PathVariable int buyerId) {
+	@PostMapping("/add")
+	public ResponseEntity<Cart> addToCart(@RequestBody AddToCartDto addToCartDto) {
 		// authenticationService.authenticate(token);
 
 		// int userId = authenticationService.getUser(token).getId();
-		return new ResponseEntity<Cart>(cartService.addToCart(addToCartDto, buyerId), HttpStatus.CREATED);
+		return new ResponseEntity<Cart>(cartService.addToCart(addToCartDto), HttpStatus.CREATED);
 
 	}
 

@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cart")
 public class Cart {
@@ -32,10 +34,12 @@ public class Cart {
 	@Column(name = "pid")
     private @NotNull Integer productId;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "pid", referencedColumnName = "productId", insertable = false, updatable = false)
 	private Product product;
