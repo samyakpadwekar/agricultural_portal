@@ -80,10 +80,10 @@ public class AdminController {
 		return new ResponseEntity<>(userService.addCategory(catDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/edit-category/{categoryId}")
-	public ResponseEntity<?> editCategory(@PathVariable int categoryId, @RequestBody CategoryDTO catDTO) {
+	@PutMapping("/edit-category")
+	public ResponseEntity<?> editCategory(@RequestBody CategoryDTO catDTO) {
 		System.out.println("in edit category " + catDTO);
-		return new ResponseEntity<>(userService.editCategory(categoryId, catDTO), HttpStatus.OK);
+		return new ResponseEntity<>(userService.editCategory(catDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete-category/{categoryId}")

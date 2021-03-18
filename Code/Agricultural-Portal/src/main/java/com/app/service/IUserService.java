@@ -29,7 +29,7 @@ public interface IUserService {
 
 	Category addCategory(CategoryDTO catDTO);
 
-	Category editCategory(int categoryId, CategoryDTO catDTO);
+	Category editCategory(CategoryDTO catDTO);
 
 	String deleteCategory(int categoryId);
 
