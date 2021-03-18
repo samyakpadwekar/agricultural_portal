@@ -1,16 +1,17 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 //import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../styles/App.css";
 
 const Navigation = () => {
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="upper-nav">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top-nav">
         <div className="container-fluid">
           <Link to="/home">
-            <a className="navbar-brand" id="brand">
+            <span className="navbar-brand" id="brand" href="">
               AgriShop
-            </a>
+            </span>
           </Link>
           <button
             className="navbar-toggler"
@@ -27,7 +28,7 @@ const Navigation = () => {
             <ul className="navbar-nav mb-1 mb-lg-0">
               <li className="nav-item">
                 <Link to="/your-address">
-                  <a className="nav-link">
+                  <span className="nav-link">
                     <img
                       src="https://img.icons8.com/ios-filled/50/000000/address--v1.png"
                       width="30"
@@ -36,10 +37,10 @@ const Navigation = () => {
                       alt=""
                     />
                     Delivery Address{" "}
-                  </a>
+                  </span>
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" id="search">
                 <form
                   className="form-inline float-start mb-1 my-lg-0"
                   id="navBarSearchForm"
@@ -47,7 +48,7 @@ const Navigation = () => {
                   <div className="input-group">
                     <div className="input-group-prepend nav-item dropdown">
                       <button
-                        className="btn btn-light dropdown-toggle"
+                        className="btn btn-light dropdown-toggle nav-btn"
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-haspopup="true"
@@ -57,19 +58,19 @@ const Navigation = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <span className="dropdown-item" href="#">
                             Category One
-                          </a>
+                          </span>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <span className="dropdown-item" href="#">
                             Category Two
-                          </a>
+                          </span>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <span className="dropdown-item" href="#">
                             Category Three
-                          </a>
+                          </span>
                         </li>
                       </ul>
                     </div>
@@ -79,7 +80,7 @@ const Navigation = () => {
                       aria-label="Search input with dropdown button"
                     />
                     <div className="input-group-append">
-                      <button className="btn btn-success" type="button">
+                      <button className="btn btn-success nav-btn" type="button">
                         Search
                       </button>
                     </div>
@@ -87,9 +88,9 @@ const Navigation = () => {
                 </form>
               </li>
               <li className="nav-item">
-                <div class="btn-group mb-1 mb-lg-0">
+                <div className="btn-group mb-1 mb-lg-0">
                   <button
-                    class="btn btn-light dropdown-toggle"
+                    className="btn btn-light dropdown-toggle nav-btn"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -97,42 +98,42 @@ const Navigation = () => {
                   >
                     Language
                   </button>
-                  <ul class="dropdown-menu">
+                  <ul className="dropdown-menu">
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <span className="dropdown-item" href="#">
                         Hindi
-                      </a>
+                      </span>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <span className="dropdown-item" href="#">
                         Marathi
-                      </a>
+                      </span>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <span className="dropdown-item" href="#">
                         Gujarati
-                      </a>
+                      </span>
                     </li>
                   </ul>
                 </div>
               </li>
               <li className="nav-item">
-                <Link to="/customer-service">
-                  <a className="nav-link">
+                <Link to="/signup">
+                  <span className="nav-link">
                     <img
-                      src="https://img.icons8.com/cotton/64/000000/customer-support.png"
+                      src="https://img.icons8.com/ios/50/000000/add-user-male.png"
                       width="30"
                       height="30"
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Customer support
-                  </a>
+                    Signup
+                  </span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/your-order">
-                  <a className="nav-link">
+                  <span className="nav-link">
                     <img
                       src="https://img.icons8.com/carbon-copy/100/000000/purchase-order.png"
                       width="30"
@@ -141,12 +142,12 @@ const Navigation = () => {
                       alt=""
                     />
                     Your Orders
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/your-cart">
-                  <a className="nav-link">
+                  <span className="nav-link">
                     <img
                       src="https://img.icons8.com/plasticine/100/000000/shopping-cart.png"
                       width="30"
@@ -155,7 +156,7 @@ const Navigation = () => {
                       alt=""
                     />
                     Cart
-                  </a>
+                  </span>
                 </Link>
               </li>
             </ul>
