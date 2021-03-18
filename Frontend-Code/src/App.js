@@ -13,6 +13,7 @@ import SellerHomeScreen from "./screens/sellers/SellerHomeScreen";
 import SellerEditProfileScreen from "./screens/sellers/SellerEditProfileScreen";
 import SellerSignupScreen from "./screens/sellers/SellerSignup";
 import ProductListScreen from "./screens/sellers/ProductListScreen";
+import AddProductScreen from './screens/sellers/AddProductScreen'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               component={ProductListScreen}
             />
             <Route path="/seller-signup" component={SellerSignupScreen} />
+            <Route path="/seller/add-product" component={AddProductScreen} />
           </Switch>
         </div>
       </div>
