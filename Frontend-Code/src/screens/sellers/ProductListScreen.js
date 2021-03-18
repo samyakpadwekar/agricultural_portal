@@ -12,7 +12,7 @@ const ProductListScreen = (props) => {
         <Header title="Product Catalogue"/>
       </div>
       <div className="col-md-10 mx-auto">
-        <button onClick={onAddProduct} className="btn btn-success float-end">
+        <button onClick={onAddProduct} className="btn btn-primary float-end">
           Add new product
         </button>
 
