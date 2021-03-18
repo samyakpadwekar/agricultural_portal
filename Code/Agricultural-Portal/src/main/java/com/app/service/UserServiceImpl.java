@@ -9,15 +9,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_excs.ProductCatalogueHandlingException;
 import com.app.custom_excs.UserHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ComplaintRepository;
 import com.app.dao.FeedbackRepository;
+import com.app.dao.ProductCatalogueRepository;
 import com.app.dao.ProductRepository;
 import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
 import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
+import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
@@ -30,6 +33,7 @@ import com.app.pojos.Category;
 import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
 import com.app.pojos.Product;
+import com.app.pojos.ProductCatalogue;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
 import com.app.pojos.Wishlist;
@@ -58,7 +62,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ComplaintRepository compRepo;
-	
+
+	@Autowired
+	private ProductCatalogueRepository productCatalRepo;
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
@@ -199,8 +205,20 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<Complaint> getAllComplaints() {
-		
+
 		return compRepo.findAll();
+	}
+
+	@Override
+	public String addProductCatalogue(ProductCatalogueDTO productCatal) {
+		ProductCatalogue newProductCatal = new ProductCatalogue();
+		BeanUtils.copyProperties(productCatal, newProductCatal);
+		try {
+			productCatalRepo.save(newProductCatal);
+		} catch (RuntimeException e) {
+			throw new ProductCatalogueHandlingException("Enter Unique Product name..!");
+		}
+		return "Product added to catalogue successfully";
 	}
 
 }

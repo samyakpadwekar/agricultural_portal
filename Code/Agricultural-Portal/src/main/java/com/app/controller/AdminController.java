@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ComplaintList;
 import com.app.dto.CustomerList;
+import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
@@ -114,5 +115,12 @@ public class AdminController {
 			return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.NO_CONTENT);
+	}
+	
+	@PostMapping("/add-product-catalogue")
+	public ResponseEntity<?> addProductCatalogue(@RequestBody ProductCatalogueDTO productCatal)
+	{
+		System.out.println("in add product catalogue");
+		return new ResponseEntity<>(userService.addProductCatalogue(productCatal), HttpStatus.OK);
 	}
 }

@@ -3,6 +3,7 @@ package com.app.service;
 import java.util.List;
 
 import com.app.dto.CategoryDTO;
+import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
@@ -56,4 +57,6 @@ public interface IUserService {
 	String addComplaint(SellerCompDTO sellerComplaintDto, int productId);
 	
 	List<Complaint> getAllComplaints();
+	
+	String addProductCatalogue(ProductCatalogueDTO productCatal);
 }
