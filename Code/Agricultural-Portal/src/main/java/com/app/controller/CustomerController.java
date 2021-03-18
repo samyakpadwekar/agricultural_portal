@@ -138,4 +138,15 @@ public class CustomerController {
 			}
 			return new ResponseEntity<>(new OrderDTO(orderlist), HttpStatus.OK);
 		}
+	    
+	  //search bar functionality to search products by product name and category name
+	    @GetMapping("/search/{searchvalue}")
+		public ResponseEntity<?> getProductsByCategory(@PathVariable String searchvalue) {
+			System.out.println("in search product by category ");
+			List<Product> productList = userService.getProductByNameOrCategory(searchvalue);
+			if (!productList.isEmpty()) {
+				return new ResponseEntity<>(new ProductList(productList), HttpStatus.OK);
+			}
+			return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
+		}
 }

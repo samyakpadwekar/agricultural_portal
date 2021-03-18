@@ -68,4 +68,6 @@ public interface IUserService {
 	List<ProductReportDto> productReport();
 
 	List<OrderDetails> getOrdersByBuyerId(int buyerId);
+
+	List<Product> getProductByNameOrCategory(String searchvalue);
 }

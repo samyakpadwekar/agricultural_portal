@@ -274,6 +274,11 @@ public class UserServiceImpl implements IUserService {
 		int orderId=orderRepo.findByBuyerUserId(buyerId).getOrderId();
 		return orderDetRepo.findByOrderOrderId(orderId);
 	}
+	
+	@Override
+	public List<Product> getProductByNameOrCategory(String searchvalue) {
+		return productRepo.getProductByNameOrCategory(searchvalue);
+	}
 
 
 }
