@@ -5,6 +5,7 @@ import java.util.List;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductFeedDTO;
+import com.app.dto.ProductReportDto;
 import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
@@ -62,4 +63,6 @@ public interface IUserService {
 	String addProductCatalogue(ProductCatalogueDTO productCatal);
 	
 	List<Feedback> getAllFeedbacks();
+	
+	List<ProductReportDto> productReport();
 }

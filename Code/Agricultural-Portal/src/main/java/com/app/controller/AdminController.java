@@ -21,6 +21,8 @@ import com.app.dto.CustomerList;
 import com.app.dto.FeedbackList;
 import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductList;
+import com.app.dto.ProductReportDto;
+import com.app.dto.ProductReportList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.enums.SellerStatus;
@@ -134,5 +136,14 @@ public class AdminController {
 			return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/product-report")
+	public ResponseEntity<?> projectReport()
+	{
+		List<ProductReportDto> list=userService.productReport();
+		if(list.isEmpty())
+			return new ResponseEntity<>(new ProductReportList(list), HttpStatus.NO_CONTENT);
+		return  new ResponseEntity<>(new ProductReportList(list), HttpStatus.OK);
 	}
 }

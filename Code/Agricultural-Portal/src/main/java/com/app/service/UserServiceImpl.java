@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,6 +23,7 @@ import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductFeedDTO;
+import com.app.dto.ProductReportDto;
 import com.app.dto.SellerCompDTO;
 import com.app.dto.SignupRequest;
 import com.app.dto.UserResponse;
@@ -231,6 +233,29 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<Feedback> getAllFeedbacks() {
 		return feedRepo.findAll();
+	}
+	
+	@Override
+	public List<ProductReportDto> productReport() {
+		
+		  List<ProductReportDto> report=new ArrayList<ProductReportDto>();
+		  List<Product> list= productRepo.findAll();
+		
+		 
+		  list.forEach(p->{
+			  ProductReportDto productReport=new ProductReportDto();
+		  productReport.setProductName(p.getProductCatalogue().getProductName());
+		  productReport.setAvgPrice(p.getAvgRating());
+		  productReport.setInStock(p.getUnitsStock());
+		  productReport.setSold(p.getUnitsSold());
+		  productReport.setAvgPrice(p.getPrice()); 
+		  report.add(productReport); 
+		  
+		  });
+		 
+		  System.out.println("report :"+report.toString());
+		  return report;
+	
 	}
 
 }
