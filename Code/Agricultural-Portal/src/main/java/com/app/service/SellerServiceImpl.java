@@ -131,7 +131,7 @@ public class SellerServiceImpl implements ISellerService{
 
 	@Override
 	public List<Complaint> getAllComplaintsBySellerId(Integer sellerId) {
-		return compRepo.findAll();
+		return compRepo.findAllBySellerId(sellerId);
 	}
 
 	

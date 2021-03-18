@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.enums.SellerStatus;
+import com.app.pojos.Complaint;
 import com.app.pojos.Seller;
 
 public interface SellerRepository extends JpaRepository<Seller, Integer> {
@@ -24,5 +25,6 @@ public interface SellerRepository extends JpaRepository<Seller, Integer> {
 	
 	@Query("select s from Seller s left outer join fetch s.address where s.address.pinCode=:pincode")
 	List<Seller> findByPinCode(@Param("pincode") String pinCode);
+	
 	
 }
