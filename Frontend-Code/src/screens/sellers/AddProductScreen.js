@@ -39,7 +39,7 @@ const AddProductScreen = (props) => {
                 </svg>
               </span>
             </label>
-            <input className="form-control" type="number"></input>
+            <input className="form-control" type="number" readOnly></input>
           </div>
           <label className="form-label">Product Category</label>
           <select class="form-select mb-3" aria-label="Disabled select example">
@@ -74,6 +74,10 @@ const AddProductScreen = (props) => {
               </td>
             </tr>
           </table>
+          <label class="form-label" for="customFile">
+            Add Picture
+          </label>
+          <input type="file" class="form-control" id="productPicture" />
           <table className="mx-auto" style={{width:'50%',textAlign:"center"}}>
             <tr>
               <td style={{padding:'10px'}}>
@@ -83,7 +87,7 @@ const AddProductScreen = (props) => {
               </td>
               <td style={{padding:'10px'}}>
                 <div className="mb-3">
-                <Link to="/seller/product-catalogue">
+                <Link to="/seller/product-list">
                 <button className="btn btn-danger">Cancel</button>
                 </Link>
                 </div>
