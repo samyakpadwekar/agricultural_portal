@@ -1,11 +1,11 @@
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
-const AddProductScreen = (props) => {
+const EditProductScreen = (props) => {
   return (
     <div>
       <div>
-        <Header title="Add new product" subtitle="" />
+        <Header title="Edit product" subtitle="" />
       </div>
 
       <div className="container">
@@ -39,15 +39,10 @@ const AddProductScreen = (props) => {
                 </svg>
               </span>
             </label>
-            <input className="form-control" type="number" readOnly></input>
+            <input className="form-control" readOnly />
           </div>
           <label className="form-label">Product Category</label>
-          <select class="form-select mb-3" aria-label="Disabled select example">
-            <option selected>Select Category</option>
-            <option value="1">CategoryOne</option>
-            <option value="2">CategoryTwo</option>
-            <option value="3">CategoryThree</option>
-          </select>
+          <input className="form-control" readOnly />
           <div className="mb-3">
             <label className="form-label">Brand Name</label>
             <input className="form-control"></input>
@@ -58,15 +53,15 @@ const AddProductScreen = (props) => {
             </label>
             <textarea className="form-control" rows="3"></textarea>
           </div>
-          <table style={{width:'100%'}}>
+          <table style={{ width: "100%" }}>
             <tr>
-              <td style={{padding:'10px'}}>
+              <td style={{ padding: "10px" }}>
                 <div className="mb-3">
                   <label className="form-label">Price per unit (Rs)</label>
                   <input type="number" className="form-control" />
                 </div>
               </td>
-              <td style={{padding:'10px'}}>
+              <td style={{ padding: "10px" }}>
                 <div className="mb-3">
                   <label className="form-label">Quantity</label>
                   <input type="number" className="form-control" />
@@ -75,30 +70,34 @@ const AddProductScreen = (props) => {
             </tr>
           </table>
           <label class="form-label" for="customFile">
-            Add Picture
+            Change Picture
           </label>
           <input type="file" class="form-control" id="productPicture" />
-          <table className="mx-auto" style={{width:'50%',textAlign:"center"}}>
+          <table
+            className="mx-auto"
+            style={{ width: "50%", textAlign: "center" }}
+          >
             <tr>
-              <td style={{padding:'10px'}}>
+              <td style={{ padding: "10px" }}>
                 <div className="mb-3">
-                <button className="btn btn-success" type="submit">Save</button>
+                  <button className="btn btn-success" type="submit">
+                    Save
+                  </button>
                 </div>
               </td>
-              <td style={{padding:'10px'}}>
+              <td style={{ padding: "10px" }}>
                 <div className="mb-3">
-                <Link to="/seller/product-list">
-                <button className="btn btn-danger">Cancel</button>
-                </Link>
+                  <Link to="/seller/product-list">
+                    <button className="btn btn-danger">Cancel</button>
+                  </Link>
                 </div>
               </td>
             </tr>
           </table>
-          
         </div>
       </div>
     </div>
   );
 };
 
-export default AddProductScreen;
+export default EditProductScreen;

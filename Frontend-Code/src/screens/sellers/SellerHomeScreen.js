@@ -14,7 +14,7 @@ const SellerHomeScreen = (props) => {
             
               <div className="col">
                 <div className="card" style={{width: 190}}>
-                  <Link to="/seller/product-catalogue" style={{textDecoration:'none',color: '#000'}}>
+                  <Link to="/seller/product-list" style={{textDecoration:'none',color: '#000'}}>
                     <img className="card-img-top" style={{width: 188, height:200}} src="/images/catalogue.png" alt="Catologue"/>
                     <div className="card-body">
                       <h5 className="card-title">Product Catalogue</h5>
