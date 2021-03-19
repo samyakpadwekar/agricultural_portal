@@ -1,5 +1,8 @@
 package com.app.dao;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +16,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	Order findFirstByOrderByOrderIdDesc();
 
 	Order findByBuyerUserId(int user);
+	
+	@Query("select o FROM Order o WHERE o.orderDate >=:tD")
+	List<Order> findAllByOrderDateGreaterThanEqual(@Param("tD") LocalDateTime orderDate);
+
 }

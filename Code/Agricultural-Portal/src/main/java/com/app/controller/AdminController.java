@@ -23,6 +23,8 @@ import com.app.dto.ProductCatalogueDTO;
 import com.app.dto.ProductList;
 import com.app.dto.ProductReportDto;
 import com.app.dto.ProductReportList;
+import com.app.dto.SalesReportDTO;
+import com.app.dto.SalesReportList;
 import com.app.dto.SellerList;
 import com.app.dto.SellerResponse;
 import com.app.enums.SellerStatus;
@@ -31,6 +33,7 @@ import com.app.pojos.Feedback;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
+import com.app.service.IOrderService;
 import com.app.service.IUserService;
 
 @RestController
@@ -39,6 +42,9 @@ import com.app.service.IUserService;
 public class AdminController {
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IOrderService orderService;
 
 	@GetMapping("/list-all-customer")
 	public ResponseEntity<?> getAllCustomer() {
@@ -145,5 +151,15 @@ public class AdminController {
 		if(list.isEmpty())
 			return new ResponseEntity<>(new ProductReportList(list), HttpStatus.NO_CONTENT);
 		return  new ResponseEntity<>(new ProductReportList(list), HttpStatus.OK);
+	}
+	
+	@GetMapping("/sales-report")
+	public ResponseEntity<?> generateSalesReport(){
+		List<SalesReportDTO> salesList = orderService.generateSalesReport();
+		
+		if (!salesList.isEmpty()) {
+			return new ResponseEntity<>(new SalesReportList(salesList), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new SalesReportList(salesList), HttpStatus.NO_CONTENT);
 	}
 }
