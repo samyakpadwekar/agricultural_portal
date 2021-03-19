@@ -2,6 +2,7 @@ package com.app.dto;
 
 public class ProductReportDto {
 	private String productName;
+	private String sellerBusinessName;
 	private int inStock;
 	private int sold;
 	private double avgPrice;
@@ -10,6 +11,17 @@ public class ProductReportDto {
 	public ProductReportDto() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public String getSellerBusinessName() {
+		return sellerBusinessName;
+	}
+
+
+	public void setSellerBusinessName(String sellerBusinessName) {
+		this.sellerBusinessName = sellerBusinessName;
+	}
+
 
 	public String getProductName() {
 		return productName;
@@ -51,11 +63,13 @@ public class ProductReportDto {
 		this.rating = rating;
 	}
 
+
 	@Override
 	public String toString() {
-		return "ProductReportDto [productName=" + productName + ", inStock=" + inStock + ", sold=" + sold
-				+ ", avgPrice=" + avgPrice + ", rating=" + rating + "]";
+		return "ProductReportDto [productName=" + productName + ", sellerBusinessName=" + sellerBusinessName
+				+ ", inStock=" + inStock + ", sold=" + sold + ", avgPrice=" + avgPrice + ", rating=" + rating + "]";
 	}
+
 	
 	
 

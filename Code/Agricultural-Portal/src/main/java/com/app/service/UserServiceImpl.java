@@ -255,6 +255,7 @@ public class UserServiceImpl implements IUserService {
 		  list.forEach(p->{
 			  ProductReportDto productReport=new ProductReportDto();
 		  productReport.setProductName(p.getProductCatalogue().getProductName());
+		  productReport.setSellerBusinessName(p.getSeller().getBusinessName());
 		  productReport.setAvgPrice(p.getAvgRating());
 		  productReport.setInStock(p.getUnitsStock());
 		  productReport.setSold(p.getUnitsSold());
