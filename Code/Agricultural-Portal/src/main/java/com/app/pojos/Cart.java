@@ -1,7 +1,6 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,6 +32,8 @@ public class Cart {
 	@Column(name = "pid")
     private @NotNull Integer productId;
 	
+	private @NotNull Integer sellerId;
+	
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
@@ -49,12 +49,26 @@ public class Cart {
 	public Cart() {
 	}
 
-	public Cart( int userId, int productId, int quantity) {
+	public Cart( int userId, int productId, int quantity, int sellerId) {
 		super();
 		
 		this.userId = userId;
 		this.createdDate = LocalDate.now();
 		this.productId = productId;
+		this.quantity = quantity;
+		this.sellerId = sellerId;
+	}
+
+	public Cart(Integer id, LocalDate createdDate, @NotNull Integer userId, @NotNull Integer productId,
+			@NotNull Integer sellerId, User user, Product product, int quantity) {
+		super();
+		this.id = id;
+		this.createdDate = createdDate;
+		this.userId = userId;
+		this.productId = productId;
+		this.sellerId = sellerId;
+		this.user = user;
+		this.product = product;
 		this.quantity = quantity;
 	}
 
@@ -96,6 +110,16 @@ public class Cart {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	
+	
+	public Integer getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(Integer sellerId) {
+		this.sellerId = sellerId;
 	}
 
 	@Override
