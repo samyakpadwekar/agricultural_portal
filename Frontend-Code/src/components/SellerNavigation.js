@@ -30,7 +30,7 @@ const SellerNavigation = () => {
                 </Link>
               </li>
               <li className="nav-item mx-3">
-                <Link to="/seller/product-catalogue">
+                <Link to="/seller/product-list">
                   <span className="nav-link">
                     Catalogue
                   </span>
