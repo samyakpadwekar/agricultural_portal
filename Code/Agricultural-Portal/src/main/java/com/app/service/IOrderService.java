@@ -8,4 +8,5 @@ public interface IOrderService {
 	String cartCheckout(Integer userId);
 	List<SalesReportDTO> generateSalesReport();
 	String confirmOrder(Integer orderId);
+	String cancelOrder(Integer orderId);
 }

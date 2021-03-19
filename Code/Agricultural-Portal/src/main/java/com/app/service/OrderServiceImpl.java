@@ -101,6 +101,17 @@ public class OrderServiceImpl implements IOrderService {
 		} 
 		return "Order is already confirmed";
 	}
+	
+	@Override
+	public String cancelOrder(Integer orderId) {
+		Order o = orderRepo.findById(orderId).get();
+		if(o.getOrderStatus() == OrderStatus.RECEIVED)
+			o.setOrderStatus(OrderStatus.CANCELLED);
+		else 
+			return "Order is CONFIRMED, can not be cancelled";
+		orderRepo.save(o);
+		return "Order "+orderId+" cancelled !";
+	}
 
 	@Override
 	public List<SalesReportDTO> generateSalesReport() {

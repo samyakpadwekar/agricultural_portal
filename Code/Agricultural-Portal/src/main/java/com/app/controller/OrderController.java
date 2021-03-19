@@ -28,4 +28,9 @@ public class OrderController {
 	public ResponseEntity<?> confirmOrder(@PathVariable Integer orderId){
 		return new ResponseEntity<>(orderService.confirmOrder(orderId), HttpStatus.OK);
 	}
+	
+	@PutMapping("/cancel-order/{orderId}")
+	public ResponseEntity<?> cancelOrder(@PathVariable Integer orderId){
+		return new ResponseEntity<>(orderService.cancelOrder(orderId), HttpStatus.OK);
+	}
 }
