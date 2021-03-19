@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.CartItemNotExistException;
 import com.app.dao.CartRepository;
+import com.app.dao.ProductRepository;
 import com.app.dto.AddToCartDto;
 import com.app.dto.CartListDTO;
 import com.app.pojos.Cart;
@@ -21,6 +22,9 @@ public class CartServiceImpl implements ICartService {
 	@Autowired
 	private CartRepository cartRepository;
 
+	@Autowired
+	private ProductRepository productRepository;
+	
 	// @Autowired
 	// private UserRepository userRepo;
 
@@ -48,10 +52,21 @@ public class CartServiceImpl implements ICartService {
 
 	// <a href="aaa" value=product name="abc">btn
 	public Cart addToCart(AddToCartDto addToCartDto) {
-		// Cart cart = getAddToCartFromDto(addToCartDto,userId);
-		// User user=userRepo.findById(addToCartDto.getUserId()).get();
-		System.out.println("AddToCartDTO : " + addToCartDto);
-		Cart cart = new Cart(addToCartDto.getUserId(), addToCartDto.getProductId(), addToCartDto.getQuantity());
+		
+//		System.out.println("AddToCartDTO : " + addToCartDto);
+//		Cart cart = new Cart(addToCartDto.getUserId(), addToCartDto.getProductId(), addToCartDto.getQuantity());
+		
+		Cart cart;
+		try {
+			cart = cartRepository.findByUserIdAndProductId(addToCartDto.getUserId(), addToCartDto.getProductId()).get();
+			cart.setQuantity(cart.getQuantity()+addToCartDto.getQuantity());
+		} catch (RuntimeException e) {
+			System.out.println("No cart found");
+			int pId = addToCartDto.getProductId();
+			int sId = productRepository.findById(pId).get().getSeller().getSellerId();
+			cart = new Cart(addToCartDto.getUserId(), addToCartDto.getProductId(), addToCartDto.getQuantity(), sId);
+		}
+		
 		return cartRepository.save(cart);
 	}
 
