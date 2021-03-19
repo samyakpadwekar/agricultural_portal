@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_excs.ProductCatalogueHandlingException;
+import com.app.custom_excs.ProductFeedbackHandlingException;
 import com.app.custom_excs.UserHandlingException;
 import com.app.dao.CategoryRepository;
 import com.app.dao.ComplaintRepository;
@@ -199,8 +200,12 @@ public class UserServiceImpl implements IUserService {
 		if(product.getAvgRating()!=null)
 			product.setAvgRating((productFeedbackDto.getRating()+product.getAvgRating())/2);
 		product.setAvgRating(productFeedbackDto.getRating());
-		
-		feedRepo.save(feedback);
+		System.out.println("before save ------------------------>");
+		try {
+			feedRepo.save(feedback);
+		} catch (RuntimeException e) {			
+			throw new ProductFeedbackHandlingException("Multiple feedbacks are not allowed");
+		}
 		return "Product Review has been submitted";
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.app.custom_excs.ProductCatalogueHandlingException;
+import com.app.custom_excs.ProductFeedbackHandlingException;
 import com.app.custom_excs.ProductHandlingException;
 import com.app.custom_excs.SellerHandlingException;
 import com.app.custom_excs.UserHandlingException;
@@ -44,4 +45,19 @@ public class GlobalExceptionHandller extends RuntimeException {
 		return new ResponseEntity<>(new ErrorResponse("Product Catalogue error", p.getMessage()), HttpStatus.CONFLICT);
 	}
 	
+	@ExceptionHandler(ProductFeedbackHandlingException.class)
+	public ResponseEntity<?> handleProductFeedbackException(ProductFeedbackHandlingException p){
+		System.out.println("in handle product feedback exception");
+		return new ResponseEntity<>(new ErrorResponse("Product feedback error", p.getMessage()), HttpStatus.CONFLICT);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
