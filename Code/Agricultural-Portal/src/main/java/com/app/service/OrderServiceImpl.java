@@ -112,6 +112,19 @@ public class OrderServiceImpl implements IOrderService {
 		orderRepo.save(o);
 		return "Order "+orderId+" cancelled !";
 	}
+	
+	@Override
+	public String dispatchOrder(Integer orderId) {
+		Order o = orderRepo.findById(orderId).get();
+		if(o.getOrderStatus() == OrderStatus.CONFIRMED) {
+			o.setOrderStatus(OrderStatus.DISPATCHED);
+			o.setShipDate(LocalDateTime.now());
+		}
+		else 
+			return "Order status must be CONFIRMED";
+		orderRepo.save(o);
+		return "Order "+orderId+" dispatched !";
+	}
 
 	@Override
 	public List<SalesReportDTO> generateSalesReport() {

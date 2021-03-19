@@ -33,4 +33,9 @@ public class OrderController {
 	public ResponseEntity<?> cancelOrder(@PathVariable Integer orderId){
 		return new ResponseEntity<>(orderService.cancelOrder(orderId), HttpStatus.OK);
 	}
+	
+	@PutMapping("/dispatch-order/{orderId}")
+	public ResponseEntity<?> dispatchOrder(@PathVariable Integer orderId){
+		return new ResponseEntity<>(orderService.dispatchOrder(orderId), HttpStatus.OK);
+	}
 }
