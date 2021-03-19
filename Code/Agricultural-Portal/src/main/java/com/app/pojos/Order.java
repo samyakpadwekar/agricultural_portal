@@ -8,6 +8,7 @@ import javax.persistence.*;
 import com.app.enums.OrderStatus;
 import com.app.enums.PaymentType;
 import com.app.enums.TransactionStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "orders")
@@ -18,6 +19,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderId;
 	
+	@JsonIgnoreProperties("password")
 	@ManyToOne
 	@JoinColumn(name = "buyerId",  nullable = false)
 	private User buyer;
