@@ -43,4 +43,9 @@ public class OrderController {
 	public ResponseEntity<?> deliverOrder(@PathVariable Integer orderId){
 		return new ResponseEntity<>(orderService.deliverOrder(orderId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/orders-list/{sellerId}")
+	public ResponseEntity<?> getAllOrdersListOfSeller(@PathVariable Integer sellerId){
+		return new ResponseEntity<>(orderService.getAllOrdersOfSeller(sellerId), HttpStatus.OK);
+	}
 }

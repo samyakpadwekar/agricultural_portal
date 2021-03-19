@@ -14,6 +14,7 @@ import com.app.dao.CartRepository;
 import com.app.dao.OrderDetailsRepository;
 import com.app.dao.OrderRepository;
 import com.app.dao.UserRepository;
+import com.app.dto.OrderListDTO;
 import com.app.dto.SalesReportDTO;
 import com.app.enums.OrderStatus;
 import com.app.enums.PaymentType;
@@ -153,5 +154,18 @@ public class OrderServiceImpl implements IOrderService {
 		return salesList;
 
 	}
+	
+	@Override
+	public OrderListDTO getAllOrdersOfSeller(Integer sellerId) {
+		System.out.println("in service of seller all orders");
+		OrderListDTO dto = new OrderListDTO();
+		List<OrderDetails> detailsList = ODetailsRepo.findOrderDetailsBySellerId(sellerId);
+		for (OrderDetails od : detailsList) {
+			if(!dto.getOrderList().contains(od.getOrder()))
+				dto.getOrderList().add(od.getOrder());
+		}
+		return dto;
+	}
+
 
 }
