@@ -85,6 +85,7 @@ a {
   border-radius: 10px;
   -webkit-box-shadow: 1px 1px 4px 2px #c4c4c4;
   box-shadow: 1px 1px 4px 2px #c4c4c4;
+  text-align: center;
 }
 
 .cart-page .table button.btn-minus {
@@ -173,4 +174,26 @@ a {
 .cart-page .cart-summary .cart-btn button:first-child:hover {
   color: #020101;
   background: #eedf10;
+}
+
+.serachBar {
+  width: 80px;
+}
+
+.block {
+  border: solid #ccc 1px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 1px 4px 2px #c4c4c4;
+  box-shadow: 1px 1px 4px 2px #c4c4c4;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.part2 {
+  text-align: center;
+  align-items: center;
 }

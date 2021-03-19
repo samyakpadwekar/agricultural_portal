@@ -58,6 +58,16 @@ function App() {
             <Route path="/seller/edit-product" component={EditProductScreen} />
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />
+            <Route path="/user/your-orders" component={YourOrders} />
+            <Route path="/user/current-orders" component={CurrentOrders} />
+            <Route
+              path="/user/customer-edit-profile"
+              component={CustomerEditProfileScreen}
+            />
+            <Route
+              path="/user/customer-edit-address-bank"
+              component={CustomerEditAddBank}
+            />
           </Switch>
         </div>
       </div>
