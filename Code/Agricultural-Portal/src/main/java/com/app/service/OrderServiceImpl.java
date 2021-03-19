@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +16,12 @@ import com.app.dao.OrderRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.SalesReportDTO;
 import com.app.enums.OrderStatus;
+import com.app.enums.PaymentType;
 import com.app.enums.TransactionStatus;
 import com.app.pojos.Cart;
 import com.app.pojos.Order;
 import com.app.pojos.OrderDetails;
+import com.app.pojos.User;
 
 @Service
 @Transactional
@@ -38,36 +41,39 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public String cartCheckout(Integer userId) {
-		System.out.println("in order service of user : " + userId);
-		List<Cart> cartItems = cartRepo.findAllByUserIdOrderByCreatedDateDesc(userId);
-
-		Order order = new Order();
-		order.setBuyer(userRepo.findById(userId).get());
-//		order.setPaymentType(PaymentType.CARD);
-		order.setOrderDate(LocalDateTime.now());
-		order.setTransactionStatus(TransactionStatus.UNPAID);
-		order.setOrderStatus(OrderStatus.RECEIVED);
-		order.setTotalAmount(0.0);
-		orderRepo.save(order);
-
-		double orderTotal = 0.0;
-
-		for (Cart cartItem : cartItems) {
-			OrderDetails od = new OrderDetails(order, cartItem.getProduct(), cartItem.getQuantity(),
-					cartItem.getProduct().getDiscount());
-			double total = od.getProduct().getPrice() * od.getQuantity()
-					* ((cartItem.getProduct().getDiscount() == null) ? 0 : cartItem.getProduct().getDiscount()) / 100;
-			orderTotal += total;
-			od.setTotal(total);
-			ODetailsRepo.save(od);
+		System.out.println("in order service of user : "+userId);
+		int[] sellers = cartRepo.findDistinctSellerId();
+		System.out.println("Sellers : "+Arrays.toString(sellers));
+		User buyer = userRepo.findById(userId).get();
+		for (int i : sellers) {
+			List<Cart> cartItems = cartRepo.findAllByUserIdAndSellerId(userId, i);
+			
+			Order order = new Order();
+			order.setBuyer(buyer);
+			order.setPaymentType(PaymentType.CASH);
+			order.setOrderDate(LocalDateTime.now());
+			order.setEstmDelvDate(order.getOrderDate().plusDays(4));
+			order.setTransactionStatus(TransactionStatus.UNPAID);
+			order.setOrderStatus(OrderStatus.RECEIVED);
+			order.setTotalAmount(0.0);
+			orderRepo.save(order);
+			
+			double orderTotal = 0.0;
+			
+			for (Cart c : cartItems) {
+				OrderDetails od = new OrderDetails(order, c.getProduct(), c.getQuantity(), c.getProduct().getDiscount());				
+				double total = od.getProduct().getPrice() * od.getQuantity() * (100 - ((c.getProduct().getDiscount()==null)?0:c.getProduct().getDiscount())) / 100;
+				orderTotal += total;
+				od.setTotal(total);
+				ODetailsRepo.save(od);
+			}
+			Order sameOrder = orderRepo.findFirstByOrderByOrderIdDesc();
+			sameOrder.setTotalAmount(orderTotal);
 		}
-		Order sameOrder = orderRepo.findFirstByOrderByOrderIdDesc();
-		System.out.println("same orderId : " + sameOrder.getOrderId());
-		sameOrder.setTotalAmount(orderTotal);
+	
 		Integer deleteCount = cartRepo.deleteByUserId(userId);
-
-		return "Order placed for user : " + userId + " Of total amount : " + order.getTotalAmount() + " deleteCount : "
-				+ deleteCount;
+		
+		return "Order placed for user : "+userId+" deleteCount : "+deleteCount;
 	}
 
 	@Override
