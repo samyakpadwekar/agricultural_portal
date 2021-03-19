@@ -9,4 +9,5 @@ import com.app.pojos.OrderDetails;
 public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Integer> {
 
 	List<OrderDetails> findByOrderOrderId(int orderId);
+	List<OrderDetails> findAllByOrderOrderId(Integer orderId);
 }

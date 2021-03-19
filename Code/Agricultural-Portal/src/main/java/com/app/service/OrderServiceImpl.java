@@ -21,6 +21,7 @@ import com.app.enums.TransactionStatus;
 import com.app.pojos.Cart;
 import com.app.pojos.Order;
 import com.app.pojos.OrderDetails;
+import com.app.pojos.Product;
 import com.app.pojos.User;
 
 @Service
@@ -74,6 +75,31 @@ public class OrderServiceImpl implements IOrderService {
 		Integer deleteCount = cartRepo.deleteByUserId(userId);
 		
 		return "Order placed for user : "+userId+" deleteCount : "+deleteCount;
+	}
+	
+	@Override
+	public String confirmOrder(Integer orderId) {
+		Order o = orderRepo.findById(orderId).get();
+		if(o.getOrderStatus() == OrderStatus.CANCELLED || 
+				o.getOrderStatus() == OrderStatus.DELIVERED ||
+				o.getOrderStatus() == OrderStatus.DISPATCHED) {
+			return "Order cannot be confirmed";
+		}
+		if(o.getOrderStatus() != OrderStatus.CONFIRMED) {
+			List<OrderDetails> odList = ODetailsRepo.findAllByOrderOrderId(orderId);
+			for (OrderDetails od : odList) {
+				Product p = od.getProduct();
+				//increase units_sold
+				if(p.getUnitsStock() < od.getQuantity())
+					return "Stock is insufficient for this order";
+				p.setUnitsSold(p.getUnitsSold() + od.getQuantity());
+				//decrease units_stock
+				p.setUnitsStock(p.getUnitsStock() - od.getQuantity());
+			}
+			o.setOrderStatus(OrderStatus.CONFIRMED);
+			return "Order "+orderId+" confirmed !";
+		} 
+		return "Order is already confirmed";
 	}
 
 	@Override

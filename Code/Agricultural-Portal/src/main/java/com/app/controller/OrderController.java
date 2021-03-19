@@ -23,4 +23,9 @@ public class OrderController {
 	public ResponseEntity<?> cartCheckout(@PathVariable Integer userId){
 		return new ResponseEntity<>(orderService.cartCheckout(userId), HttpStatus.ACCEPTED);
 	}
+	
+	@PutMapping("/confirm-order/{orderId}")
+	public ResponseEntity<?> confirmOrder(@PathVariable Integer orderId){
+		return new ResponseEntity<>(orderService.confirmOrder(orderId), HttpStatus.OK);
+	}
 }
