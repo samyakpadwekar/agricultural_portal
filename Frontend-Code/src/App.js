@@ -27,9 +27,12 @@ function App() {
             <Route path="/home" component={HomeScreen} />
             <Route path="/signup" exact component={SignupScreen} />
             <Route path="/login" component={LoginScreen} />
+			 <Route path="/admin/add-admin" component={AddAdmin} />
             <Route path="/admin/buyer-list" component={Buyerlist} />
             <Route path="/admin/category-list" component={CategoryList} />
             <Route path="/admin/add-category" component={AddCategory} />
+			<Route path="/admin/feedback-list" component={FeedbackList} />
+            <Route path="/admin/complaint-list" component={ComplaintList} />
             <Route path="/admin/seller-list" component={SellerList} />
             <Route
               path="/user/edit-profile"
