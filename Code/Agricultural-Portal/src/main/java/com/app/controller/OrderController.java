@@ -38,4 +38,9 @@ public class OrderController {
 	public ResponseEntity<?> dispatchOrder(@PathVariable Integer orderId){
 		return new ResponseEntity<>(orderService.dispatchOrder(orderId), HttpStatus.OK);
 	}
+	
+	@PutMapping("/deliver-order/{orderId}")
+	public ResponseEntity<?> deliverOrder(@PathVariable Integer orderId){
+		return new ResponseEntity<>(orderService.deliverOrder(orderId), HttpStatus.OK);
+	}
 }

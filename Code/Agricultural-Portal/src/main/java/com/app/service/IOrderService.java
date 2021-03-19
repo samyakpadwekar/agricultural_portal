@@ -10,4 +10,5 @@ public interface IOrderService {
 	String confirmOrder(Integer orderId);
 	String cancelOrder(Integer orderId);
 	String dispatchOrder(Integer orderId);
+	String deliverOrder(Integer orderId);
 }

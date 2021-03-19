@@ -125,6 +125,21 @@ public class OrderServiceImpl implements IOrderService {
 		orderRepo.save(o);
 		return "Order "+orderId+" dispatched !";
 	}
+	
+	@Override
+	public String deliverOrder(Integer orderId) {
+		Order o = orderRepo.findById(orderId).get();
+		if(o.getOrderStatus() == OrderStatus.DISPATCHED) {
+			o.setOrderStatus(OrderStatus.DELIVERED);
+			o.setPaymentDate(LocalDateTime.now());
+			o.setPaidAmount(o.getTotalAmount());
+			o.setTransactionStatus(TransactionStatus.PAID);
+		}
+		else 
+			return "Order status must be DISPATCHED";
+		orderRepo.save(o);
+		return "Order "+orderId+" delivered !";
+	}
 
 	@Override
 	public List<SalesReportDTO> generateSalesReport() {
