@@ -68,3 +68,12 @@ a{ text-decoration: none;font-size:100%;font-weight: bold;}
   padding: 40px;
   margin: 20px auto;
 }
+
+.yourAccount {
+  border: solid #ccc 1px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 1px 4px 2px #c4c4c4;
+  box-shadow: 1px 1px 4px 2px #c4c4c4;
+}
