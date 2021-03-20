@@ -8,6 +8,10 @@ const SignupScreen = () => {
       <Header title="Signup" />
       <div className="form-signup form">
         <div className="mb-3">
+          <label className="form-label">User Name</label>
+          <input className="form-control"></input>
+        </div>
+        <div className="mb-3">
           <label className="form-label">First Name</label>
           <input className="form-control"></input>
         </div>
