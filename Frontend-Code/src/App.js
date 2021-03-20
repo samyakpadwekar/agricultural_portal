@@ -16,8 +16,12 @@ import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
 import SellerSignupScreen from './screens/sellers/SellerSignup'
 import ProductListScreen from './screens/sellers/ProductListScreen'
 import AddProductScreen from './screens/sellers/AddProductScreen'
-import ProductCatalogueScreen from './screens/sellers/ProductCatalogueScreen'
+import ProductCatalogueScreen from "./screens/sellers/ProductCatalogueScreen";
 import EditProductScreen from './screens/sellers/EditProductScreen'
+import InventoryScreen from './screens/sellers/InventoryScreen'
+import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
+import OrdersListScreen from './screens/sellers/OrdersListScreen'
+import PerformanceScreen from './screens/sellers/PerformanceScreen'
 
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
@@ -57,6 +61,11 @@ function App() {
             <Route path="/seller-signup" component={SellerSignupScreen} />
             <Route path="/seller/add-product" component={AddProductScreen} />
             <Route path="/seller/edit-product" component={EditProductScreen} />
+            <Route path="/seller/inventory" component={InventoryScreen} />
+            <Route path="/seller/inventory-report" component={InventoryReportScreen} />
+            <Route path="/seller/your-orders" component={OrdersListScreen} />
+            <Route path="/seller/performance" component={PerformanceScreen} />
+
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />
             <Route path="/user/your-orders" component={YourOrders} />
