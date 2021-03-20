@@ -44,19 +44,19 @@ const SellerNavigation = () => {
                 </Link>
               </li>
               <li className="nav-item mx-3">
-                <Link to="/seller/orders">
+                <Link to="/seller/your-orders">
                   <span className="nav-link">
                     Orders
                   </span>
                 </Link>
               </li>
-              <li className="nav-item mx-3">
+              {/* <li className="nav-item mx-3">
                 <Link to="/seller/performance">
                   <span className="nav-link">
                     Performance
                   </span>
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item mx-3">
               <div className="input-group-prepend nav-item dropdown ">
                 <button
@@ -66,7 +66,7 @@ const SellerNavigation = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Reports
+                  <strong>Reports</strong>
                 </button>
                 <ul className="dropdown-menu">
                   <li>
@@ -77,7 +77,7 @@ const SellerNavigation = () => {
                     </Link>
                   </li>
                   <li>
-                  <Link to="/seller/performance-report">
+                  <Link to="/seller/performance">
                       <span className="dropdown-item" href="#">
                         Performance Report
                       </span>
@@ -85,6 +85,13 @@ const SellerNavigation = () => {
                   </li>
                 </ul>
               </div>
+              </li>
+              <li className="nav-item mx-3">
+                <Link to="/seller/edit-profile">
+                  <span className="nav-link">
+                    Profile
+                  </span>
+                </Link>
               </li>
         
             </ul>
