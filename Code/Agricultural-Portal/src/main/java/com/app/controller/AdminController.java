@@ -84,6 +84,13 @@ public class AdminController {
 		return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
 	}
 
+	@GetMapping("/get-categories")
+	public ResponseEntity<?> getCategories() {
+		System.out.println("in get category");
+
+		return new ResponseEntity<>(userService.getAllCategories(), HttpStatus.OK);
+	}
+	
 	@PostMapping("/add-category")
 	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO) {
 		System.out.println("in add category");
