@@ -22,6 +22,8 @@ import InventoryScreen from './screens/sellers/InventoryScreen'
 import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
 import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
+import AdminNavigation from "./components/AdminNavigation";
+import ProductReport from "./screens/admin/productreport";
 
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
@@ -32,6 +34,7 @@ function App() {
       <div>
         <Navigation />
         <SellerNavigation />
+		<AdminNavigation/>
         <div className="container">
           <Switch>
             <Route path="/home" component={HomeScreen} />
@@ -43,6 +46,7 @@ function App() {
             <Route path="/admin/add-category" component={AddCategory} />
             <Route path="/admin/feedback-list" component={FeedbackList} />
             <Route path="/admin/complaint-list" component={ComplaintList} />
+			 <Route path="/admin/product-report" component={ProductReport} />
             <Route path="/admin/seller-list" component={SellerList} />
             <Route
               path="/user/edit-profile"
