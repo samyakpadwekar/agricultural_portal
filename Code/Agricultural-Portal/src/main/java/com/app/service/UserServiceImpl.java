@@ -304,6 +304,11 @@ public class UserServiceImpl implements IUserService {
 		return list;
 	}
 
+	@Override
+	public List<ProductCatalogue> getProductCatalogue() {
+		return productCatalRepo.findAllByOrderByProductUid();
+	}
+
 
 
 }

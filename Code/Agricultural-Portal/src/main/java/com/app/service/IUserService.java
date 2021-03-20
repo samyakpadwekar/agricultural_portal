@@ -17,6 +17,7 @@ import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
 import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
+import com.app.pojos.ProductCatalogue;
 import com.app.pojos.Seller;
 import com.app.pojos.User;
 import com.app.pojos.Wishlist;
@@ -70,5 +71,11 @@ public interface IUserService {
 
 	List<OrderDetails> getOrdersByBuyerId(int buyerId);
 
+<<<<<<< HEAD
 	List<ProductDTO> getProductByNameOrCategory(String searchvalue);
+=======
+	List<Product> getProductByNameOrCategory(String searchvalue);
+
+	List<ProductCatalogue> getProductCatalogue();
+>>>>>>> ad471edb321ecdd238c0fcafc4d530948689e0ff
 }

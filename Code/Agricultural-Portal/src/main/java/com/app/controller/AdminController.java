@@ -85,6 +85,13 @@ public class AdminController {
 		return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
 	}
 
+	@GetMapping("/get-categories")
+	public ResponseEntity<?> getCategories() {
+		System.out.println("in get category");
+
+		return new ResponseEntity<>(userService.getAllCategories(), HttpStatus.OK);
+	}
+	
 	@PostMapping("/add-category")
 	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO) {
 		System.out.println("in add category");
@@ -133,6 +140,13 @@ public class AdminController {
 	{
 		System.out.println("in add product catalogue");
 		return new ResponseEntity<>(userService.addProductCatalogue(productCatal), HttpStatus.OK);
+	}
+	
+	@GetMapping("/get-product-catalogue")
+	public ResponseEntity<?> getProductCatalogue()
+	{
+		System.out.println("in get product catalogue");
+		return new ResponseEntity<>(userService.getProductCatalogue(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/customer-feedbacks")
