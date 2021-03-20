@@ -134,6 +134,13 @@ public class AdminController {
 		return new ResponseEntity<>(userService.addProductCatalogue(productCatal), HttpStatus.OK);
 	}
 	
+	@GetMapping("/get-product-catalogue")
+	public ResponseEntity<?> getProductCatalogue()
+	{
+		System.out.println("in get product catalogue");
+		return new ResponseEntity<>(userService.getProductCatalogue(), HttpStatus.OK);
+	}
+	
 	@GetMapping("/customer-feedbacks")
 	public ResponseEntity<?> getAllFeedbacks(){
 		System.out.println("in admin get all feedbacks");

@@ -286,5 +286,10 @@ public class UserServiceImpl implements IUserService {
 		return productRepo.getProductByNameOrCategory(searchvalue);
 	}
 
+	@Override
+	public List<ProductCatalogue> getProductCatalogue() {
+		return productCatalRepo.findAll();
+	}
+
 
 }
