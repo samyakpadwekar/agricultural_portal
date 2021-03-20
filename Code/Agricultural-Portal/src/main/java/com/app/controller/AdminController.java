@@ -20,6 +20,7 @@ import com.app.dto.ComplaintList;
 import com.app.dto.CustomerList;
 import com.app.dto.FeedbackList;
 import com.app.dto.ProductCatalogueDTO;
+import com.app.dto.ProductDTO;
 import com.app.dto.ProductList;
 import com.app.dto.ProductReportDto;
 import com.app.dto.ProductReportList;
@@ -77,7 +78,7 @@ public class AdminController {
 	@GetMapping("/search-product-by-category/{categoryName}")
 	public ResponseEntity<?> getProductsByCategory(@PathVariable String categoryName) {
 		System.out.println("in search product by category ");
-		List<Product> productList = userService.findProductsByCategory(categoryName);
+		List<ProductDTO> productList = userService.findProductsByCategory(categoryName);
 		if (!productList.isEmpty()) {
 			return new ResponseEntity<>(new ProductList(productList), HttpStatus.OK);
 		}

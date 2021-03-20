@@ -1,6 +1,9 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ProductDTO;
 import com.app.dto.RestockProductDTO;
@@ -13,11 +16,11 @@ import com.app.pojos.Seller;
 public interface ISellerService {
 	Seller authenticateSeller(String email, String password);
 
-	List<Product> getAllProductsBySellerId(Integer sellerId);
+	List<ProductDTO> getAllProductsBySellerId(Integer sellerId);
 
-	Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId);
+	Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId,MultipartFile imageFile);
 
-	String editProduct(ProductDTO productDTO);
+	String editProduct(ProductDTO productDTO,MultipartFile imageFile) throws IllegalStateException, IOException;
 
 	String deleteProduct(Integer productId);
 
@@ -28,4 +31,6 @@ public interface ISellerService {
 	String restockProduct(RestockProductDTO restockProductDTO);
 	
 	List<Complaint> getAllComplaintsBySellerId(Integer sellerId);
+	
+	String getImage(int id) throws IOException;
 }

@@ -6,21 +6,21 @@ import com.app.pojos.Product;
 
 public class ProductList {
 	
-	private List<Product> productList;
+	private List<ProductDTO> productList;
 	
 	public ProductList() {
 		System.out.println("in ctor of productList");
 	}
 	
-	public ProductList(List<Product> list) {
+	public ProductList(List<ProductDTO> list) {
 		this.productList=list;
 	}
 
-	public List<Product> getProductList() {
+	public List<ProductDTO> getProductList() {
 		return productList;
 	}
 
-	public void setProductList(List<Product> productList) {
+	public void setProductList(List<ProductDTO> productList) {
 		this.productList = productList;
 	}
 }

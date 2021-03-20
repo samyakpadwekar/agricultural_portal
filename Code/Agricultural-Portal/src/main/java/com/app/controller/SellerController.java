@@ -1,8 +1,15 @@
 package com.app.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ComplaintList;
 import com.app.dto.LoginRequest;
@@ -23,9 +32,11 @@ import com.app.dto.RestockProductDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerSignupRequest;
 import com.app.pojos.Complaint;
-import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.service.ISellerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/seller")
@@ -63,7 +74,7 @@ public class SellerController {
 	@GetMapping("/list-sellers-products/{sellerId}")
 	public ResponseEntity<?> getAllProducts(@PathVariable Integer sellerId) {
 		System.out.println("in get all products of seller");
-		List<Product> productList = sellerService.getAllProductsBySellerId(sellerId);
+		List<ProductDTO> productList = sellerService.getAllProductsBySellerId(sellerId);
 		if (productList.size() == 0)
 			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
@@ -72,23 +83,27 @@ public class SellerController {
 	@GetMapping("/inventory-report/{sellerId}")
 	public ResponseEntity<?> inventoryReport(@PathVariable Integer sellerId) {
 		System.out.println("in inventory report of seller");
-		List<Product> productList = sellerService.getAllProductsBySellerId(sellerId);
+		List<ProductDTO> productList = sellerService.getAllProductsBySellerId(sellerId);
 		if (productList.size() == 0)
 			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
 	}
 
 	@PostMapping("/add-product/{sellerId}/{catId}")
-	public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Integer sellerId,
-			@PathVariable Integer catId) {
+	public ResponseEntity<?> addProduct(@RequestParam String productDTO, @PathVariable Integer sellerId,
+			@PathVariable Integer catId,@RequestParam MultipartFile imageFile) throws JsonMappingException, JsonProcessingException {
+		ProductDTO productDto=new ObjectMapper().readValue(productDTO, ProductDTO.class);		
+		System.out.println("productDto"+productDTO);
+		System.out.println("imageFile"+imageFile);
 		System.out.println("in add category");
-		return new ResponseEntity<>(sellerService.addProduct(productDTO, sellerId, catId), HttpStatus.CREATED);
+		return new ResponseEntity<>(sellerService.addProduct(productDto, sellerId, catId,imageFile), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/edit-product")
-	public ResponseEntity<?> editProduct(@RequestBody ProductDTO productDTO) {
+	public ResponseEntity<?> Product(@RequestParam String productdto,@RequestParam MultipartFile imageFile ) throws IllegalStateException, IOException {
 		System.out.println("in edit product");
-		return new ResponseEntity<>(sellerService.editProduct(productDTO), HttpStatus.OK);
+		ProductDTO productDTO=new ObjectMapper().readValue(productdto, ProductDTO.class);
+		return new ResponseEntity<>(sellerService.editProduct(productDTO,imageFile), HttpStatus.OK);
 	}
 
 	// manage inventory
@@ -117,5 +132,22 @@ public class SellerController {
 		if (complaintList.size() == 0)
 			return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(new ComplaintList(complaintList), HttpStatus.OK);
+	}
+	
+	@GetMapping("/download/{id}")
+	public ResponseEntity<?> getImage(@PathVariable int id) throws IOException
+	{
+		
+		Path path=Paths.get(sellerService.getImage(id));
+		System.out.println("path :"+sellerService.getImage(id));
+		/*if(path)
+			return new ResponseEntity<>("Image not Available", HttpStatus.NO_CONTENT);*/
+	
+	InputStreamResource inputStreamResource =
+			new InputStreamResource(new FileInputStream(path.toFile()));
+
+	HttpHeaders headers = new HttpHeaders();
+	headers.add("content-type", Files.probeContentType(path));
+	return ResponseEntity.ok().headers(headers).body(inputStreamResource);
 	}
 }

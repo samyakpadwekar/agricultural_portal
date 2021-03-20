@@ -25,6 +25,7 @@ import com.app.dao.UserRepository;
 import com.app.dao.WishListRepository;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductCatalogueDTO;
+import com.app.dto.ProductDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.ProductReportDto;
 import com.app.dto.SellerCompDTO;
@@ -92,9 +93,17 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<Product> findProductsByCategory(String categoryName) {
-
-		return productRepo.findByCategoryName(categoryName);
+	public List<ProductDTO> findProductsByCategory(String categoryName) {
+       List<ProductDTO> list=new ArrayList<ProductDTO>();
+        List<Product> products= (List<Product>) productRepo.findByCategoryName(categoryName);
+        products.forEach(p->{
+        	 ProductDTO productDto=new ProductDTO();
+        	 BeanUtils.copyProperties(p, productDto,"picture");
+        	 if(p.getPicture()!=null)
+        	   productDto.setPicture(new String(p.getPicture()));
+        	 list.add(productDto);        	
+        });	   
+		return list;
 
 	}
 
@@ -282,9 +291,19 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public List<Product> getProductByNameOrCategory(String searchvalue) {
-		return productRepo.getProductByNameOrCategory(searchvalue);
+	public List<ProductDTO> getProductByNameOrCategory(String searchvalue) {
+		List<ProductDTO> list=new ArrayList<ProductDTO>();
+		List<Product> products= productRepo.getProductByNameOrCategory(searchvalue);
+		products.forEach(p->{
+			 ProductDTO productDto=new ProductDTO();
+       	 BeanUtils.copyProperties(p, productDto,"picture");
+       	 if(p.getPicture()!=null)
+       	 productDto.setPicture(new String(p.getPicture()));
+       	 list.add(productDto);
+		});
+		return list;
 	}
+
 
 
 }

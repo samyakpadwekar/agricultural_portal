@@ -42,7 +42,7 @@ public class Product {
 	private double price;
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;
 	

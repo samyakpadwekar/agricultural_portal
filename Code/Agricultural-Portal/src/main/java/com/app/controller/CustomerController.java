@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CategoryList;
 import com.app.dto.OrderDTO;
+import com.app.dto.ProductDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.ProductList;
 import com.app.dto.SellerCompDTO;
@@ -52,7 +53,7 @@ public class CustomerController {
 	public ResponseEntity<?> showProducts(@PathVariable String categoryName)
 	{
 		System.out.println("in shop by category categoryName : "+categoryName);
-		List<Product> productList= userService.findProductsByCategory(categoryName);
+		List<ProductDTO> productList= userService.findProductsByCategory(categoryName);
 		if(productList.isEmpty())
 		{
 			return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
@@ -143,7 +144,7 @@ public class CustomerController {
 	    @GetMapping("/search/{searchvalue}")
 		public ResponseEntity<?> getProductsByCategory(@PathVariable String searchvalue) {
 			System.out.println("in search product by category ");
-			List<Product> productList = userService.getProductByNameOrCategory(searchvalue);
+			List<ProductDTO> productList = userService.getProductByNameOrCategory(searchvalue);
 			if (!productList.isEmpty()) {
 				return new ResponseEntity<>(new ProductList(productList), HttpStatus.OK);
 			}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductCatalogueDTO;
+import com.app.dto.ProductDTO;
 import com.app.dto.ProductFeedDTO;
 import com.app.dto.ProductReportDto;
 import com.app.dto.SellerCompDTO;
@@ -27,7 +28,7 @@ public interface IUserService {
 
 	Seller findSellerByBuisenessName(String name);
 
-	List<Product> findProductsByCategory(String categoryName);
+	List<ProductDTO> findProductsByCategory(String categoryName);
 
 	List<User> getAllCustomer();
 
@@ -69,5 +70,5 @@ public interface IUserService {
 
 	List<OrderDetails> getOrdersByBuyerId(int buyerId);
 
-	List<Product> getProductByNameOrCategory(String searchvalue);
+	List<ProductDTO> getProductByNameOrCategory(String searchvalue);
 }
