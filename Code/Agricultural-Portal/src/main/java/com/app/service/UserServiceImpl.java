@@ -288,7 +288,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<ProductCatalogue> getProductCatalogue() {
-		return productCatalRepo.findAll();
+		return productCatalRepo.findAllByOrderByProductUid();
 	}
 
 
