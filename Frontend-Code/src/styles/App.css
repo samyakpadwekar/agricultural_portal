@@ -222,3 +222,9 @@ a {
   margin-left: 20px;
   width: 50px;
 }
+
+.order-status-btn {
+  margin: 5px;
+  width: 120px;
+  height: 35px;
+}
