@@ -1,4 +1,5 @@
 import Navigation from './components/Navigation'
+import Footer from './components/Footer'
 import SellerNavigation from './components/SellerNavigation'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import SignupScreen from './screens/buyers/Signup'
@@ -70,6 +71,7 @@ function App() {
             />
           </Switch>
         </div>
+        <Footer />
       </div>
     </Router>
   )

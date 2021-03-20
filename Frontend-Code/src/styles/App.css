@@ -197,3 +197,28 @@ a {
   text-align: center;
   align-items: center;
 }
+
+.footer-widget h2 {
+  margin-left: 15px;
+  color: rgb(34, 185, 69);
+}
+
+.footer-widget img {
+  height: 10px;
+  padding-right: 3px;
+}
+
+.footer-widget .contact-info {
+  font-style: italic;
+  font-size: small;
+}
+
+.download-app img {
+  width: 100px;
+  height: 100px;
+}
+
+.social-us img {
+  margin-left: 20px;
+  width: 50px;
+}
