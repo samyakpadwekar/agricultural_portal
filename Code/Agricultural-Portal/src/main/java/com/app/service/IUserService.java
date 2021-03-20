@@ -71,11 +71,11 @@ public interface IUserService {
 
 	List<OrderDetails> getOrdersByBuyerId(int buyerId);
 
-<<<<<<< HEAD
+
 	List<ProductDTO> getProductByNameOrCategory(String searchvalue);
-=======
-	List<Product> getProductByNameOrCategory(String searchvalue);
+
+
 
 	List<ProductCatalogue> getProductCatalogue();
->>>>>>> ad471edb321ecdd238c0fcafc4d530948689e0ff
+
 }

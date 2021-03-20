@@ -58,7 +58,7 @@ const CurrentOrders = () => {
   ]
 
   return (
-    <div>
+    <div className="container">
       <Header title="Your Orders" />
 
       <table>
@@ -113,7 +113,9 @@ const CurrentOrders = () => {
 
                   <td>{p.total_amount}</td>
                   <th>
-                    <button className="btn btn-outline-success" type="submit">
+                    <button
+                      className="btn btn-outline-success mt-1 mb-1"
+                      type="submit">
                       Order Details
                     </button>
                   </th>

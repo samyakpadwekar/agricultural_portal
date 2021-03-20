@@ -16,17 +16,25 @@ import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
 import SellerSignupScreen from './screens/sellers/SellerSignup'
 import ProductListScreen from './screens/sellers/ProductListScreen'
 import AddProductScreen from './screens/sellers/AddProductScreen'
-import ProductCatalogueScreen from "./screens/sellers/ProductCatalogueScreen";
+import ProductCatalogueScreen from './screens/sellers/ProductCatalogueScreen'
 import EditProductScreen from './screens/sellers/EditProductScreen'
 import InventoryScreen from './screens/sellers/InventoryScreen'
 import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
 import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
-import AdminNavigation from "./components/AdminNavigation";
-import ProductReport from "./screens/admin/productreport";
+import AdminNavigation from './components/AdminNavigation'
+import ProductReport from './screens/admin/productreport'
 
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
+import OrderDetails from './screens/buyers/OrderDetails'
+import YourOrders from './screens/buyers/YourOrders'
+import AddAdmin from './screens/admin/addadmin'
+import FeedbackList from './screens/admin/feedbacklist'
+import ComplaintList from './screens/admin/complaintlist'
+import CurrentOrders from './screens/buyers/CurrentOrders'
+import CustomerEditProfileScreen from './screens/buyers/CustomerEditProfile'
+import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
 
 function App() {
   return (
@@ -34,8 +42,8 @@ function App() {
       <div>
         <Navigation />
         <SellerNavigation />
-		<AdminNavigation/>
-        <div className="container">
+        <AdminNavigation />
+        <div>
           <Switch>
             <Route path="/home" component={HomeScreen} />
             <Route path="/signup" exact component={SignupScreen} />
@@ -46,7 +54,7 @@ function App() {
             <Route path="/admin/add-category" component={AddCategory} />
             <Route path="/admin/feedback-list" component={FeedbackList} />
             <Route path="/admin/complaint-list" component={ComplaintList} />
-			 <Route path="/admin/product-report" component={ProductReport} />
+            <Route path="/admin/product-report" component={ProductReport} />
             <Route path="/admin/seller-list" component={SellerList} />
             <Route
               path="/user/edit-profile"
@@ -66,7 +74,10 @@ function App() {
             <Route path="/seller/add-product" component={AddProductScreen} />
             <Route path="/seller/edit-product" component={EditProductScreen} />
             <Route path="/seller/inventory" component={InventoryScreen} />
-            <Route path="/seller/inventory-report" component={InventoryReportScreen} />
+            <Route
+              path="/seller/inventory-report"
+              component={InventoryReportScreen}
+            />
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
 
@@ -82,6 +93,7 @@ function App() {
               path="/user/customer-edit-address-bank"
               component={CustomerEditAddBank}
             />
+            <Route path="/user/order-details" component={OrderDetails} />
           </Switch>
         </div>
         <Footer />

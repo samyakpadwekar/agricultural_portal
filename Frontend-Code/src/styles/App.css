@@ -80,29 +80,29 @@ a {
 
 .admin-nav {
   width: 100%;
- position: fixed;
+  position: fixed;
 }
 
 .buyer-main-div {
   margin-top: 100px;
 }
 
-.admin-signout{
-  position:absolute;right:0;
+.admin-signout {
+  position: absolute;
+  right: 0;
   margin-right: 5rem;
 }
 
 .yourAccount {
   border: solid #ccc 1px;
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 1px 1px 4px 2px #c4c4c4;
   box-shadow: 1px 1px 4px 2px #c4c4c4;
   text-align: center;
+  text-decoration: solid;
 }
-
-
 
 .cart-page .table button.btn-minus {
   border-radius: 4px 0 0 4px;
@@ -243,4 +243,8 @@ a {
   margin: 5px;
   width: 120px;
   height: 35px;
+}
+
+.Grandtotal td {
+  align-items: right;
 }

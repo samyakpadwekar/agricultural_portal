@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 
 const YourOrders = () => {
@@ -58,22 +59,23 @@ const YourOrders = () => {
   ]
 
   return (
-    <div>
+    <div className="container">
       <Header title="Your Orders" />
 
       <table>
         <tr>
-          <td style={{ width: 1000 }}>
-            <a className="padding" href="/user/your-orders">
+          <td>
+            <a className="padding " href="/user/your-orders">
               Order History
             </a>
             <a className="padding" href="/user/current-orders">
               Current Orders
             </a>
           </td>
-          <td style={{ width: 1600 }}>
+
+          <td width={800}>
             {' '}
-            <form className="d-flex col-md-6">
+            <form className="d-flex float-end">
               <input
                 className="form-control me-2"
                 type="search"
@@ -113,9 +115,13 @@ const YourOrders = () => {
 
                   <td>{p.total_amount}</td>
                   <th>
-                    <button className="btn btn-outline-success" type="submit">
-                      Order Details
-                    </button>
+                    <Link to="/user/order-details">
+                      <button
+                        className="btn btn-outline-success mt-1 mb-1"
+                        type="submit">
+                        Order Details
+                      </button>
+                    </Link>
                   </th>
                 </tr>
                 // <div className="block">
