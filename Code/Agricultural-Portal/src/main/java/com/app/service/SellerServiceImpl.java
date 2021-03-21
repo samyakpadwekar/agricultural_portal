@@ -121,9 +121,14 @@ public class SellerServiceImpl implements ISellerService{
 		if(!imageFile.isEmpty())
 		{
 			String name =LocalDateTime.now().toString();
-			 String processed = name.replace(":", "");
+			 String processed = name.replace(":", "")+imageFile.getOriginalFilename();
 			 System.out.println("process"+processed);
-			  imageFile.transferTo(new File(location,processed+imageFile.getOriginalFilename()));
+			  imageFile.transferTo(new File(location,processed));
+			  String
+			  path=location+"/"+processed;
+			  System.out.println("path : "+path);
+			  System.out.println("path bytes "+path.getBytes());
+			  product.setPicture(path.getBytes());
 			
 		}
 		product.setSeller(seller);
