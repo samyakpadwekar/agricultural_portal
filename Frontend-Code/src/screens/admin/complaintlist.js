@@ -1,15 +1,31 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react'
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
+import { getComplaints } from "../../actions/adminActions/complaintAction";
 
 const ComplaintList = (props) => {
-  const testData = [
-    { id: 1,productId:"1", buyerId: "1", status: "RAISED", complaint: "wrong product is sent",},
-    { id: 2,productId:"2", buyerId: "2", status: "RAISED", complaint: "product is faulty",},
-    { id: 3,productId:"3", buyerId: "3", status: "RESOLVED", complaint: "pestcides seal is broken",},
-    { id: 4,productId:"4", buyerId: "4", status: "RAISED", complaint: "sprayer is faulty",},
-    { id: 5,productId:"5", buyerId: "5", status: "RESOLVED", complaint: "vegetables are insects affected",},
-    { id: 6,productId:"6", buyerId: "6", status: "RAISED", complaint: "tractor is faulty",},
-  ];
+
+  // const testData = [
+  //   { id: 1,productId:"1", buyerId: "1", status: "RAISED", complaint: "wrong product is sent",},
+  //   { id: 2,productId:"2", buyerId: "2", status: "RAISED", complaint: "product is faulty",},
+  //   { id: 3,productId:"3", buyerId: "3", status: "RESOLVED", complaint: "pestcides seal is broken",},
+  //   { id: 4,productId:"4", buyerId: "4", status: "RAISED", complaint: "sprayer is faulty",},
+  //   { id: 5,productId:"5", buyerId: "5", status: "RESOLVED", complaint: "vegetables are insects affected",},
+  //   { id: 6,productId:"6", buyerId: "6", status: "RAISED", complaint: "tractor is faulty",},
+  // ];
+
+
+  const dispatch =useDispatch()
+  const complaintlist = useSelector((store)=>store.admincomplaintlist)
+  const { error, response, loading } = complaintlist
+
+  // call this only once (when the page has loaded successfully)
+  useEffect(() => {
+    dispatch(getComplaints())
+  }, [])
+
+  useEffect(() => {}, [error, response, loading])
 
   return (
     <>
@@ -32,13 +48,13 @@ const ComplaintList = (props) => {
                   Search by
                 </button>
                 <ul className="dropdown-menu">
-                  <li>
-                    <span className="dropdown-item" >
+                  <li className="dropdown-item">
+                    <span>
                       Status
                     </span>
                   </li>
-                  <li>
-                    <span className="dropdown-item" >
+                  <li className="dropdown-item" >
+                    <span>
                       Product Id
                     </span>
                   </li>
@@ -82,15 +98,18 @@ const ComplaintList = (props) => {
               </tr>
             </thead>
             <tbody>
-              {testData.map((complaint) => {
+            {response &&
+            response.complaintList &&
+            response.complaintList.length > 0 &&
+            response.complaintList.map((complaint) => {
                 return (
                   <>
                     <tr>
                       <th className="col-1" scope="row">
-                        {complaint.id}
+                        {complaint.complaintId}
                       </th>
                       <td className="col-1">{complaint.productId}</td>
-                      <td className="col-1">{complaint.buyerId}</td>
+                      <td className="col-1">{complaint.userId}</td>
                       <td className="col-2">{complaint.complaint}</td>
                       <td className="col-2">{complaint.status}</td>
                       <td className="col-2">

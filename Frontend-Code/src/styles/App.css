@@ -1,3 +1,17 @@
+/* App.js Styling */
+html, body, #app, #app>div {
+  height: 100%
+}
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Buyer Nav borders */
+.upper-nav{
+  border: 2px solid rgb(225, 225, 225);
+}
+
 .search-box .btn-light {
   border: 1px solid #ced4da;
 }
@@ -247,4 +261,23 @@ a {
 
 .Grandtotal td {
   align-items: right;
+}
+
+/* footer css */
+.footer-text {
+  font-style: normal;
+  color: #000000;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: max-content;
+    width: 100%;
+}
+
+/* span css inside dropdowns */
+span{
+  color: #0e0d0d;
 }

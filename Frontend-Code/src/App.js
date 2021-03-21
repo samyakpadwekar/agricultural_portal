@@ -1,7 +1,10 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import SellerNavigation from './components/SellerNavigation'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import CustomerNavbar from './components/CustomerNavbar'
+import BuyerNav from './components/BuyerNav'
+
 import SignupScreen from './screens/buyers/Signup'
 import Buyerlist from './screens/admin/buyerslist'
 import CategoryList from './screens/admin/categorylist'
@@ -38,11 +41,13 @@ import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Navigation />
-        <SellerNavigation />
-        <AdminNavigation />
+     <Router>
+      <div className="App">
+        {/* <Navigation /> */}
+        {/* <SellerNavigation /> */}
+		    <AdminNavigation/>
+        {/* <CustomerNavbar/> */}
+        {/* <BuyerNav/> */}
         <div>
           <Switch>
             <Route path="/home" component={HomeScreen} />
