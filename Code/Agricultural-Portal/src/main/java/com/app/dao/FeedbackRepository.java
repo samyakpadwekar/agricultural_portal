@@ -11,4 +11,6 @@ import com.app.pojos.Feedback;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
 
+	List<Feedback> findAllByProductId(Integer productId);
+
 }

@@ -80,4 +80,7 @@ public interface IUserService {
 	List<ProductCatalogue> getProductCatalogue();
 	List<OrderDetails> getOrderDetails(Integer id);
 
+	List<Feedback> getFeedbacksByProductId(Integer productId);
+
+
 }

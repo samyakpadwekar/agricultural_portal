@@ -2,44 +2,32 @@ import Header from "../../components/Header";
 import axios from 'axios';
 import { useState, useEffect } from "react";
 
-const InventoryReportScreen = (props) => {
+const ProductFeedbackScreen = (props) => {
   
   const initValue = [
     {
+      "fid": 2,
+      "userId": 2,
       "productId": 11,
-      "productCatalogue": {
-          "productUid": 4,
-          "productName": "Tractor"
-      },
-      "brandName": "JD",
-      "productDescription": "Heavy duty",
-      "category": {
-          "categoryId": 1,
-          "catName": "Machinery",
-          "description": "",
-          "picture": null
-      },
-      "price": 1100000.0,
-      "seller": null,
-      "unitsStock": 20,
-      "unitsSold": 0,
-      "discount": 10.0,
-      "avgRating": 0.0,
-      "picture": null
-  }
+      "feedback": "Bad quality",
+      "rating": 3.0,
+      "user": null,
+      "product": null
+    }
   ]
-  const [products, setProducts] = useState(initValue);
+  const [feedbacks, setFeedbacks] = useState(initValue);
   useEffect(() => {
-    getAllProducts();
+    getAllFeedbacks();
   },[]);
   // sessionStorage.setItem('sellerId',1);
-  const url = 'http://localhost:8080/seller/inventory-report/'+sessionStorage.getItem('sellerId');
+  console.log("productId = "+props.location.state.productId)
+  const url = 'http://localhost:8080/admin/customer-feedbacks/'+props.location.state.productId;
   const header = {
     headers: {
       'Content-Type': 'application/json',
     },
   }
-  const getAllProducts = () => {
+  const getAllFeedbacks = () => {
     axios
     .get(url, header)
     .then((response) => {
@@ -49,20 +37,18 @@ const InventoryReportScreen = (props) => {
         // props.history.push("/seller/home");
       }
 
-      const allProducts = response.data.productList;
-      setProducts(allProducts);
+      const allFeedbacks = response.data.feedbackList;
+      setFeedbacks(allFeedbacks);
     })
-    .catch((error) => {
-      alert("Servers down")
+    .catch((error) => 
       console.error(`Error: ${error}`)
-    }
     )
   }
 
   return (
-    <div className="col-md-9 mx-auto">
+    <div className="col-md-6 mx-auto">
       <div>
-        <Header title="Inventory Report" />
+        <Header title="Feedbacks" />
       </div>
       <div>
       {/* <form className="d-flex col-md-4 mx-auto">
@@ -85,20 +71,17 @@ const InventoryReportScreen = (props) => {
         >
           <thead>
             <tr>
-              <th>ProductId</th>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Units in stock</th>
+              <th>Feedback</th>
+              <th>Rating</th>
             </tr>
           </thead>
           <tbody>
-            {products && products.map((product) => {
+            {feedbacks && feedbacks.map((f) => {
               return (
                 <tr>
-                  <td>{product.productId}</td>
-                  <td>{product.productCatalogue.productName}</td>
-                  <td>{product.category.catName}</td>
-                  <td>{product.unitsStock}</td>
+                  <td>{f.feedback}</td>
+                  <td>{f.rating}</td>
+                  
                 </tr>
               );
             })}
@@ -109,4 +92,4 @@ const InventoryReportScreen = (props) => {
   );
 };
 
-export default InventoryReportScreen;
+export default ProductFeedbackScreen;

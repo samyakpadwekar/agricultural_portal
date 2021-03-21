@@ -25,9 +25,10 @@ import InventoryScreen from './screens/sellers/InventoryScreen'
 import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
 import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
+import ProductFeedbackScreen from './screens/sellers/ProductFeedbackScreen'
+
 import AdminNavigation from './components/AdminNavigation'
 import ProductReport from './screens/admin/productreport'
-
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
 import OrderDetails from './screens/buyers/OrderDetails'
@@ -65,6 +66,8 @@ function App() {
               path="/user/edit-profile"
               component={UserEditProfileScreen}
             />
+
+            
             <Route
               path="/seller/edit-profile"
               component={SellerEditProfileScreen}
@@ -85,6 +88,9 @@ function App() {
             />
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
+            <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
+
+
 
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />
