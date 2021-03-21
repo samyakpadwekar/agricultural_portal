@@ -84,6 +84,9 @@ public class SellerController {
 	public ResponseEntity<?> inventoryReport(@PathVariable Integer sellerId) {
 		System.out.println("in inventory report of seller");
 		List<ProductDTO> productList = sellerService.getAllProductsBySellerId(sellerId);
+		for (ProductDTO p : productList) {
+			p.setSeller(null);
+		}
 		if (productList.size() == 0)
 			return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.NO_CONTENT);
 		return new ResponseEntity<ProductList>(new ProductList(productList), HttpStatus.OK);
