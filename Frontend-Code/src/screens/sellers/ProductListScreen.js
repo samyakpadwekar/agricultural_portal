@@ -1,6 +1,56 @@
 import Header from "../../components/Header";
+import axios from 'axios';
+import { useState, useEffect } from "react";
 
 const ProductListScreen = (props) => {
+  
+  const initValue = [
+    {
+      "productId": 3,
+      "productCatalogue": {
+          "productUid": 3,
+          "productName": "Wheat"
+      },
+      "brandName": "Khet",
+      "productDescription": "Genhu",
+      "category": {
+          "categoryId": 3,
+          "catName": "Crops",
+          "description": "Wheat,rice,sugarcane etc"
+      },
+      "price": 200.0,
+      "unitsStock": 80,
+      "unitsSold": 40,
+      "discount": 10.0,
+      "avgRating": 0.0,
+      "picture": null
+  }
+  ]
+  const [products, setProducts] = useState(initValue);
+  useEffect(() => {
+    getAllProducts();
+  },[]);
+  sessionStorage.setItem('sellerId',1);
+  const url = 'http://localhost:8080/seller/list-sellers-products/'+sessionStorage.getItem('sellerId');
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  const getAllProducts = () => {
+    axios
+    .get(url, header)
+    .then((response) => {
+      const allProducts = response.data.productList;
+      setProducts(allProducts);
+    })
+    .catch((error) => 
+      console.error(`Error: ${error}`)
+    )
+  }
+  
+  
+
   const onAddProduct = () => {
     props.history.push("/seller/product-catalogue");
   };
@@ -13,15 +63,6 @@ const ProductListScreen = (props) => {
     props.history.push("/seller/product-list");
   };
 
-  const productList = [
-    {
-      produtId: 1,
-      productName: "product2",
-      category: "cat1",
-      unitPrice: 100.0,
-      discount: 10,
-    },
-  ];
   return (
     <div>
       <div>
@@ -47,14 +88,16 @@ const ProductListScreen = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productList.map((product) => {
+            {console.log(products)}
+            {products.map((product) => {
               return (
-                <tr>
-                  <td>{product.produtId}</td>
-                  <td>{product.productName}</td>
-                  <td>{product.category}</td>
-                  <td>{product.unitPrice}</td>
+                <tr key={product.productId}>
+                  <td>{product.productId}</td>
+                  <td>{product.productCatalogue.productName}</td>
+                  <td>{product.category.catName}</td>
+                  <td>{product.price}</td>
                   <td>{product.discount}</td>
+                  {/* {setSelectedProductId(product.productId)} */}
                   <td>
                     <button
                       className="btn btn-outline-warning"
@@ -74,6 +117,7 @@ const ProductListScreen = (props) => {
             })}
           </tbody>
         </table>
+        
       </div>
     </div>
   );
