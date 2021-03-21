@@ -1,26 +1,68 @@
 import Header from "../../components/Header";
+import axios from 'axios';
+import { useState, useEffect } from "react";
 
 const InventoryReportScreen = (props) => {
   
+  const initValue = [
+    {
+      "productId": 11,
+      "productCatalogue": {
+          "productUid": 4,
+          "productName": "Tractor"
+      },
+      "brandName": "JD",
+      "productDescription": "Heavy duty",
+      "category": {
+          "categoryId": 1,
+          "catName": "Machinery",
+          "description": "",
+          "picture": null
+      },
+      "price": 1100000.0,
+      "seller": null,
+      "unitsStock": 20,
+      "unitsSold": 0,
+      "discount": 10.0,
+      "avgRating": 0.0,
+      "picture": null
+  }
+  ]
+  const [products, setProducts] = useState(initValue);
+  useEffect(() => {
+    getAllProducts();
+  },[]);
+  // sessionStorage.setItem('sellerId',1);
+  const url = 'http://localhost:8080/seller/inventory-report/'+sessionStorage.getItem('sellerId');
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  const getAllProducts = () => {
+    axios
+    .get(url, header)
+    .then((response) => {
+      console.log(response)
+      if(response.status == 204){
+        // alert("No products found!")
+        // props.history.push("/seller/home");
+      }
 
-  const productList = [
-    {
-      produtId: 1,
-      productName: "product2",
-      category: "category",
-      unitsStock: 1200,
-    },
-    {
-      produtId: 1,
-      productName: "product2",
-      category: "category",
-      unitsStock: 1200,
-    },
-  ];
+      const allProducts = response.data.productList;
+      setProducts(allProducts);
+    })
+    .catch((error) => {
+      alert("Servers down")
+      console.error(`Error: ${error}`)
+    }
+    )
+  }
+
   return (
     <div className="col-md-9 mx-auto">
       <div>
-        <Header title="Your Inventory" />
+        <Header title="Inventory Report" />
       </div>
       <div>
       {/* <form className="d-flex col-md-4 mx-auto">
@@ -50,13 +92,13 @@ const InventoryReportScreen = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productList.map((product) => {
+            {products && products.map((product) => {
               return (
                 <tr>
-                  <td>{product.produtId}</td>
-                  <td>{product.productName}</td>
-                  <td>{product.category}</td>
-                  <td>{product.unitsStock}</td>                  
+                  <td>{product.productId}</td>
+                  <td>{product.productCatalogue.productName}</td>
+                  <td>{product.category.catName}</td>
+                  <td>{product.unitsStock}</td>
                 </tr>
               );
             })}

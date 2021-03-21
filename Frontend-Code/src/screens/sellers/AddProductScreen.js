@@ -69,7 +69,7 @@ const AddProductScreen = (props) => {
     //     'Content-Type': 'application/json',
     //   },
     // }
-    sessionStorage.setItem('sellerId',1); //change this after sign in
+    // sessionStorage.setItem('sellerId',4); //change this after sign in
     const url2 = 'http://localhost:8080/seller/add-product/'+sessionStorage.getItem('sellerId')+'/'+selectedCategoryId;
     axios
       .post(url2, formData)
@@ -123,7 +123,7 @@ const AddProductScreen = (props) => {
             })
           }}>
             <option defaultValue >Select category</option>
-            {
+            {cats &&
               cats.map((cat) => {
                 return (
                   <option value={cat.categoryId} >{cat.catName}</option>
