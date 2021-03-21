@@ -309,6 +309,11 @@ public class UserServiceImpl implements IUserService {
 		return productCatalRepo.findAllByOrderByProductUid();
 	}
 
+	@Override
+	public List<Feedback> getFeedbacksByProductId(Integer productId) {
+		return feedRepo.findAllByProductId(productId);
+	}
+
 
 
 }

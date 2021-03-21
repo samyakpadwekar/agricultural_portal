@@ -159,6 +159,16 @@ public class AdminController {
 		return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/customer-feedbacks/{productId}")
+	public ResponseEntity<?> getAllFeedbacks(@PathVariable Integer productId){
+		System.out.println("in admin get sellers feedbacks");
+		List<Feedback> feedbackList = userService.getFeedbacksByProductId(productId);
+		if (!feedbackList.isEmpty()) {
+			return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/product-report")
 	public ResponseEntity<?> projectReport()
 	{
