@@ -38,6 +38,7 @@ import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
+import com.app.pojos.Order;
 import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.ProductCatalogue;
@@ -48,6 +49,9 @@ import com.app.pojos.Wishlist;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
+	
+	@Autowired
+	private OrderDetailsRepository orderDtlsRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -209,7 +213,7 @@ public class UserServiceImpl implements IUserService {
 		if(product.getAvgRating()!=null)
 			product.setAvgRating((productFeedbackDto.getRating()+product.getAvgRating())/2);
 		product.setAvgRating(productFeedbackDto.getRating());
-		System.out.println("before save ------------------------>");
+		
 		try {
 			feedRepo.save(feedback);
 		} catch (RuntimeException e) {			
@@ -284,10 +288,11 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public List<OrderDetails> getOrdersByBuyerId(int buyerId) {
-		System.out.println("ByerId :" + buyerId);
-		int orderId=orderRepo.findByBuyerUserId(buyerId).getOrderId();
-		return orderDetRepo.findByOrderOrderId(orderId);
+	public List<Order> getOrdersByBuyerId(int buyerId) {
+		
+		List<Order> orderList=orderRepo.findByBuyerUserId(buyerId);
+		
+		return orderList;
 	}
 	
 	@Override
@@ -308,6 +313,14 @@ public class UserServiceImpl implements IUserService {
 	public List<ProductCatalogue> getProductCatalogue() {
 		return productCatalRepo.findAllByOrderByProductUid();
 	}
+
+	@Override
+	public List<OrderDetails> getOrderDetails(Integer id) {
+		
+		return orderDtlsRepo.findAllByOrderOrderId(id);
+	}
+	
+	
 
 
 

@@ -15,6 +15,7 @@ import com.app.enums.SellerStatus;
 import com.app.pojos.Category;
 import com.app.pojos.Complaint;
 import com.app.pojos.Feedback;
+import com.app.pojos.Order;
 import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.ProductCatalogue;
@@ -69,7 +70,7 @@ public interface IUserService {
 	
 	List<ProductReportDto> productReport();
 
-	List<OrderDetails> getOrdersByBuyerId(int buyerId);
+	List<Order> getOrdersByBuyerId(int buyerId);
 
 
 	List<ProductDTO> getProductByNameOrCategory(String searchvalue);
@@ -77,5 +78,6 @@ public interface IUserService {
 
 
 	List<ProductCatalogue> getProductCatalogue();
+	List<OrderDetails> getOrderDetails(Integer id);
 
 }

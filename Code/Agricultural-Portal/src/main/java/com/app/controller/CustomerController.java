@@ -23,6 +23,7 @@ import com.app.dto.SellerCompDTO;
 import com.app.dto.SellerList;
 import com.app.dto.WishlistDTO;
 import com.app.pojos.Category;
+import com.app.pojos.Order;
 import com.app.pojos.OrderDetails;
 import com.app.pojos.Product;
 import com.app.pojos.Seller;
@@ -131,14 +132,23 @@ public class CustomerController {
 	    public ResponseEntity<?> getAllOrders(@PathVariable Integer buyerId)
 		{
 			System.out.println("in getAllOrders : "+buyerId);
-			List<OrderDetails> orderlist= userService.getOrdersByBuyerId(buyerId);
+			List<Order> orderlist= userService.getOrdersByBuyerId(buyerId);
 			System.out.println("Sellerlist : "+orderlist);
 			if(orderlist.isEmpty())
 			{
-				return new ResponseEntity<>(new OrderDTO(orderlist), HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(orderlist, HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(new OrderDTO(orderlist), HttpStatus.OK);
+			return new ResponseEntity<>(orderlist, HttpStatus.OK);
 		}
+	    
+	    @GetMapping("/order-details/{oid}")
+	    public ResponseEntity<?> getOrderDetails(@PathVariable Integer oid)
+	    { 
+	    	List<OrderDetails> orderList=userService.getOrderDetails(oid);
+	    	if(orderList!=null)
+	    		return new ResponseEntity<>(new OrderDTO(orderList), HttpStatus.OK);
+	    	return new ResponseEntity<>(orderList, HttpStatus.NO_CONTENT);
+	    } 
 	    
 	  //search bar functionality to search products by product name and category name
 	    @GetMapping("/search/{searchvalue}")

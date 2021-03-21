@@ -15,9 +15,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	
 	Order findFirstByOrderByOrderIdDesc();
 
-	Order findByBuyerUserId(int user);
+	List<Order> findByBuyerUserId(int user);
 	
 	@Query("select o FROM Order o WHERE o.orderDate >=:tD")
 	List<Order> findAllByOrderDateGreaterThanEqual(@Param("tD") LocalDateTime orderDate);
+
 
 }
