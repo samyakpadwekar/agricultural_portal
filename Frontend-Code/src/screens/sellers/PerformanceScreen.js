@@ -1,19 +1,62 @@
 import Header from "../../components/Header";
+import axios from 'axios';
+import { useState, useEffect } from "react";
 
 const PerformanceScreen = (props) => {
 
-  const productCatalogue = [
+  const initValue = [
     {
-      produtId: 1,
-      productName: "product2",
-      avgRating:3.9
+      "productId": 0,
+      "productCatalogue": {
+          "productUid": 0,
+          "productName": ""
+      },
+      "brandName": "",
+      "productDescription": "",
+      "category": {
+          "categoryId": 0,
+          "catName": "",
+          "description": ""
+      },
+      "price": 0.0,
+      "unitsStock": 0,
+      "unitsSold": 0,
+      "discount": 0.0,
+      "avgRating": 0.0,
+      "picture": null
+  }
+  ]
+  const [products, setProducts] = useState(initValue);
+  useEffect(() => {
+    getAllProducts();
+  },[]);
+  // sessionStorage.setItem('sellerId',1);
+  const url = 'http://localhost:8080/seller/list-sellers-products/'+sessionStorage.getItem('sellerId');
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
     },
-    {
-      produtId: 2,
-      productName: "product2",
-      avgRating:4.1
-    },
-  ];
+  }
+  const getAllProducts = () => {
+    axios
+    .get(url, header)
+    .then((response) => {
+      if(response.status == 204){
+        // setMsg("No products");
+      }
+      const allProducts = response.data.productList;
+      setProducts(allProducts);
+    })
+    .catch((error) => 
+      console.error(`Error: ${error}`)
+    )
+  }
+
+
+  const onGetFeedback = (product) => {
+    props.history.push("/seller/product-feedback/", product);
+  };
+  
   return (
     <div>
       <div>
@@ -33,16 +76,18 @@ const PerformanceScreen = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productCatalogue.map((product) => {
+            {products && products.map((product) => {
               return (
                 <tr>
-                  <td>{product.produtId}</td>
-                  <td>{product.productName}</td>
+                  <td>{product.productId}</td>
+                  <td>{product.productCatalogue.productName}</td>
                   <td>{product.avgRating}</td>
                   <td>
                   <button
                       className="btn btn-outline-secondary"
-                      
+                      onClick={(e) =>
+                        onGetFeedback(product)
+                      }
                     >
                       View Feedbacks
                     </button>

@@ -3,25 +3,25 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 
 const ProductListScreen = (props) => {
-  
+  // const [msg, setMsg] = useState('');
   const initValue = [
     {
-      "productId": 3,
+      "productId": 0,
       "productCatalogue": {
-          "productUid": 3,
-          "productName": "Wheat"
+          "productUid": 0,
+          "productName": ""
       },
-      "brandName": "Khet",
-      "productDescription": "Genhu",
+      "brandName": "",
+      "productDescription": "",
       "category": {
-          "categoryId": 3,
-          "catName": "Crops",
-          "description": "Wheat,rice,sugarcane etc"
+          "categoryId": 0,
+          "catName": "",
+          "description": ""
       },
-      "price": 200.0,
-      "unitsStock": 80,
-      "unitsSold": 40,
-      "discount": 10.0,
+      "price": 0.0,
+      "unitsStock": 0,
+      "unitsSold": 0,
+      "discount": 0.0,
       "avgRating": 0.0,
       "picture": null
   }
@@ -30,7 +30,7 @@ const ProductListScreen = (props) => {
   useEffect(() => {
     getAllProducts();
   },[]);
-  sessionStorage.setItem('sellerId',1);
+  // sessionStorage.setItem('sellerId',1);
   const url = 'http://localhost:8080/seller/list-sellers-products/'+sessionStorage.getItem('sellerId');
   const header = {
     headers: {
@@ -41,15 +41,18 @@ const ProductListScreen = (props) => {
     axios
     .get(url, header)
     .then((response) => {
+      if(response.status == 204){
+        // setMsg("No products");
+      }
       const allProducts = response.data.productList;
       setProducts(allProducts);
     })
-    .catch((error) => 
+    .catch((error) => {
+      alert("Servers down")
       console.error(`Error: ${error}`)
+    }
     )
   }
-  
-  
 
   const onAddProduct = () => {
     props.history.push("/seller/product-catalogue");
@@ -89,7 +92,7 @@ const ProductListScreen = (props) => {
           </thead>
           <tbody>
             {console.log(products)}
-            {products.map((product) => {
+            {products && products.map((product) => {
               return (
                 <tr key={product.productId}>
                   <td>{product.productId}</td>
