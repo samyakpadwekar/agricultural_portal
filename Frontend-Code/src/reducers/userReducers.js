@@ -1,4 +1,7 @@
 import {
+  USER_CART_FETCHING_FAIL,
+  USER_CART_FETCHING_REQUEST,
+  USER_CART_FETCHING_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
@@ -30,6 +33,19 @@ export const userSignupReducer = (state = {}, action) => {
     case USER_SIGNUP_SUCCESS:
       return { loading: false, response: action.payload }
     case USER_SIGNUP_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userCartReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_CART_FETCHING_REQUEST:
+      return { loading: true }
+    case USER_CART_FETCHING_SUCCESS:
+      return { loading: false, response: action.payload }
+    case USER_CART_FETCHING_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

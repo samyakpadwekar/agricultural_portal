@@ -89,3 +89,33 @@ export const signup = (
       })
   }
 }
+
+export const getCartItems = (buyerId) => {
+  return (dispatch) => {
+    dispatch({
+      type: USER_CART_FETCHING_REQUEST,
+    })
+
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const url = 'http://localhost:8080//user/cart/' + buyerId
+    axios
+      .get(url, header)
+      .then((response) => {
+        dispatch({
+          type: USER_CART_FETCHING_SUCCESS,
+          payload: response.data,
+        })
+      })
+      .catch((error) => {
+        dispatch({
+          type: USER_CART_FETCHING_FAIL,
+          payload: error,
+        })
+      })
+  }
+}
