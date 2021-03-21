@@ -1,24 +1,30 @@
 import Header from "../../components/Header";
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getProductCatalogue } from '../../actions/productActions'
 
 const ProductCatalogueScreen = (props) => {
-  const onAddProduct = () => {
-    props.history.push("/seller/add-product");
+  const dispatch = useDispatch()
+  const productCatalogue = useSelector((store) => store.productCatalogue)
+  const {error, response, loading} = productCatalogue
+  useEffect(() => {
+    dispatch( getProductCatalogue() )
+  }, [])
+
+  useEffect(() => {}, [error, response, loading])
+
+  const onAddProduct = (product) => {
+    props.history.push("/seller/add-product/", product);
   };
 
-  const productCatalogue = [
-    {
-      produtUId: 1,
-      productName: "product2",
-    },
-  ];
   return (
     <div>
       <div>
         <Header title="Product Catalogue" />
       </div>
-      <div className="col-md-10 mx-auto">
+      <div className="col-md-6 mx-auto">
         <table
-          className="table table-stripped table-hover"
+          className="table table-bordered table-hover"
           style={{ textAlign: "center" }}
         >
           <thead>
@@ -29,22 +35,27 @@ const ProductCatalogueScreen = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productCatalogue.map((product) => {
-              return (
-                <tr>
-                  <td>{product.produtUId}</td>
-                  <td>{product.productName}</td>
-                  <td>
-                    <button
-                      onClick={onAddProduct}
-                      className="btn btn-outline-primary"
-                    >
-                      Add
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {
+              response && response.length > 0 && 
+              response.map((product) => {
+                return (
+                  <tr key={product.productUid}>
+                    <td>{product.productUid}</td>
+                    <td>{product.productName}</td>
+                    <td>
+                      <button
+                        onClick={(e) =>
+                          onAddProduct(product)
+                        }
+                        className="btn btn-outline-primary"
+                      >
+                        Add
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
