@@ -163,6 +163,10 @@ public class AdminController {
 	public ResponseEntity<?> getAllFeedbacks(@PathVariable Integer productId){
 		System.out.println("in admin get sellers feedbacks");
 		List<Feedback> feedbackList = userService.getFeedbacksByProductId(productId);
+		for (Feedback f : feedbackList) {
+			f.setProduct(null);
+			f.setUser(null);
+		}
 		if (!feedbackList.isEmpty()) {
 			return new ResponseEntity<>(new FeedbackList(feedbackList), HttpStatus.OK);
 		}
