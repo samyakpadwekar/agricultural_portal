@@ -81,6 +81,10 @@ public interface IUserService {
 	List<OrderDetails> getOrderDetails(Integer id);
 
 	List<Feedback> getFeedbacksByProductId(Integer productId);
+// <<<<<<< HEAD
+// =======
+	
+// >>>>>>> 48c6d15249699b36c1b0d34030bd597463cfbeda
 	List<Product> getAllProducts();
 
 

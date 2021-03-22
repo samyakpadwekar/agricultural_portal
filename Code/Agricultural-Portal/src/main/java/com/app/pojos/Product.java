@@ -41,7 +41,11 @@ public class Product {
 	@NotNull(message = "required")
 	private double price;
 
-//	@JsonIgnore
+// <<<<<<< HEAD
+// //	@JsonIgnore
+// =======
+// 	//@JsonIgnore
+// >>>>>>> 48c6d15249699b36c1b0d34030bd597463cfbeda
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;

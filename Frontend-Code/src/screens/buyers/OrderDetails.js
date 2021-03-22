@@ -1,9 +1,42 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 
-const OrderDetails = () => {
+const OrderDetails = (props) => {
+  // console.log(props.location.state.productId)
+  const [orderDetails, setOrderDetails] = useState()
+
+  let sum = 0
+
+  useEffect(() => {
+    getAllOrders()
+  }, [])
+
+  const url =
+    'http://localhost:8080/customer/order-details/' +
+    props.location.state.orderId
+
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  const getAllOrders = () => {
+    axios
+      .get(url, header)
+      .then((response) => {
+        const temp = response.data
+        setOrderDetails(temp)
+        console.log(temp)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
+  }
+
   return (
     <div>
       <Header title="Order Details" />
+
       <div className="container">
         <div className="row">
           <div className="col-md-8 mx-auto">
@@ -18,41 +51,16 @@ const OrderDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>name</td>
-                  <td>quantity</td>
-                  <td>price</td>
-                  <td>discount</td>
-                  <td>total</td>
-                </tr>
-                <tr>
-                  <td>name</td>
-                  <td>quantity</td>
-                  <td>price</td>
-                  <td>discount</td>
-                  <td>total</td>
-                </tr>
-                <tr>
-                  <td>name</td>
-                  <td>quantity</td>
-                  <td>price</td>
-                  <td>discount</td>
-                  <td>total</td>
-                </tr>
-                <tr>
-                  <td>name</td>
-                  <td>quantity</td>
-                  <td>price</td>
-                  <td>discount</td>
-                  <td>total</td>
-                </tr>
-                <tr>
-                  <td>name</td>
-                  <td>quantity</td>
-                  <td>price</td>
-                  <td>discount</td>
-                  <td>total</td>
-                </tr>
+                {orderDetails &&
+                  orderDetails.orderlist.map((o) => (
+                    <tr total={(sum += o.total)}>
+                      <td>{o.product.productCatalogue.productName}</td>
+                      <td>{o.quantity}</td>
+                      <td>{o.product.price}</td>
+                      <td>{o.product.discount}</td>
+                      <td>{o.total}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
 
@@ -64,7 +72,7 @@ const OrderDetails = () => {
                     <input
                       className="boldCenter"
                       btn-outline-warning
-                      value="5000"
+                      value={sum}
                       readOnly="true"
                     />
                   </div>

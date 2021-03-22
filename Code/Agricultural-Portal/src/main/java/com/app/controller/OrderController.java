@@ -10,6 +10,7 @@ import com.app.service.IOrderService;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin
 public class OrderController {
 
 	@Autowired

@@ -1,24 +1,96 @@
 import Header from "../../components/Header";
+import axios from 'axios';
+import { useState, useEffect } from "react";
+
 
 const InventoryScreen = (props) => {
-  const onRestockProduct = () => {
-    props.history.push("/seller/inventory");
+  let quantity = 0;
+  let productId = 0;
+  
+  useEffect(() => {
+    getAllProducts();
+    console.log('inside useeffect')
+  },[]);
+
+  const onRestockProduct = (quantity, productId) => {
+    console.log("state = "+quantity+" "+productId)
+    const header2 = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const body = {
+      productId,
+      quantity
+    }
+    const url2 = 'http://localhost:8080/seller/restock';
+    axios
+      .put(url2, body, header2)
+      .then((response) => {
+        console.log(response.data)
+        alert("Poduct restocked successfully!");
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`)
+        alert("Failed to restock!")
+      })
+      props.history.push('/seller/home')
   };
 
-  const productList = [
+
+  const initValue = [
     {
-      produtId: 1,
-      productName: "product2",
-      category: "category",
-      unitsStock: 1200,
+      "productId": 11,
+      "productCatalogue": {
+          "productUid": 4,
+          "productName": "Tractor"
+      },
+      "brandName": "JD",
+      "productDescription": "Heavy duty",
+      "category": {
+          "categoryId": 1,
+          "catName": "Machinery",
+          "description": "",
+          "picture": null
+      },
+      "price": 1100000.0,
+      "seller": null,
+      "unitsStock": 20,
+      "unitsSold": 0,
+      "discount": 10.0,
+      "avgRating": 0.0,
+      "picture": null
+  }
+  ]
+  const [products, setProducts] = useState(initValue);
+  
+  sessionStorage.setItem('sellerId',1);
+  const url = 'http://localhost:8080/seller/inventory-report/'+sessionStorage.getItem('sellerId');
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
     },
-    {
-      produtId: 1,
-      productName: "product2",
-      category: "category",
-      unitsStock: 1200,
-    },
-  ];
+  }
+  const getAllProducts = () => {
+    axios
+    .get(url, header)
+    .then((response) => {
+      console.log(response)
+      if(response.status == 204){
+        // alert("No products found!")
+        // props.history.push("/seller/home");
+      }
+
+      const allProducts = response.data.productList;
+      setProducts(allProducts);
+    })
+    .catch((error) => {
+      alert("Servers down")
+      console.error(`Error: ${error}`)
+    }
+    )
+  }
+
   return (
     <div className="col-md-9 mx-auto">
       <div>
@@ -53,90 +125,37 @@ const InventoryScreen = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productList.map((product) => {
+            {products && products.map((product) => {
               return (
                 <tr>
-                  <td>{product.produtId}</td>
-                  <td>{product.productName}</td>
-                  <td>{product.category}</td>
+                  <td>{product.productId}</td>
+                  <td>{product.productCatalogue.productName}</td>
+                  <td>{product.category.catName}</td>
                   <td>{product.unitsStock}</td>
 
                   <td>
-                    {/* <table style={{}}>
+                    <table>
                       <tr >
-                        <td ><input type="number" style={{width:'80px'}} /></td>
+                        <td >
+                          <input type="number" style={{width:'80px'}} 
+                            onChange={(e) => {
+                              quantity = e.target.value
+                            }} />
+                        </td>
                         <td>
                           <button
-                            onClick={onRestockProduct}
+                            onClick={() => {
+                              getAllProducts();
+                              productId = product.productId
+                              onRestockProduct(quantity, productId)
+                            }}
                             className="btn btn-outline-primary"
                           >
                             Restock
                           </button>
                         </td>
                       </tr>
-                    </table> */}
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      data-bs-whatever="@mdo"
-                    >
-                      Restock Product
-                    </button>
-                    <div
-                      class="modal fade"
-                      id="exampleModal"
-                      tabindex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                              New message
-                            </h5>
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="mb-3">
-                                <label
-                                  for="recipient-name"
-                                  class="col-form-label"
-                                >
-                                  Enter units:
-                                </label>
-                                <input
-                                  type="number"
-                                  class="form-control mx-auto"
-                                  id="quantity"
-                                  style={{width:'100px'}}
-                                />
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                            <button type="button" onClick={onRestockProduct} data-bs-dismiss="modal" class="btn btn-primary">
-                              Restock
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </table>
                   </td>
                 </tr>
               );

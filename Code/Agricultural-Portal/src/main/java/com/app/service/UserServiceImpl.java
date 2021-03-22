@@ -319,7 +319,7 @@ public class UserServiceImpl implements IUserService {
 		return orderDtlsRepo.findAllByOrderOrderId(id);
 	}
 
-	@Override
+
 	public List<Feedback> getFeedbacksByProductId(Integer productId) {
 		return feedRepo.findAllByProductId(productId);
 	}
@@ -329,5 +329,12 @@ public class UserServiceImpl implements IUserService {
 		
 		return productRepo.findAllDetails();
 	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		
+		return productRepo.findAllDetails();
+	}
+
 
 }

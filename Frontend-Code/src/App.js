@@ -4,15 +4,23 @@ import Footer from './components/Footer'
 import SellerNavigation from './components/SellerNavigation'
 import CustomerNavbar from './components/CustomerNavbar'
 import BuyerNav from './components/BuyerNav'
+import AdminNavigation from './components/AdminNavigation'
 
-import SignupScreen from './screens/buyers/Signup'
+import LoginScreen from './screens/users/LoginScreen'
+import HomeScreen from './screens/users/HomeScreen'
+import UserEditProfileScreen from './screens/users/UserEditProfileScreen'
+
 import Buyerlist from './screens/admin/buyerslist'
 import CategoryList from './screens/admin/categorylist'
 import AddCategory from './screens/admin/addcategory'
 import SellerList from './screens/admin/sellerlist'
-import LoginScreen from './screens/users/LoginScreen'
-import HomeScreen from './screens/users/HomeScreen'
-import UserEditProfileScreen from './screens/users/UserEditProfileScreen'
+import AddAdmin from './screens/admin/addadmin'
+import FeedbackList from './screens/admin/feedbacklist'
+import ComplaintList from './screens/admin/complaintlist'
+import ProductReport from './screens/admin/productreport'
+import MonthlyRevenue from './screens/admin/MonthlyRevenue'
+import ProdRepGraph from './screens/admin/prodRepGraph'
+import AdminPage from './screens/admin/adminpage'
 
 import SellerHomeScreen from './screens/sellers/SellerHomeScreen'
 import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
@@ -26,16 +34,13 @@ import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
 import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
 import ProductFeedbackScreen from './screens/sellers/ProductFeedbackScreen'
+import SellerOrderDetailsScreen from './screens/sellers/SellerOrderDetails'
 
-import AdminNavigation from './components/AdminNavigation'
-import ProductReport from './screens/admin/productreport'
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
 import OrderDetails from './screens/buyers/OrderDetails'
 import YourOrders from './screens/buyers/YourOrders'
-import AddAdmin from './screens/admin/addadmin'
-import FeedbackList from './screens/admin/feedbacklist'
-import ComplaintList from './screens/admin/complaintlist'
+import SignupScreen from './screens/buyers/Signup'
 import CurrentOrders from './screens/buyers/CurrentOrders'
 import CustomerEditProfileScreen from './screens/buyers/CustomerEditProfile'
 import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
@@ -89,6 +94,7 @@ function App() {
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
             <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
+            <Route path="/seller/order-details" component={SellerOrderDetailsScreen} />
 
 
 

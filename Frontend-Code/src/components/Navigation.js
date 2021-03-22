@@ -132,30 +132,16 @@ const Navigation = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/your-order">
+                <Link to="/seller-signup">
                   <span className="nav-link">
                     <img
-                      src="https://img.icons8.com/carbon-copy/100/000000/purchase-order.png"
+                     src="https://img.icons8.com/wired/64/000000/sell.png"
                       width="30"
                       height="30"
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Your Orders
-                  </span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/your-cart">
-                  <span className="nav-link">
-                    <img
-                      src="https://img.icons8.com/plasticine/100/000000/shopping-cart.png"
-                      width="30"
-                      height="30"
-                      className="d-inline-block align-top"
-                      alt=""
-                    />
-                    Cart
+                    Sell with AgriShop
                   </span>
                 </Link>
               </li>
