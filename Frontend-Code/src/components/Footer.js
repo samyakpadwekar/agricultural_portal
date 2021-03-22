@@ -9,51 +9,51 @@ const Footer = (props) => {
             <h2>AgriShop</h2>
             <div className="contact-info">
               <Link to="/about-us">
-                <span className="nav-link ">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/file-person.svg"
                     className="bi bi-file-person"
-                  />
+                    alt=""/>
                   About Us
                 </span>
               </Link>
               <Link to="/faqs">
-                <span className="nav-link">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/question-square.svg"
-                    className="bi bi-question-square"></img>
+                    className="bi bi-question-square" alt=""></img>
                   FAQs
                 </span>
               </Link>
               <Link to="/faqs">
-                <span className="nav-link">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/person-lines-fill.svg"
-                    className="bi bi-question-square"></img>
+                    className="bi bi-question-square" alt=""></img>
                   Contact Us
                 </span>
               </Link>
               <Link to="/faqs">
-                <span className="nav-link">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/shield-lock.svg"
-                    className="bi bi-shield-lock"></img>
+                    className="bi bi-shield-lock" alt=""></img>
                   Privacy Policy
                 </span>
               </Link>
               <Link to="/faqs">
-                <span className="nav-link">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/file-earmark-ruled-fill.svg"
-                    className="bi bi-file-earmark-ruled-fill"></img>
+                    className="bi bi-file-earmark-ruled-fill" alt=""></img>
                   Terms and Conditions
                 </span>
               </Link>
               <Link to="/faqs">
-                <span className="nav-link">
+                <span className="nav-link footer-link">
                   <img
                     src="/./images/laptop-fill.svg"
-                    className="bi bi-laptop-fill"></img>
+                    className="bi bi-laptop-fill" alt=""></img>
                   Careers At AgriShop
                 </span>
               </Link>
@@ -64,7 +64,7 @@ const Footer = (props) => {
             <div className="download-app">
               <Link to="https://www.googplaystore.com/" target="_blank">
                 <span className="nav-link">
-                  <img src="/./images/gPlayStore.jpg"></img>
+                  <img src="/./images/gPlayStore.jpg" alt=""></img>
                 </span>
               </Link>
             </div>
@@ -76,15 +76,15 @@ const Footer = (props) => {
                 <Link to="/facebook.com">
                   <img
                     src="/./images/facebook.svg"
-                    className="bi bi-facebook"></img>
+                    className="bi bi-facebook" alt=""></img>
                 </Link>
                 <Link to="/instagram.com">
                   <img
                     src="/./images/instagram.svg"
-                    className="bi bi-instagram"></img>
+                    className="bi bi-instagram" alt=""></img>
                 </Link>
                 <Link to="/twitter.com">
-                  <img src="/./images/twitter.svg" className=""></img>
+                  <img src="/./images/twitter.svg" className="" alt=""></img>
                 </Link>
               </div>
             </div>

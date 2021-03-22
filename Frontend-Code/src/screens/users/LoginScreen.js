@@ -12,15 +12,23 @@ const LoginScreen = (props) => {
   const { loading, error, response } = userSignin
 
   const dispatch = useDispatch()
+
   const onSignin = () => {
     dispatch(signin(username, password))
   }
 
   useEffect(() => {
-    if (response && response.data == 'success') {
+    if (response) {
       console.log('inside useEffect')
-      props.history.push('/home')
-    } else if (response && response.status == 'error') {
+      const user =response
+      sessionStorage.setItem('userId',user.userId)
+      sessionStorage.setItem('userRole',user.role)
+      // NavCond()
+      if(user.role==="CUSTOMER")
+      {props.history.push('/home')}
+      if(user.role==="ADMIN")
+      {props.history.push('/admin-page')}
+    } else if (response && response.status === 'error') {
       console.log('failure')
       alert(response.error)
     } else if (error) {
@@ -49,6 +57,7 @@ const LoginScreen = (props) => {
             onChange={(e) => {
               setPassword(e.target.value)
             }}
+            type="password"
             className="form-control"
             placeholder="*****"></input>
         </div>

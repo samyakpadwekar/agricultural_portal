@@ -1,21 +1,36 @@
 // import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react'
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
+import { getbuyers } from "../../actions/AdminActions";
 const Buyerlist = (props) => {
 
-  const testData = [
-    { id: 1,fName:"Name 1", lname: "Surname", email: "email1@gmail.com", regDate: "2020-02-01", pinCode: "442401" },
-    { id: 2,fName:"Name 2", lname: "Surname", email: "email2@gmail.com", regDate: "2020-02-05", pinCode: "442404" },
-    { id: 3,fName:"Name 3", lname: "Surname", email: "email3@gmail.com", regDate: "2020-02-10", pinCode: "442408" },
-    { id: 4,fName:"Name 4", lname: "Surname", email: "email4@gmail.com", regDate: "2020-02-15", pinCode: "442416" },
-    { id: 5,fName:"Name 5", lname: "Surname", email: "email5@gmail.com", regDate: "2020-02-20", pinCode: "442424" },
-    { id: 6,fName:"Name 6", lname: "Surname", email: "email6@gmail.com", regDate: "2020-02-25", pinCode: "442432" },
-  ];
+  // const testData = [
+  //   { id: 1,fName:"Name 1", lname: "Surname", email: "email1@gmail.com", regDate: "2020-02-01", pinCode: "442401" },
+  //   { id: 2,fName:"Name 2", lname: "Surname", email: "email2@gmail.com", regDate: "2020-02-05", pinCode: "442404" },
+  //   { id: 3,fName:"Name 3", lname: "Surname", email: "email3@gmail.com", regDate: "2020-02-10", pinCode: "442408" },
+  //   { id: 4,fName:"Name 4", lname: "Surname", email: "email4@gmail.com", regDate: "2020-02-15", pinCode: "442416" },
+  //   { id: 5,fName:"Name 5", lname: "Surname", email: "email5@gmail.com", regDate: "2020-02-20", pinCode: "442424" },
+  //   { id: 6,fName:"Name 6", lname: "Surname", email: "email6@gmail.com", regDate: "2020-02-25", pinCode: "442432" },
+  // ];
+
+  const dispatch =useDispatch()
+  const buyerlist = useSelector((store)=>store.buyerlist)
+  const { error, response, loading } = buyerlist
+
+  // call this only once (when the page has loaded successfully)
+  useEffect(() => {
+    dispatch(getbuyers())
+  }, [])
+
+  useEffect(() => {}, [error, response, loading])
 
   return (
     <>
-      <Header title="Manage Buyers" />
-      <div className="container buyerlist-wrapper col-md-8 mx-auto pt-1">
-      {/* <div class="col-md-8 mx-auto pt-1"> */}
+    <Header title="Manage Buyer" />
+    <div className="container buyerlist-wrapper">
+      <div class="col-md-8 mx-auto pt-1">
         <form
           className="form-inline float-start mb-1 my-lg-0"
           id="admin-manage-buyer"
@@ -76,16 +91,19 @@ const Buyerlist = (props) => {
           </tr>
         </thead>
         <tbody>
-          {testData.map((buyer) => {
+        {response &&
+            response.customerList &&
+            response.customerList.length > 0 &&
+            response.customerList.map((buyer) => {
             return (
               <>
                 <tr>
-                  <th className="col-1" scope="row">{buyer.id}</th>
-                  <td className="col-1">{buyer.fName}</td>
-                  <td className="col-1">{buyer.lname}</td>
+                  <th className="col-1" scope="row">{buyer.userId}</th>
+                  <td className="col-1">{buyer.firstName}</td>
+                  <td className="col-1">{buyer.lastName}</td>
                   <td className="col-1">{buyer.email}</td>
                   <td className="col-1">{buyer.regDate}</td>
-                  <td className="col-1">{buyer.pinCode}</td>
+                  <td className="col-1">{buyer.addresses.pinCode}</td>
                   <td className="col-1">
                     <button
                       type="button"
@@ -104,6 +122,7 @@ const Buyerlist = (props) => {
       </table>
       </div>
       {/* </div> */}
+    </div>
     </>
   )
 }
