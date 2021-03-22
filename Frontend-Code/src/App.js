@@ -34,6 +34,7 @@ import InventoryReportScreen from './screens/sellers/InventoryReportScreen'
 import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
 import ProductFeedbackScreen from './screens/sellers/ProductFeedbackScreen'
+import SellerOrderDetailsScreen from './screens/sellers/SellerOrderDetails'
 
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
@@ -93,6 +94,7 @@ function App() {
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
             <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
+            <Route path="/seller/order-details" component={SellerOrderDetailsScreen} />
 
 
 
