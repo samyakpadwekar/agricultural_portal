@@ -18,4 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
    	@Query("select p from Product p left outer join fetch p.productCatalogue join fetch p.category where p.productCatalogue.productName=:searchvalue OR p.category.catName=:searchvalue")
 	List<Product> getProductByNameOrCategory(String searchvalue);
+   	
+   	@Query("select p from Product p left outer join fetch p.seller join fetch p.category join fetch p.productCatalogue")
+   	List<Product> findAllDetails();
+
 }
