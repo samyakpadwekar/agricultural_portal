@@ -49,7 +49,7 @@ import com.app.pojos.Wishlist;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-	
+
 	@Autowired
 	private OrderDetailsRepository orderDtlsRepo;
 
@@ -76,13 +76,12 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private ProductCatalogueRepository productCatalRepo;
-	
+
 	@Autowired
 	private OrderRepository orderRepo;
-	
+
 	@Autowired
 	private OrderDetailsRepository orderDetRepo;
-
 
 	@Override
 	public Seller findSellerByBuisenessName(String businessName) {
@@ -98,15 +97,15 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<ProductDTO> findProductsByCategory(String categoryName) {
-       List<ProductDTO> list=new ArrayList<ProductDTO>();
-        List<Product> products= (List<Product>) productRepo.findByCategoryName(categoryName);
-        products.forEach(p->{
-        	 ProductDTO productDto=new ProductDTO();
-        	 BeanUtils.copyProperties(p, productDto,"picture");
-        	 if(p.getPicture()!=null)
-        	   productDto.setPicture(new String(p.getPicture()));
-        	 list.add(productDto);        	
-        });	   
+		List<ProductDTO> list = new ArrayList<ProductDTO>();
+		List<Product> products = (List<Product>) productRepo.findByCategoryName(categoryName);
+		products.forEach(p -> {
+			ProductDTO productDto = new ProductDTO();
+			BeanUtils.copyProperties(p, productDto, "picture");
+			if (p.getPicture() != null)
+				productDto.setPicture(new String(p.getPicture()));
+			list.add(productDto);
+		});
 		return list;
 
 	}
@@ -206,17 +205,17 @@ public class UserServiceImpl implements IUserService {
 	public String addFeedback(ProductFeedDTO productFeedbackDto) {
 		System.out.println("ProductFeedDTO : " + productFeedbackDto);
 		System.out.println("ProductId : " + productFeedbackDto.getProductId());
-		Feedback feedback = new Feedback(productFeedbackDto.getUserId(), productFeedbackDto.getProductId(), productFeedbackDto.getFeedback(),
-				productFeedbackDto.getRating());
-		Product product=productRepo.findById(productFeedbackDto.getProductId()).get();
-		System.out.println("product"+product);
-		if(product.getAvgRating()!=null)
-			product.setAvgRating((productFeedbackDto.getRating()+product.getAvgRating())/2);
+		Feedback feedback = new Feedback(productFeedbackDto.getUserId(), productFeedbackDto.getProductId(),
+				productFeedbackDto.getFeedback(), productFeedbackDto.getRating());
+		Product product = productRepo.findById(productFeedbackDto.getProductId()).get();
+		System.out.println("product" + product);
+		if (product.getAvgRating() != null)
+			product.setAvgRating((productFeedbackDto.getRating() + product.getAvgRating()) / 2);
 		product.setAvgRating(productFeedbackDto.getRating());
-		
+
 		try {
 			feedRepo.save(feedback);
-		} catch (RuntimeException e) {			
+		} catch (RuntimeException e) {
 			throw new ProductFeedbackHandlingException("Multiple feedbacks are not allowed");
 		}
 		return "Product Review has been submitted";
@@ -262,49 +261,48 @@ public class UserServiceImpl implements IUserService {
 	public List<Feedback> getAllFeedbacks() {
 		return feedRepo.findAll();
 	}
-	
+
 	@Override
 	public List<ProductReportDto> productReport() {
-		
-		  List<ProductReportDto> report=new ArrayList<ProductReportDto>();
-		  List<Product> list= productRepo.findAll();
-		
-		 
-		  list.forEach(p->{
-			  ProductReportDto productReport=new ProductReportDto();
-		  productReport.setProductName(p.getProductCatalogue().getProductName());
-		  productReport.setSellerBusinessName(p.getSeller().getBusinessName());
-		  productReport.setAvgPrice(p.getAvgRating());
-		  productReport.setInStock(p.getUnitsStock());
-		  productReport.setSold(p.getUnitsSold());
-		  productReport.setAvgPrice(p.getPrice()); 
-		  report.add(productReport); 
-		  
-		  });
-		 
-		  System.out.println("report :"+report.toString());
-		  return report;
-	
+
+		List<ProductReportDto> report = new ArrayList<ProductReportDto>();
+		List<Product> list = productRepo.findAll();
+
+		list.forEach(p -> {
+			ProductReportDto productReport = new ProductReportDto();
+			productReport.setProductName(p.getProductCatalogue().getProductName());
+			productReport.setSellerBusinessName(p.getSeller().getBusinessName());
+			productReport.setAvgPrice(p.getAvgRating());
+			productReport.setInStock(p.getUnitsStock());
+			productReport.setSold(p.getUnitsSold());
+			productReport.setAvgPrice(p.getPrice());
+			report.add(productReport);
+
+		});
+
+		System.out.println("report :" + report.toString());
+		return report;
+
 	}
-	
+
 	@Override
 	public List<Order> getOrdersByBuyerId(int buyerId) {
-		
-		List<Order> orderList=orderRepo.findByBuyerUserId(buyerId);
-		
+
+		List<Order> orderList = orderRepo.findByBuyerUserId(buyerId);
+
 		return orderList;
 	}
-	
+
 	@Override
 	public List<ProductDTO> getProductByNameOrCategory(String searchvalue) {
-		List<ProductDTO> list=new ArrayList<ProductDTO>();
-		List<Product> products= productRepo.getProductByNameOrCategory(searchvalue);
-		products.forEach(p->{
-			 ProductDTO productDto=new ProductDTO();
-       	 BeanUtils.copyProperties(p, productDto,"picture");
-       	 if(p.getPicture()!=null)
-       	 productDto.setPicture(new String(p.getPicture()));
-       	 list.add(productDto);
+		List<ProductDTO> list = new ArrayList<ProductDTO>();
+		List<Product> products = productRepo.getProductByNameOrCategory(searchvalue);
+		products.forEach(p -> {
+			ProductDTO productDto = new ProductDTO();
+			BeanUtils.copyProperties(p, productDto, "picture");
+			if (p.getPicture() != null)
+				productDto.setPicture(new String(p.getPicture()));
+			list.add(productDto);
 		});
 		return list;
 	}
@@ -315,19 +313,15 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public List<OrderDetails> getOrderDetails(Integer id) {
-		
+
 		return orderDtlsRepo.findAllByOrderOrderId(id);
 	}
-	
-	
-=======
+
+	@Override
 	public List<Feedback> getFeedbacksByProductId(Integer productId) {
 		return feedRepo.findAllByProductId(productId);
 	}
->>>>>>> 9b284d78f20b42d02dbc3bbf49d2d9481cd48ee3
-
-
 
 }
