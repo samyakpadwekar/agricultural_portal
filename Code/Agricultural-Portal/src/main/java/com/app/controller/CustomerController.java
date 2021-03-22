@@ -36,8 +36,19 @@ import com.app.service.IUserService;
 @CrossOrigin
 public class CustomerController {
 	
+	
 	@Autowired
 	private IUserService userService;
+	
+	@GetMapping("/product-list")
+	private ResponseEntity<?> getAllProducts()
+	{
+		List<Product> list=userService.getAllProducts();
+		if(list==null)
+			return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
 	@GetMapping("/category")
 	public ResponseEntity<?> showCategoies()
 	{

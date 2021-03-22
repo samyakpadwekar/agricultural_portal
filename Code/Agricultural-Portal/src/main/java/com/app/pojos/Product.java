@@ -41,7 +41,7 @@ public class Product {
 	@NotNull(message = "required")
 	private double price;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;

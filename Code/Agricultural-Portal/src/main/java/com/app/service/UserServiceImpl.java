@@ -315,18 +315,23 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public List<OrderDetails> getOrderDetails(Integer id) {
 		
 		return orderDtlsRepo.findAllByOrderOrderId(id);
 	}
 	
-	
-=======
+
 	public List<Feedback> getFeedbacksByProductId(Integer productId) {
 		return feedRepo.findAllByProductId(productId);
 	}
->>>>>>> 9b284d78f20b42d02dbc3bbf49d2d9481cd48ee3
+
+	@Override
+	public List<Product> getAllProducts() {
+		
+		return productRepo.findAllDetails();
+	}
+
 
 
 
