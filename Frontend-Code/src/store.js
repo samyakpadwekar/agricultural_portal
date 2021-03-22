@@ -1,6 +1,17 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { userSigninReducer, userSignupReducer } from './reducers/userReducers'
-import { fetchNotesReducer } from './reducers/adminReducers'
+import {
+  userCartReducer,
+  userSigninReducer,
+  userSignupReducer,
+} from './reducers/userReducers'
+import {
+  fetchComplaintReducer,
+  fetchFeedbackReducer,
+  fetchBuyerReducer,
+  fetchSellerReducer,
+  fetchProdRepReducer,
+} from './reducers/adminReducers'
+
 import { fetchProductCatalogueReducer } from './reducers/productReducer'
 
 import logger from 'redux-logger'
@@ -11,7 +22,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const reducers = combineReducers({
   userSignin: userSigninReducer,
   userSignup: userSignupReducer,
-  admincomplaintlist: fetchNotesReducer,
+  adminfeedbacklist: fetchFeedbackReducer,
+  admincomplaintlist: fetchComplaintReducer,
+  buyerlist: fetchBuyerReducer,
+  sellerlist: fetchSellerReducer,
+  prodRepGraph: fetchProdRepReducer,
+
   productCatalogue: fetchProductCatalogueReducer,
   userCartItemsList: userCartReducer,
 })

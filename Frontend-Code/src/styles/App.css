@@ -1,6 +1,9 @@
 /* App.js Styling */
-html, body, #app, #app>div {
-  height: 100%
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
 }
 #root {
   height: 100vh;
@@ -8,7 +11,7 @@ html, body, #app, #app>div {
   flex-direction: column;
 }
 /* Buyer Nav borders */
-.upper-nav{
+.upper-nav {
   border: 2px solid rgb(225, 225, 225);
 }
 
@@ -242,9 +245,8 @@ a {
   font-size: small;
 }
 
-
-.footer-link{
-  padding: .5rem 0rem;
+.footer-link {
+  padding: 0.5rem 0rem;
 }
 
 .download-app img {
@@ -273,15 +275,21 @@ a {
   color: #000000;
 }
 
-.footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    height: max-content;
-    width: 100%;
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: max-content;
+  width: 100%;
 }
 
 /* span css inside dropdowns */
-span{
+span {
   color: #0e0d0d;
+}
+
+.prod-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
 }

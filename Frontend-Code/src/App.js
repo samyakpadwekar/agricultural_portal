@@ -43,16 +43,17 @@ import SignupScreen from './screens/buyers/Signup'
 import CurrentOrders from './screens/buyers/CurrentOrders'
 import CustomerEditProfileScreen from './screens/buyers/CustomerEditProfile'
 import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
+import Customerhome from './screens/buyers/CustomerHome'
 
 function App() {
   return (
-     <Router>
+    <Router>
       <div className="App">
-        {/* <Navigation /> */}
-        {/* <SellerNavigation /> */}
-		    <AdminNavigation/>
+        <Navigation />
+        <SellerNavigation />
+        <AdminNavigation />
         {/* <CustomerNavbar/> */}
-        {/* <BuyerNav/> */}
+        <BuyerNav />
         <div>
           <Switch>
             <Route path="/home" component={HomeScreen} />
@@ -71,7 +72,6 @@ function App() {
               component={UserEditProfileScreen}
             />
 
-            
             <Route
               path="/seller/edit-profile"
               component={SellerEditProfileScreen}
@@ -92,9 +92,10 @@ function App() {
             />
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
-            <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
-
-
+            <Route
+              path="/seller/product-feedback"
+              component={ProductFeedbackScreen}
+            />
 
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />
@@ -109,6 +110,7 @@ function App() {
               component={CustomerEditAddBank}
             />
             <Route path="/user/order-details" component={OrderDetails} />
+            <Route path="/customer/home" component={Customerhome} />
           </Switch>
         </div>
         <Footer />

@@ -9,19 +9,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"productUid", "seller_id"}))
+@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = { "productUid", "seller_id" }))
 public class Product {
 //	productId	Product name	Product Description	Category_Id	Unit Price	SellerId	
 //	Units_In_Stock	Units_sold	Discount_Available	Avg Rating	Picture
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
-	
-	
+
 	@OneToOne
 	@JoinColumn(name = "productUid")
 	private ProductCatalogue productCatalogue;
-	
+
 	@Column(length = 50)
 	private String brandName;
 
@@ -41,23 +40,19 @@ public class Product {
 	@NotNull(message = "required")
 	private double price;
 
-	//@JsonIgnore
+	// @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;
-	
-	
+
 	private Integer unitsStock;
-	
-	
+
 	private Integer unitsSold;
-	
-	
+
 	private Double discount;
 
-	
 	private Double avgRating;
-	
+
 	@Lob
 	private byte[] picture;
 
@@ -92,7 +87,7 @@ public class Product {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-	
+
 //	public String getProductName() {
 //		return productName;
 //	}
@@ -191,9 +186,9 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", brandName=" + brandName 
-				+ ", productDescription=" + productDescription + ", price=" + price + ", unitsStock=" + unitsStock
-				+ ", unitsSold=" + unitsSold + ", discount=" + discount + ", avgRating=" + avgRating + "]";
+		return "Product [productId=" + productId + ", brandName=" + brandName + ", productDescription="
+				+ productDescription + ", price=" + price + ", unitsStock=" + unitsStock + ", unitsSold=" + unitsSold
+				+ ", discount=" + discount + ", avgRating=" + avgRating + "]";
 	}
 
 }
