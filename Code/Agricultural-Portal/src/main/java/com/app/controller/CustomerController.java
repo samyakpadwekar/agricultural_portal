@@ -171,14 +171,6 @@ public class CustomerController {
 			}
 			return new ResponseEntity<>(new ProductList(productList), HttpStatus.NO_CONTENT);
 		}
-	    
-	    @GetMapping("/product-list")
-		private ResponseEntity<?> getAllProducts()
-		{
-			List<Product> list=userService.getAllProducts();
-			if(list==null)
-				return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
-			return new ResponseEntity<>(list, HttpStatus.OK);
-		}
+	  
 
 }
