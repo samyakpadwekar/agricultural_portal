@@ -1,41 +1,55 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react'
 import Header from "../../components/Header";
+import { getSellers } from "../../actions/AdminActions";
 
 const SellerList = (props) => {
-  const testData = [
-    {
-      id: 1,
-      businessName: "Vikas Pesticides",
-      GSTIN: "1111-4554-9889",
-      mobile: "9874561238",
-      addressproof: "Aadhar-Card",
-    },
-    {
-      id: 2,
-      businessName: "Samyak Dairy",
-      GSTIN: "1111-4554-9889",
-      mobile: "9874561238",
-      addressproof: "Driving License",
-    },
-    {
-      id: 3,
-      businessName: "Chinmay Khadya",
-      GSTIN: "1111-4554-9889",
-      mobile: "9874561238",
-      addressproof: "Electricity-bill",
-    },
-    {
-      id: 4,
-      businessName: "Pankaj Kirana",
-      GSTIN: "1111-4554-9889",
-      mobile: "9874561238",
-      addressproof: "Pan-Card",
-    },
-  ];
+  // const testData = [
+  //   {
+  //     id: 1,
+  //     businessName: "Vikas Pesticides",
+  //     GSTIN: "1111-4554-9889",
+  //     mobile: "9874561238",
+  //     addressproof: "Aadhar-Card",
+  //   },
+  //   {
+  //     id: 2,
+  //     businessName: "Samyak Dairy",
+  //     GSTIN: "1111-4554-9889",
+  //     mobile: "9874561238",
+  //     addressproof: "Driving License",
+  //   },
+  //   {
+  //     id: 3,
+  //     businessName: "Chinmay Khadya",
+  //     GSTIN: "1111-4554-9889",
+  //     mobile: "9874561238",
+  //     addressproof: "Electricity-bill",
+  //   },
+  //   {
+  //     id: 4,
+  //     businessName: "Pankaj Kirana",
+  //     GSTIN: "1111-4554-9889",
+  //     mobile: "9874561238",
+  //     addressproof: "Pan-Card",
+  //   },
+  // ];
+
+  const dispatch =useDispatch()
+  const sellerlist = useSelector((store)=>store.sellerlist)
+  const { error, response, loading } = sellerlist
+
+  // call this only once (when the page has loaded successfully)
+  useEffect(() => {
+    dispatch(getSellers())
+  }, [])
+
+  useEffect(() => {}, [error, response, loading])
 
   return (
     <>
-      <Header title="Manage Buyers" />
+      <Header title="Manage Seller" />
       <div className="container buyerlist-wrapper">
         <div class="col-md-8 mx-auto pt-1">
           <form
@@ -104,17 +118,20 @@ const SellerList = (props) => {
               </tr>
             </thead>
             <tbody>
-              {testData.map((seller) => {
+            {response &&
+            response.list &&
+            response.list.length > 0 &&
+            response.list.map((seller) => {
                 return (
                   <>
                     <tr>
                       <th className="col-1" scope="row">
-                        {seller.id}
+                        {seller.sellerId}
                       </th>
                       <td className="col-2">{seller.businessName}</td>
-                      <td className="col-2">{seller.GSTIN}</td>
-                      <td className="col-2">{seller.mobile}</td>
-                      <td className="col-2">{seller.addressproof}</td>
+                      <td className="col-2">{seller.gstin}</td>
+                      <td className="col-2">{seller.mobileNo}</td>
+                      <td className="col-2">{seller.aadharNo}</td>
                       <td className="col-2">
                         <button
                           type="button"

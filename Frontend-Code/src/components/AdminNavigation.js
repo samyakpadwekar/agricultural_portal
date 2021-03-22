@@ -1,10 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {useSelector } from 'react-redux'
 import "../styles/App.css";
 
 const AdminNavigation = () => {
+  const role=sessionStorage.getItem('userRole')
+  const Signout = (props) => {
+    sessionStorage.removeItem('userId')
+    sessionStorage.removeItem('userRole')
+    document.location.href = '/login'
+
+  }
   return (
+    <div>
+    {role==="ADMIN" && (
     <nav className="navbar navbar-expand-lg navbar-light bg-light ">
       <div className="container-fluid">
         <Link to="/home">
@@ -131,23 +141,23 @@ const AdminNavigation = () => {
             </li>
             <li>
               <div className="admin-signout">
-                <Link to="/login">
                   <button
                     className="btn btn-danger"
                     type="submit"
                     aria-haspopup="true"
                     aria-expanded="false"
+                    onClick={Signout}
                   >
                     Signout
                   </button>
-                </Link>
               </div>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-  );
+  )}
+  </div>)
 };
 
 export default AdminNavigation;

@@ -239,8 +239,12 @@ a {
 }
 
 .footer-widget .contact-info {
-  font-style: italic;
   font-size: small;
+}
+
+
+.footer-link{
+  padding: .5rem 0rem;
 }
 
 .download-app img {

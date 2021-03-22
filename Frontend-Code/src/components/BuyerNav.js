@@ -7,11 +7,14 @@ import '../styles/CustomerNavbar.css'
 import { IconContext } from 'react-icons'
 
 const BuyerNav =() => {
+  const role=sessionStorage.getItem('userRole')
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar)
 
   return (
+    <div>
+    {(role==="CUSTOMER") && (
     <div className="upper-nav">
       <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top-nav">
         <div className="container-fluid">
@@ -82,16 +85,30 @@ const BuyerNav =() => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/seller-signup">
+                <Link to="/your-order">
                   <span className="nav-link">
                     <img
-                     src="https://img.icons8.com/wired/64/000000/sell.png"
+                      src="https://img.icons8.com/carbon-copy/100/000000/purchase-order.png"
                       width="30"
                       height="30"
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Sell with AgriShop
+                    Your Orders
+                  </span>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/your-cart">
+                  <span className="nav-link">
+                    <img
+                      src="https://img.icons8.com/plasticine/100/000000/shopping-cart.png"
+                      width="30"
+                      height="30"
+                      className="d-inline-block align-top"
+                      alt=""
+                    />
+                    Cart
                   </span>
                 </Link>
               </li>
@@ -121,6 +138,7 @@ const BuyerNav =() => {
           </div>
         </nav>
     </div>
+    ) }</div>
   )
 }
 
