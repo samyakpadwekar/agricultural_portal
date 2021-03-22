@@ -1,94 +1,54 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { AiFillPropertySafety } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { orderFetch } from '../../actions/userActions'
 import Header from '../../components/Header'
 
-const YourOrders = () => {
-  const orders = [
-    {
-      id: '1',
-      estm_delv_date: '2021-01-12',
-      order_date: '2021-01-01',
-      order_status: 'Delivered',
-      paid_amount: '5000',
-      payment_date: '2021-01-01',
-      payment_type: 'Cash On Delivery',
-      ship_date: '2021-01-02',
-      ship_date: '2021-01-03',
-      total_amount: '5000',
-      transaction_status: 'PAID',
-    },
-    {
-      id: '2',
-      estm_delv_date: '2021-01-12',
-      order_date: '2021-01-01',
-      order_status: 'Delivered',
-      paid_amount: '5000',
-      payment_date: '2021-01-01',
-      payment_type: 'Cash On Delivery',
-      ship_date: '2021-01-02',
-      ship_date: '2021-01-03',
-      total_amount: '5000',
-      transaction_status: 'PAID',
-    },
-    {
-      id: '3',
-      estm_delv_date: '2021-01-12',
-      order_date: '2021-01-01',
-      order_status: 'Delivered',
-      paid_amount: '5000',
-      payment_date: '2021-01-01',
-      payment_type: 'Cash On Delivery',
-      ship_date: '2021-01-02',
-      ship_date: '2021-01-03',
-      total_amount: '5000',
-      transaction_status: 'PAID',
-    },
+const YourOrders = (props) => {
+  // const dispatch = useDispatch()
+  // const Orders = useSelector((store) => store.orders)
+  // const { loading, response, error } = Orders
 
-    {
-      id: '4',
-      estm_delv_date: '2021-01-12',
-      order_date: '2021-01-01',
-      order_status: 'Delivered',
-      paid_amount: '5000',
-      payment_date: '2021-01-01',
-      payment_type: 'Cash On Delivery',
-      ship_date: '2021-01-02',
-      ship_date: '2021-01-03',
-      total_amount: '5000',
-      transaction_status: 'PAID',
+  // useEffect(() => {
+  //   dispatch(orderFetch(1))
+  // }, [])
+
+  const orderDetails = (o) => {
+    props.history.push('/user/order-details', o)
+  }
+
+  const [allOrders, setAllOrders] = useState()
+  useEffect(() => {
+    result()
+  }, [])
+
+  const dispatch = useDispatch()
+
+  const buyerId = 1
+  const url = 'http://localhost:8080/customer/your-order/' + buyerId
+
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  ]
+  }
+
+  const result = () => {
+    axios
+      .get(url, header)
+      .then((response) => {
+        const orders = response.data
+        setAllOrders(orders)
+        console.log(orders)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
+  }
 
   return (
     <div className="container">
       <Header title="Your Orders" />
-
-      <table>
-        <tr>
-          <td>
-            <a className="padding " href="/user/your-orders">
-              Order History
-            </a>
-            <a className="padding" href="/user/current-orders">
-              Current Orders
-            </a>
-          </td>
-
-          <td width={800}>
-            {' '}
-            <form className="d-flex float-end">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-          </td>
-        </tr>
-      </table>
 
       <div className="container">
         <div className="col-md-12 ">
@@ -104,52 +64,28 @@ const YourOrders = () => {
                 <th></th>
               </tr>
             </thead>
-            {orders.map((p) => {
-              return (
-                <tr>
-                  <td>{p.order_status}</td>
-                  <td>{p.order_date}</td>
-                  <td>{p.ship_date}</td>
-                  <td>{p.transaction_status}</td>
-                  <td>{p.payment_date}</td>
-
-                  <td>{p.total_amount}</td>
-                  <th>
-                    <Link to="/user/order-details">
+            {allOrders &&
+              // response.orderList &&
+              allOrders.map((o) => {
+                return (
+                  <tr>
+                    <td>{o.orderStatus}</td>
+                    <td>{o.orderDate}</td>
+                    <td>{o.shipDate}</td>
+                    <td>{o.transactionStatus}</td>
+                    <td>{o.estmDevlDate}</td>
+                    <td>{o.totalAmount}</td>
+                    <td>
                       <button
                         className="btn btn-outline-success mt-1 mb-1"
+                        onClick={(e) => orderDetails(o)}
                         type="submit">
                         Order Details
                       </button>
-                    </Link>
-                  </th>
-                </tr>
-                // <div className="block">
-                //   <div className="row">
-                //     <div className="col-md-6">Order Status: </div>{' '}
-                //     <div className="col-md-6">Order Date:{p.order_date}</div>
-                //   </div>
-                //   <div className="row">
-                //     <div className="col-md-6">Payment Date:{p.payment_date}</div>{' '}
-                //     <div className="col-md-6">Payment Type: {p.payment_type}</div>
-                //   </div>
-
-                //   <div className="row">
-                //     <div className="col-md-6">Paid amount: {p.paid_amount}</div>
-                //     <div className="col-md-6">
-                //       Shipping date: {p.ship_date}
-                //     </div>{' '}
-                //   </div>
-
-                //   <div className="row">
-                //     <div className="col-md-6">
-                //       Transaction Status: {p.transaction_status}
-                //     </div>
-                //     <div className="col-md-6">Total Amount: {p.total_amount}</div>
-                //   </div>
-                //</div>
-              )
-            })}
+                    </td>
+                  </tr>
+                )
+              })}
           </table>
         </div>
       </div>
