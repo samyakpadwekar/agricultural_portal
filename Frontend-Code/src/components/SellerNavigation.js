@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import "../styles/App.css";
 
 const SellerNavigation = () => {
+  // const role=sessionStorage.getItem('userRole')
+  
   return (
+    // <div>
+    // {role==="SELLER" && (
+
     <div style={{position:"sticky"}}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
@@ -99,6 +104,9 @@ const SellerNavigation = () => {
         </div>
       </nav>
     </div>
+    // )
+    // }
+    // </div>
   );
 };
 
