@@ -75,13 +75,13 @@ const AddProductScreen = (props) => {
       .post(url2, formData)
       .then((response) => {
         console.log(response.data)
-        alert("New product saved successfully!");
+        // alert("New product saved successfully!");
       })
       .catch((error) => {
         console.error(`Error: ${error}`)
         alert("Failed to save new product!")
       })
-    props.history.push("/seller/home");
+      document.location.href='/seller/product-list';
   }
 
 

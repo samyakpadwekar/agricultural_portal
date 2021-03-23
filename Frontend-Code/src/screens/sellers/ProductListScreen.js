@@ -63,8 +63,23 @@ const ProductListScreen = (props) => {
     props.history.push("/seller/edit-product");
   };
 
-  const onDeleteProduct = () => {
-    props.history.push("/seller/product-list");
+  // const [delProductId, setDelProductId] = useState(0)
+  const onDeleteProduct = (delProductId) => {
+    console.log("del :"+delProductId)
+    const url2 =
+      "http://localhost:8080/seller/delete-product/" +
+      delProductId;
+    axios
+      .delete(url2)
+      .then((response) => {
+        console.log(response.data);
+        // alert("Product deleted!");
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+        alert("Failed to delete!");
+      });
+      document.location.href='/seller/product-list';
   };
 
   const imgurl = "http://localhost:8080/seller/download/"
@@ -115,7 +130,11 @@ const ProductListScreen = (props) => {
                     </button>
                     <button
                       className="btn btn-outline-danger"
-                      onClick={onDeleteProduct}
+                      onClick={() => {
+                        console.log(product.productId)
+                        // setDelProductId(product.productId);
+                        onDeleteProduct(product.productId)
+                      }}
                     >
                       Delete
                     </button>

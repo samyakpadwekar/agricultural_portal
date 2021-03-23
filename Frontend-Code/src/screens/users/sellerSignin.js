@@ -25,7 +25,7 @@ const SellerSigninScreen = (props) => {
       sessionStorage.setItem("userRole", "SELLER");
       // NavCond()
       {
-        props.history.push("/seller/home");
+        document.location.href="/seller/home";
       }
     } else if (response && response.status === "error") {
       console.log("failure");

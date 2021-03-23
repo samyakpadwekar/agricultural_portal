@@ -28,13 +28,13 @@ const InventoryScreen = (props) => {
       .put(url2, body, header2)
       .then((response) => {
         console.log(response.data)
-        alert("Poduct restocked successfully!");
+        // alert("Poduct restocked successfully!");
       })
       .catch((error) => {
         console.error(`Error: ${error}`)
         alert("Failed to restock!")
       })
-      props.history.push('/seller/home')
+      document.location.href='/seller/inventory';
   };
 
 

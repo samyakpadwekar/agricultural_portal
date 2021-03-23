@@ -11,7 +11,7 @@ const BuyerNav =() => {
   const Signout = (props) => {
     sessionStorage.removeItem('userId')
     sessionStorage.removeItem('userRole')
-    document.location.href = '/login'
+    document.location.href = '/'
 
   }
  
