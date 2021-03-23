@@ -64,7 +64,7 @@ const InventoryScreen = (props) => {
   ]
   const [products, setProducts] = useState(initValue);
   
-  sessionStorage.setItem('sellerId',1);
+  // sessionStorage.setItem('sellerId',1);
   const url = 'http://localhost:8080/seller/inventory-report/'+sessionStorage.getItem('sellerId');
   const header = {
     headers: {

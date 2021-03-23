@@ -8,6 +8,13 @@ import { IconContext } from 'react-icons'
 
 const BuyerNav =() => {
   const role=sessionStorage.getItem('userRole')
+  const Signout = (props) => {
+    sessionStorage.removeItem('userId')
+    sessionStorage.removeItem('userRole')
+    document.location.href = '/login'
+
+  }
+ 
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar)
@@ -85,7 +92,7 @@ const BuyerNav =() => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/your-order">
+                <Link to="/user/your-orders">
                   <span className="nav-link">
                     <img
                       src="https://img.icons8.com/carbon-copy/100/000000/purchase-order.png"
@@ -99,7 +106,7 @@ const BuyerNav =() => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/your-cart">
+                <Link to="/user/my-cart">
                   <span className="nav-link">
                     <img
                       src="https://img.icons8.com/plasticine/100/000000/shopping-cart.png"
@@ -112,6 +119,19 @@ const BuyerNav =() => {
                   </span>
                 </Link>
               </li>
+              <li>
+              <div className="admin-signout">
+                  <button
+                    className="btn btn-danger"
+                    type="submit"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    onClick={Signout}
+                  >
+                    Signout
+                  </button>
+              </div>
+            </li>
             </ul>
           </div>
         </div>

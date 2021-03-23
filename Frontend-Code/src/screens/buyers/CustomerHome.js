@@ -7,6 +7,7 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import AddToCartScreen from './AddToCartScreen'
 
 const Customerhome = (props) => {
   // const onProducts = () => {
@@ -25,8 +26,11 @@ const Customerhome = (props) => {
   //   setAnchorEl(null)
   // }
 
-  const orderDetails = (o) => {
-    props.history.push('/user/order-details', o)
+  let count = 1;
+  const addToCart = (product) => {
+    {
+      product && props.history.push('/customer/addToCart', product)
+    }
   }
 
   const [allProducts, setAllProducts] = useState()
@@ -109,18 +113,20 @@ const Customerhome = (props) => {
         </div> */}
 
         <div className="tomer">
-          <div className="container">
+          <div className="container col-md-10">
             <div className="row">
               {allProducts &&
                 allProducts.map((p) => {
                   return (
-                    <div className="col-sm">
+
+                    <div className="col-md-3">
                       <div className="card">
                         <img
                           src={imageUrl + p.productId}
                           className="card-img-top"
                           alt="..."
                           height="300px"
+                          width="200px"
                         />
                         <div className="card-body">
                           <h5 className="card-title">
@@ -134,9 +140,16 @@ const Customerhome = (props) => {
                           ) : (
                             <h5> No ratings available </h5>
                           )}
+                          <button
+                            onClick={(e) => addToCart(p)}
+                            type="button"
+                            className="btn btn-outline-success">
+                            Add To Cart
+                          </button>
                         </div>
                       </div>
                     </div>
+                    
                   )
                 })}
 

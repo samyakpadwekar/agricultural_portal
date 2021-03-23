@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import "../styles/App.css";
 
 const Navigation = () => {
+  const role=sessionStorage.getItem('userRole')
   return (
+    <div>
+    {role!="SELLER" && role!="ADMIN" && (
     <div className="upper-nav">
       <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top-nav">
         <div className="container-fluid">
-          <Link to="/home">
+          <Link to="/">
             <span className="navbar-brand" id="brand" href="">
               AgriShop
             </span>
@@ -26,7 +29,7 @@ const Navigation = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-1 mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/your-address">
                   <span className="nav-link">
                     <img
@@ -39,8 +42,8 @@ const Navigation = () => {
                     Delivery Address{" "}
                   </span>
                 </Link>
-              </li>
-              <li className="nav-item" id="search">
+              </li> */}
+              {/* <li className="nav-item" id="search">
                 <form
                   className="form-inline float-start mb-1 my-lg-0"
                   id="navBarSearchForm"
@@ -86,11 +89,11 @@ const Navigation = () => {
                     </div>
                   </div>
                 </form>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <div className="btn-group mb-1 mb-lg-0">
                   <button
-                    className="btn btn-light dropdown-toggle nav-btn"
+                    className="btn btn-light dropdown-toggle nav-btn "
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -118,7 +121,7 @@ const Navigation = () => {
                 </div>
               </li>
               <li className="nav-item">
-                <Link to="/signup">
+                <Link to="/">
                   <span className="nav-link">
                     <img
                       src="https://img.icons8.com/ios/50/000000/add-user-male.png"
@@ -127,12 +130,12 @@ const Navigation = () => {
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Signup
+                    SignIn
                   </span>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/seller-signup">
+                <Link to="/seller-signin">
                   <span className="nav-link">
                     <img
                      src="https://img.icons8.com/wired/64/000000/sell.png"
@@ -149,6 +152,8 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
+    </div>
+    )}
     </div>
   );
 };

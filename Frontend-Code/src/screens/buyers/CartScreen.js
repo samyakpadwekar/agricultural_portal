@@ -5,14 +5,15 @@ import store from '../../store'
 import '../../styles/App.css'
 const CartScreen = (props) => {
   const [subTotal, setSubTotal] = useState(0)
+  const userId = sessionStorage.getItem('userId')
   const dispatch = useDispatch()
   const cartItemList = useSelector((store) => store.userCartItemsList)
   const { error, response, loading } = cartItemList
   useEffect(() => {
-    dispatch(getCartItems(7))
+    dispatch(getCartItems(userId))
   }, [])
   useEffect(() => {}, [error, response, loading])
-
+  const imageUrl = "http://localhost:8080/seller/download/";
   return (
     <>
       <div className="container">
@@ -47,8 +48,9 @@ const CartScreen = (props) => {
                                   <a href="#">
                                     <img
                                       style={{ width: 100, height: 100 }}
-                                      src="/images/product-1.jpg"
+                                      src={imageUrl + item.product.productId}
                                       alt="Image"
+                                      className="prod-image"
                                     />
                                   </a>
                                   <p>

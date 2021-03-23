@@ -5,6 +5,9 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
+  SELLER_SIGNIN_FAIL,
+  SELLER_SIGNIN_REQUEST,
+  SELLER_SIGNIN_SUCCESS,
   USER_SIGNUP_FAIL,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
@@ -39,6 +42,40 @@ export const signin = (username, password) => {
       .catch((error) => {
         dispatch({
           type: USER_SIGNIN_FAIL,
+          payload: error,
+        })
+      })
+  }
+}
+
+export const sellerSignin = (username, password) => {
+  return (dispatch) => {
+    dispatch({
+      type: SELLER_SIGNIN_REQUEST,
+    })
+
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const body = {
+      username,
+      password,
+    }
+    const url = 'http://localhost:8080/seller/authenticate'
+    axios
+      .post(url, body, header)
+      .then((response) => {
+        dispatch({
+          type: SELLER_SIGNIN_SUCCESS,
+          payload: response.data,
+        })
+      })
+      .catch((error) => {
+        dispatch({
+          type: SELLER_SIGNIN_FAIL,
           payload: error,
         })
       })

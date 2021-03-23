@@ -59,7 +59,7 @@ const SellerSignupScreen = () => {
               <div className="mb-3">
                 <button className="btn btn-success">Signup</button>
                 <div className="float-end">
-                  Existing user? <Link to="/signin">Signin here</Link>
+                  Existing user? <Link to="/seller-signin">Signin here</Link>
                 </div>
               </div>
             </div>

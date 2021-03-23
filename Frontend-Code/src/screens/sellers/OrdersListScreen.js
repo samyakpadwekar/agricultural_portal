@@ -46,7 +46,7 @@ const OrdersListScreen = (props) => {
   useEffect(() => {
     getAllOrders();
   },[]);
-  sessionStorage.setItem('sellerId',1);
+  // sessionStorage.setItem('sellerId',1);
   const url = 'http://localhost:8080/order/orders-list/'+sessionStorage.getItem('sellerId');
   const header = {
     headers: {

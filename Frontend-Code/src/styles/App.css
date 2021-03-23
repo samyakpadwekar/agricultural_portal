@@ -293,3 +293,10 @@ span {
   width: 100px;
   border-radius: 10px;
 }
+
+.product-img {
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+}
+

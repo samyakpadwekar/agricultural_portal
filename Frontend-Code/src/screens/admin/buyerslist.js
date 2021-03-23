@@ -103,7 +103,7 @@ const Buyerlist = (props) => {
                   <td className="col-1">{buyer.lastName}</td>
                   <td className="col-1">{buyer.email}</td>
                   <td className="col-1">{buyer.regDate}</td>
-                  <td className="col-1">{buyer.addresses.pinCode}</td>
+                  <td className="col-1">{buyer.addresses && buyer.addresses.pinCode}</td>
                   <td className="col-1">
                     <button
                       type="button"

@@ -3,11 +3,19 @@ import { Link } from "react-router-dom";
 import "../styles/App.css";
 
 const SellerNavigation = () => {
-  // const role=sessionStorage.getItem('userRole')
+  const role=sessionStorage.getItem('userRole')
   
+
+  const Signout = (props) => {
+    sessionStorage.removeItem('sellerId')
+    sessionStorage.removeItem('userRole')
+    document.location.href = '/seller-signin'
+
+  }
+
   return (
-    // <div>
-    // {role==="SELLER" && (
+    <div>
+    {role==="SELLER" && (
 
     <div style={{position:"sticky"}}>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -88,6 +96,13 @@ const SellerNavigation = () => {
                       </span>
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/seller/payments">
+                      <span className="dropdown-item" href="#">
+                        Payments Summary
+                      </span>
+                    </Link>
+                  </li>
                 </ul>
               </div>
               </li>
@@ -98,15 +113,27 @@ const SellerNavigation = () => {
                   </span>
                 </Link>
               </li>
-        
+              <li>
+              <div className="admin-signout">
+                  <button
+                    className="btn btn-danger"
+                    type="submit"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    onClick={Signout}
+                  >
+                    Signout
+                  </button>
+              </div>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
     </div>
-    // )
-    // }
-    // </div>
+    )
+    }
+    </div>
   );
 };
 

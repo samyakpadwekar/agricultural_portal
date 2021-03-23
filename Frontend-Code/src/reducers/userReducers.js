@@ -5,6 +5,10 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
+  SELLER_SIGNIN_FAIL,
+  SELLER_SIGNIN_REQUEST,
+  SELLER_SIGNIN_SUCCESS,
+  SELLER_SIGNOUT,
   USER_SIGNOUT,
   USER_SIGNUP_FAIL,
   USER_SIGNUP_REQUEST,
@@ -20,6 +24,21 @@ export const userSigninReducer = (state = {}, action) => {
     case USER_SIGNIN_FAIL:
       return { loading: false, error: action.payload }
     case USER_SIGNOUT:
+      return {}
+    default:
+      return state
+  }
+}
+
+export const sellerSigninReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SELLER_SIGNIN_REQUEST:
+      return { loading: true }
+    case SELLER_SIGNIN_SUCCESS:
+      return { loading: true, response: action.payload }
+    case SELLER_SIGNIN_FAIL:
+      return { loading: false, error: action.payload }
+    case SELLER_SIGNOUT:
       return {}
     default:
       return state

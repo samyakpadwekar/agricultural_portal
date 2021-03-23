@@ -5,11 +5,11 @@ const SellerHomeScreen = (props) => {
     return (
       <div>
         <div>
-          <Header title="" subtitle="" />
+          <Header title="Seller Dashboard" subtitle="" />
         </div>
         <div className="container row">
           {/* <div className="col-md-2"></div> */}
-          <div className="col-md-10">
+          <div className="col-md-10 mx-auto">
             <div className="row" style={{paddingTop:0}}>
             
               <div className="col">
@@ -65,7 +65,7 @@ const SellerHomeScreen = (props) => {
 
               <div className="col">
                 <div className="card" style={{width: 190}}>
-                  <Link to="/seller/orders" style={{textDecoration:'none',color: '#000'}}>
+                  <Link to="/seller/your-orders" style={{textDecoration:'none',color: '#000'}}>
                     <img className="card-img-top" style={{width: 188, height:200}} src="/images/orders.png" alt="orders"/>
                     <div className="card-body">
                       <h5 className="card-title">Orders</h5>
@@ -79,15 +79,14 @@ const SellerHomeScreen = (props) => {
                     </ul> */}
                 </div>
               </div>
-            
             </div>
           </div>
-          <div className="col-md-2">
+          {/* <div className="col-md-2">
             <div style={{width:250, position:"fixed"}}>
               <h2>Business Name</h2>
               <h4>--Business details--</h4>
             </div>
-          </div>
+          </div> */}
           </div>
         
       </div>

@@ -94,7 +94,7 @@ const AdminNavigation = () => {
                 </button>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link to="/admin/seller-list">
+                    <Link to="/admin/product-list">
                       <span className="dropdown-item" href="#">
                         Products List
                       </span>

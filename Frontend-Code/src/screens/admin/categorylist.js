@@ -3,12 +3,10 @@ import Header from "../../components/Header";
 
 const CategoryList = (props) => {
   const testData = [
-    { id: 1, name: "Category 1", description: "fruits and vegetables" },
-    { id: 2, name: "Category 2", description: "insecticides and persticides" },
-    { id: 3, name: "Category 3", description: "faming machineries" },
-    { id: 4, name: "Category 4", description: "seeds and pulses" },
-    { id: 5, name: "Category 5", description: "grains.oils and masalas" },
-    { id: 6, name: "Category 6", description: "milk and meat" },
+    { id: 1, name: "Machinery", description: "Heavy duty agricultural machineries" },
+    { id: 2, name: "Pesticides", description: "insecticides and persticides" },
+    { id: 3, name: "Crops", description: "Wheat,rice,sugarcane etc" },
+    
   ];
 
   return (

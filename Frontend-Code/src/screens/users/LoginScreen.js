@@ -25,7 +25,7 @@ const LoginScreen = (props) => {
       sessionStorage.setItem('userRole',user.role)
       // NavCond()
       if(user.role==="CUSTOMER")
-      {props.history.push('/home')}
+      {props.history.push('/customer/home')}
       if(user.role==="ADMIN")
       {props.history.push('/admin-page')}
     } else if (response && response.status === 'error') {
