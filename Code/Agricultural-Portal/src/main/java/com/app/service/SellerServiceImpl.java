@@ -114,24 +114,29 @@ public class SellerServiceImpl implements ISellerService{
 
 	@Override
 	public String editProduct(ProductDTO productDTO,MultipartFile imageFile) throws IllegalStateException, IOException {
+		System.out.println("product Id :"+productDTO.getProductId());
 		Product product = productRepo.findById(productDTO.getProductId()).get(); // product : persistent
 		System.out.println("in edit product service , before : " + product);
-		Seller seller = product.getSeller();
-		BeanUtils.copyProperties(productDTO, product,"picture");
+//		Seller seller = product.getSeller();
+//		BeanUtils.copyProperties(productDTO, product,"picture");
+		product.setCategory(categoryRepo.findById(productDTO.getCategory().getCategoryId()).get());
+		product.setBrandName(productDTO.getBrandName());
+		product.setProductDescription(productDTO.getProductDescription());
+		product.setPrice(productDTO.getPrice());
+		product.setUnitsStock(productDTO.getUnitsStock());
 		if(!imageFile.isEmpty())
 		{
-			String name =LocalDateTime.now().toString();
-			 String processed = name.replace(":", "")+imageFile.getOriginalFilename();
-			 System.out.println("process"+processed);
-			  imageFile.transferTo(new File(location,processed));
-			  String
-			  path=location+"/"+processed;
-			  System.out.println("path : "+path);
-			  System.out.println("path bytes "+path.getBytes());
-			  product.setPicture(path.getBytes());
+			String name = LocalDateTime.now().toString();
+			String processed = name.replace(":", "") + imageFile.getOriginalFilename();
+			System.out.println("process" + processed);
+			imageFile.transferTo(new File(location, processed));
+			String path = location + "/" + processed;
+			System.out.println("path : " + path);
+			System.out.println("path bytes " + path.getBytes());
+			product.setPicture(path.getBytes());
 			
 		}
-		product.setSeller(seller);
+//		product.setSeller(seller);
 		// dirty checking
 		System.out.println("in edit product service , after : " + product);
 		return "product : " + product.getProductCatalogue().getProductName() + " updated successfully";
