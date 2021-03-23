@@ -20,14 +20,18 @@ const LoginScreen = (props) => {
   useEffect(() => {
     if (response) {
       console.log('inside useEffect')
-      const user =response
-      sessionStorage.setItem('userId',user.userId)
-      sessionStorage.setItem('userRole',user.role)
+      const user = response
+      sessionStorage.setItem('userDetails', JSON.stringify(user))
+
+      sessionStorage.setItem('userId', user.userId)
+      sessionStorage.setItem('userRole', user.role)
       // NavCond()
-      if(user.role==="CUSTOMER")
-      {document.location.href='/customer/home'}
-      if(user.role==="ADMIN")
-      {document.location.href='/admin-page'}
+      if (user.role === 'CUSTOMER') {
+        props.history.push('/customer/home')
+      }
+      if (user.role === 'ADMIN') {
+        props.history.push('/admin-page')
+      }
     } else if (response && response.status === 'error') {
       console.log('failure')
       alert(response.error)

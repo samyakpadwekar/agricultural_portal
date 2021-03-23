@@ -76,8 +76,10 @@ function App() {
             />
             <Route path="/admin-monthly-revenue" component={MonthlyRevenue} />
             <Route path="/admin-page" component={AdminPage} />
-            <Route path="/admin/product-report-graph" component={ProdRepGraph} />
-
+            <Route
+              path="/admin/product-report-graph"
+              component={ProdRepGraph}
+            />
 
             <Route path="/seller-signin" component={SellerSigninScreen} />
             <Route
@@ -104,11 +106,15 @@ function App() {
               path="/seller/product-feedback"
               component={ProductFeedbackScreen}
             />
-            <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
-            <Route path="/seller/order-details" component={SellerOrderDetailsScreen} />
+            <Route
+              path="/seller/product-feedback"
+              component={ProductFeedbackScreen}
+            />
+            <Route
+              path="/seller/order-details"
+              component={SellerOrderDetailsScreen}
+            />
             <Route path="/seller/payments" component={PaymentsScreen} />
-
-
 
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />

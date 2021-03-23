@@ -20,13 +20,14 @@ const YourOrders = (props) => {
   }
 
   const [allOrders, setAllOrders] = useState()
+  
   useEffect(() => {
     result()
   }, [])
 
   const dispatch = useDispatch()
 
-  const buyerId = 1
+  const buyerId = sessionStorage.getItem('userId')
   const url = 'http://localhost:8080/customer/your-order/' + buyerId
 
   const header = {
