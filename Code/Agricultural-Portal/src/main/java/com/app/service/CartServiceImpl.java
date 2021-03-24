@@ -73,6 +73,7 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public String updateCartItem(@Valid AddToCartDto cartDto) {
 		// TODO Auto-generated method stub
+		System.out.println("addToCart DTO: "+cartDto.toString());
 		Cart persistCart = cartRepository.findById(cartDto.getId()).get();
 		persistCart.setQuantity(cartDto.getQuantity());
 		return "Cart has been updated";
