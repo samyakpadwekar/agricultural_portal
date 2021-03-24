@@ -1,18 +1,50 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCartItems } from '../../actions/userActions'
+import {
+  checkoutCart,
+  removeCartItem,
+  addCartItems,
+  deleteCartItems,
+  getCartItems,
+} from '../../actions/userActions'
 import store from '../../store'
 import '../../styles/App.css'
 const CartScreen = (props) => {
   const [subTotal, setSubTotal] = useState(0)
+  const userId = sessionStorage.getItem('userId')
   const dispatch = useDispatch()
+  // const cartItemList = useSelector((store) => store.userCartItemsList)
   const cartItemList = useSelector((store) => store.userCartItemsList)
   const { error, response, loading } = cartItemList
+
   useEffect(() => {
-    dispatch(getCartItems(7))
+    dispatch(getCartItems(userId))
   }, [])
+
   useEffect(() => {}, [error, response, loading])
 
+  const onDeleteItem = (cartId) => {
+    dispatch(deleteCartItems(cartId))
+    document.location.href = '/user/my-cart'
+  }
+
+  const onAddItem = (cartId, productId) => {
+    dispatch(addCartItems(cartId, 1, productId, userId))
+    document.location.href = '/user/my-cart'
+  }
+
+  const onRemoveItem = (cartId, quantity, productId) => {
+    console.log(`product Id : ${productId}`)
+    dispatch(removeCartItem(cartId, `${quantity - 1}`, productId, userId))
+    document.location.href = '/user/my-cart'
+  }
+
+  const onCheckout = (userId) => {
+    dispatch(checkoutCart(userId))
+    document.location.href = '/customer/home'
+  }
+
+  const imageUrl = 'http://localhost:8080/seller/download/'
   return (
     <>
       <div className="container">
@@ -47,8 +79,9 @@ const CartScreen = (props) => {
                                   <a href="#">
                                     <img
                                       style={{ width: 100, height: 100 }}
-                                      src="/images/product-1.jpg"
+                                      src={imageUrl + item.product.productId}
                                       alt="Image"
+                                      className="prod-image"
                                     />
                                   </a>
                                   <p>
@@ -60,6 +93,13 @@ const CartScreen = (props) => {
                               <td>
                                 <div className="row justify-content-center">
                                   <button
+                                    onClick={() => {
+                                      onRemoveItem(
+                                        item.id,
+                                        item.quantity,
+                                        item.product.productId
+                                      )
+                                    }}
                                     type="button"
                                     className="btn-minus col-md-2">
                                     <img
@@ -73,6 +113,9 @@ const CartScreen = (props) => {
                                     defaultValue={item.quantity}
                                   />
                                   <button
+                                    onClick={() => {
+                                      onAddItem(item.id, item.product.productId)
+                                    }}
                                     type="button"
                                     className="btn-plus col-md-2">
                                     <img
@@ -86,6 +129,9 @@ const CartScreen = (props) => {
 
                               <td>
                                 <button
+                                  onClick={() => {
+                                    onDeleteItem(item.id)
+                                  }}
                                   className="btn-trash btn-light"
                                   type="button">
                                   <img
@@ -118,10 +164,16 @@ const CartScreen = (props) => {
                         </h2>
                       </div>
                       <div className="cart-btn">
-                        <button className="btn btn-outline-warning">
-                          Update Cart
+                        <button
+                          onClick={() => {
+                            document.location.href = '/user/wishlist'
+                          }}
+                          className="btn btn-outline-warning">
+                          Wishlist
                         </button>
-                        <button className="btn btn-outline-success">
+                        <button
+                          onClick={onCheckout}
+                          className="btn btn-outline-success">
                           Checkout
                         </button>
                       </div>
