@@ -2,7 +2,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import {
   userCartReducer,
   userSigninReducer,
+  sellerSigninReducer,
   userSignupReducer,
+  userOrderReducer,
 } from './reducers/userReducers'
 import {
   fetchComplaintReducer,
@@ -21,6 +23,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 // combined reducers
 const reducers = combineReducers({
   userSignin: userSigninReducer,
+  sellerSignin: sellerSigninReducer,
   userSignup: userSignupReducer,
   adminfeedbacklist: fetchFeedbackReducer,
   admincomplaintlist: fetchComplaintReducer,
@@ -30,6 +33,7 @@ const reducers = combineReducers({
 
   productCatalogue: fetchProductCatalogueReducer,
   userCartItemsList: userCartReducer,
+  userOrderList: userOrderReducer,
 })
 
 const store = createStore(

@@ -12,9 +12,9 @@ const OrderDetails = (props) => {
     getAllOrders()
   }, [])
 
-  const url =
-    'http://localhost:8080/customer/order-details/' +
-    props.location.state.orderId
+  const orderId = localStorage.getItem('orderId')
+
+  const url = 'http://localhost:8080/customer/order-details/' + orderId
 
   const header = {
     headers: {

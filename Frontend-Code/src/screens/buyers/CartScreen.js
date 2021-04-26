@@ -39,9 +39,9 @@ const CartScreen = (props) => {
     document.location.href = '/user/my-cart'
   }
 
-  const onCheckout = (userId) => {
+  const onCheckout = () => {
     dispatch(checkoutCart(userId))
-    document.location.href = '/customer/home'
+    document.location.href = '/user/your-orders'
   }
 
   const imageUrl = 'http://localhost:8080/seller/download/'

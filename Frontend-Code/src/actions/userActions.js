@@ -5,9 +5,15 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
+  SELLER_SIGNIN_FAIL,
+  SELLER_SIGNIN_REQUEST,
+  SELLER_SIGNIN_SUCCESS,
   USER_SIGNUP_FAIL,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
+  USER_ORDERS_FETCH_REQUEST,
+  USER_ORDERS_FETCH_REQUEST_FAILURE,
+  USER_ORDERS_FETCH_REQUEST_SUCCESS,
 } from '../constants/userConstants'
 import axios from 'axios'
 
@@ -157,25 +163,33 @@ export const getCartItems = (buyerId) => {
   }
 }
 
-export const deleteCartItems = (cartId) => {
+export const getUserOrders = () => {
   return (dispatch) => {
+    dispatch({
+      type: USER_ORDERS_FETCH_REQUEST,
+    })
+
     const header = {
       headers: {
         'Content-Type': 'application/json',
       },
     }
 
-    const url = 'http://localhost:8080/user/cart/delete/' + cartId
+    const buyerId = sessionStorage.getItem('userId')
+    const url = 'http://localhost:8080/customer/your-order/' + buyerId
     axios
-      .delete(url, header)
+      .get(url, header)
       .then((response) => {
         dispatch({
-          type: '',
+          type: USER_ORDERS_FETCH_REQUEST_SUCCESS,
           payload: response.data,
         })
       })
       .catch((error) => {
-        console.log('Error in deleting item')
+        dispatch({
+          type: USER_ORDERS_FETCH_REQUEST_FAILURE,
+          payload: error,
+        })
       })
   }
 }
@@ -254,13 +268,13 @@ export const checkoutCart = (userId) => {
       },
     }
 
-    const body = {
-      userId,
-    }
+    // const body = {
+    //   userId,
+    // }
 
-    const url = 'http://localhost:8080/order/place-order'
+    const url = 'http://localhost:8080/order/place-order/' + userId
     axios
-      .post(url, body, header)
+      .post(url, header)
       .then((response) => {
         dispatch({
           type: '',
@@ -269,6 +283,29 @@ export const checkoutCart = (userId) => {
       })
       .catch((error) => {
         console.log('Error while placing order')
+      })
+  }
+}
+
+export const deleteCartItems = (cartId) => {
+  return (dispatch) => {
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const url = 'http://localhost:8080/user/cart/delete/' + cartId
+    axios
+      .delete(url, header)
+      .then((response) => {
+        dispatch({
+          type: '',
+          payload: response.data,
+        })
+      })
+      .catch((error) => {
+        console.log('Error in deleting item')
       })
   }
 }

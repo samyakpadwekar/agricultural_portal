@@ -7,7 +7,7 @@ const AdminPage=()=>{
     <MonthlyRevenue/>
     </div>
     <div className="col-md-6">
-    <ProdRepGraph/>?
+    <ProdRepGraph/>
     </div>   
     </div>
   )

@@ -22,6 +22,7 @@ import MonthlyRevenue from './screens/admin/MonthlyRevenue'
 import ProdRepGraph from './screens/admin/prodRepGraph'
 import AdminPage from './screens/admin/adminpage'
 
+import SellerSigninScreen from './screens/users/sellerSignin'
 import SellerHomeScreen from './screens/sellers/SellerHomeScreen'
 import SellerEditProfileScreen from './screens/sellers/SellerEditProfileScreen'
 import SellerSignupScreen from './screens/sellers/SellerSignup'
@@ -35,16 +36,20 @@ import OrdersListScreen from './screens/sellers/OrdersListScreen'
 import PerformanceScreen from './screens/sellers/PerformanceScreen'
 import ProductFeedbackScreen from './screens/sellers/ProductFeedbackScreen'
 import SellerOrderDetailsScreen from './screens/sellers/SellerOrderDetails'
+import PaymentsScreen from './screens/sellers/PaymentsScreen'
 
 import YourAccount from './screens/buyers/YourAccount'
 import CartScreen from './screens/buyers/CartScreen'
 import OrderDetails from './screens/buyers/OrderDetails'
 import YourOrders from './screens/buyers/YourOrders'
 import SignupScreen from './screens/buyers/Signup'
+import SearchByCategory from './screens/buyers/SearchByCategory'
 import CurrentOrders from './screens/buyers/CurrentOrders'
 import CustomerEditProfileScreen from './screens/buyers/CustomerEditProfile'
 import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
 import Customerhome from './screens/buyers/CustomerHome'
+import AddToCartScreen from './screens/buyers/AddToCartScreen'
+import NearbySellers from './screens/buyers/NearbySellersScreen'
 
 function App() {
   return (
@@ -53,13 +58,12 @@ function App() {
         <Navigation />
         <SellerNavigation />
         <AdminNavigation />
-        {/* <CustomerNavbar/> */}
         <BuyerNav />
         <div>
           <Switch>
             <Route path="/home" component={HomeScreen} />
             <Route path="/signup" exact component={SignupScreen} />
-            <Route path="/login" component={LoginScreen} />
+            <Route exact path="/" component={LoginScreen} />
             <Route path="/admin/add-admin" component={AddAdmin} />
             <Route path="/admin/buyer-list" component={Buyerlist} />
             <Route path="/admin/category-list" component={CategoryList} />
@@ -72,7 +76,14 @@ function App() {
               path="/user/edit-profile"
               component={UserEditProfileScreen}
             />
+            <Route path="/admin-monthly-revenue" component={MonthlyRevenue} />
+            <Route path="/admin-page" component={AdminPage} />
+            <Route
+              path="/admin/product-report-graph"
+              component={ProdRepGraph}
+            />
 
+            <Route path="/seller-signin" component={SellerSigninScreen} />
             <Route
               path="/seller/edit-profile"
               component={SellerEditProfileScreen}
@@ -93,17 +104,19 @@ function App() {
             />
             <Route path="/seller/your-orders" component={OrdersListScreen} />
             <Route path="/seller/performance" component={PerformanceScreen} />
-<<<<<<< HEAD
             <Route
               path="/seller/product-feedback"
               component={ProductFeedbackScreen}
             />
-=======
-            <Route path="/seller/product-feedback" component={ProductFeedbackScreen} />
-            <Route path="/seller/order-details" component={SellerOrderDetailsScreen} />
-
-
->>>>>>> bb7b3fa150916e901dfe4f2b0674efdd7a5f9577
+            <Route
+              path="/seller/product-feedback"
+              component={ProductFeedbackScreen}
+            />
+            <Route
+              path="/seller/order-details"
+              component={SellerOrderDetailsScreen}
+            />
+            <Route path="/seller/payments" component={PaymentsScreen} />
 
             <Route path="/user/your-account" component={YourAccount} />
             <Route path="/user/my-cart" component={CartScreen} />
@@ -119,6 +132,9 @@ function App() {
             />
             <Route path="/user/order-details" component={OrderDetails} />
             <Route path="/customer/home" component={Customerhome} />
+            <Route path="/customer/addToCart" component={AddToCartScreen} />
+            <Route path="/customer/categorywise" component={SearchByCategory} />
+            <Route path="/customer/nearbyseller" component={NearbySellers} />
           </Switch>
         </div>
         <Footer />

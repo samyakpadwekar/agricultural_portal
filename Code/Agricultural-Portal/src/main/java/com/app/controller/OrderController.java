@@ -22,6 +22,7 @@ public class OrderController {
 	
 	@PostMapping("/place-order/{userId}")
 	public ResponseEntity<?> cartCheckout(@PathVariable Integer userId){
+		System.out.println("Userid in place-order : "+ userId);
 		return new ResponseEntity<>(orderService.cartCheckout(userId), HttpStatus.ACCEPTED);
 	}
 	

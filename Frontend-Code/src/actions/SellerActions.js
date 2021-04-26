@@ -16,4 +16,3 @@ export const signIn = (jwtRequest = {}) => {
     payload: jwtRequest,
   }
 }
-

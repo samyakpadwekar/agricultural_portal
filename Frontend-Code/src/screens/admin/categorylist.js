@@ -1,16 +1,69 @@
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useSnackbar } from 'notistack';
 
 const CategoryList = (props) => {
-  const testData = [
-    { id: 1, name: "Category 1", description: "fruits and vegetables" },
-    { id: 2, name: "Category 2", description: "insecticides and persticides" },
-    { id: 3, name: "Category 3", description: "faming machineries" },
-    { id: 4, name: "Category 4", description: "seeds and pulses" },
-    { id: 5, name: "Category 5", description: "grains.oils and masalas" },
-    { id: 6, name: "Category 6", description: "milk and meat" },
-  ];
+    
+  // ];
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+  const [allCategories, setAllCategories] = useState()
+  
+  useEffect(() => {
+    result()
+  }, [])
+
+  const categoryDetails = (category) => {
+    props.history.push('/admin/edit-category', category)
+  }
+
+  const url = 'http://localhost:8080/admin/get-categories'
+
+  const header ={
+    headers: {
+      'Content-Type': 'application/json', 
+    },
+  }
+
+  const result = () => {
+    axios
+      .get(url, header)
+      .then((response) => {
+        const categories = response.data
+        setAllCategories(categories)
+        console.log(categories)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
+  }
+
+  const deleteNotif = () => {
+    enqueueSnackbar('Category Deleted',{variant:'success'});
+};
+
+  const deleteCategory = (category) => {
+    console.log(category.categoryId)
+    const id = category.categoryId
+
+    const url1 = 'http://localhost:8080/admin/delete-category/' + id
+
+    const header1 ={
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    }
+  
+      axios
+        .delete(url1, header1)
+        .then((response) => {
+          deleteNotif();
+          result() 
+        })
+        .catch((error) => console.error(`Error: ${error}`))
+    }
+
+  console.log(allCategories)
   return (
     <>
       <Header title="Categories" />
@@ -28,12 +81,13 @@ const CategoryList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {testData.map((category) => {
+          {allCategories &&
+           allCategories.map((category) => {
             return (
               <>
                 <tr>
-                  <th className="col-1" scope="row">{category.id}</th>
-                  <td className="col-2">{category.name}</td>
+                  <th className="col-1" scope="row">{category.categoryId}</th>
+                  <td className="col-2">{category.catName}</td>
                   <td className="col-2">{category.description}</td>
                   <td className="col-2">
                     <button
@@ -41,7 +95,7 @@ const CategoryList = (props) => {
                       className="btn btn-outline-success"
                       data-mdb-ripple-color="dark"
                       style={buttonStyle}
-                    >
+                      onClick={(e) => categoryDetails(category)}>
                       Edit
                     </button>
                     <button
@@ -49,6 +103,7 @@ const CategoryList = (props) => {
                       className="btn btn-outline-danger"
                       data-mdb-ripple-color="dark"
                       style={buttonStyle}
+                      onClick={(e) => deleteCategory(category)}
                     >
                       Delete
                     </button>

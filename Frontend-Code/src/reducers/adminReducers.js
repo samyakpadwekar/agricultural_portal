@@ -15,6 +15,10 @@ import{
   SELLER_FETCH_SUCCESS,
   SELLER_FETCH_FAIL,
   SELLER_FETCH_RESET,
+  PRODLIST_FETCH_REQUEST,
+  PRODLIST_FETCH_SUCCESS,
+  PRODLIST_FETCH_FAIL,
+  PRODLIST_FETCH_RESET,
   PRODREP_FETCH_REQUEST,
   PRODREP_FETCH_SUCCESS,
   PRODREP_FETCH_FAIL,
@@ -96,6 +100,22 @@ export const fetchProdRepReducer = (state = {}, action) => {
     case PRODREP_FETCH_FAIL:
       return { loading: false, error: action.payload }
     case PRODREP_FETCH_RESET:
+      return {}
+    default:
+      return state
+  }
+}
+
+//Reducer to fetch product list
+export const fetchProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODLIST_FETCH_REQUEST:
+      return { loading: true }
+    case  PRODLIST_FETCH_SUCCESS:
+      return { loading: false, response: action.payload }
+    case PRODLIST_FETCH_FAIL:
+      return { loading: false, error: action.payload }
+    case PRODLIST_FETCH_RESET:
       return {}
     default:
       return state

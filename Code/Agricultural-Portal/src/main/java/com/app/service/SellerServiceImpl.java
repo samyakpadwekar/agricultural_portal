@@ -116,8 +116,9 @@ public class SellerServiceImpl implements ISellerService{
 	public String editProduct(ProductDTO productDTO,MultipartFile imageFile) throws IllegalStateException, IOException {
 		Product product = productRepo.findById(productDTO.getProductId()).get(); // product : persistent
 		System.out.println("in edit product service , before : " + product);
+		System.out.println("in edit product service , PRODUCTDTO NEW : " + productDTO);
 		Seller seller = product.getSeller();
-		BeanUtils.copyProperties(productDTO, product,"picture");
+		BeanUtils.copyProperties(productDTO, product, "unitsSold","productCatalogue","avgRating","picture");
 		if(!imageFile.isEmpty())
 		{
 			String name =LocalDateTime.now().toString();
@@ -134,7 +135,7 @@ public class SellerServiceImpl implements ISellerService{
 		product.setSeller(seller);
 		// dirty checking
 		System.out.println("in edit product service , after : " + product);
-		return "product : " + product.getProductCatalogue().getProductName() + " updated successfully";
+		return " updated successfully";
 	}
 
 	@Override

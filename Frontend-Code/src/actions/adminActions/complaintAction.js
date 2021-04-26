@@ -2,7 +2,6 @@ import{
   COMPLAINT_FETCH_REQUEST,
   COMPLAINT_FETCH_SUCCESS,
   COMPLAINT_FETCH_FAIL,
-  COMPLAINT_FETCH_RESET,
 } from '../../constants/adminConstants'
 import axios from 'axios'
 

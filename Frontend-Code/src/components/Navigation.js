@@ -1,10 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {useSelector } from 'react-redux';
 import "../styles/App.css";
 
 const Navigation = () => {
+  const userSignin = useSelector((store) => store.userSignin)
+  const { role } = userSignin
+  const ROLE=sessionStorage.getItem('userRole')
+
   return (
+    <div>
+    {(role==="CUSTOMER" || ROLE==="CUSTOMER") && (
     <div className="upper-nav">
       <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top-nav">
         <div className="container-fluid">
@@ -46,34 +53,6 @@ const Navigation = () => {
                   id="navBarSearchForm"
                 >
                   <div className="input-group">
-                    <div className="input-group-prepend nav-item dropdown">
-                      <button
-                        className="btn btn-light dropdown-toggle nav-btn"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Categories
-                      </button>
-                      <ul className="dropdown-menu">
-                        <li>
-                          <span className="dropdown-item" href="#">
-                            Category One
-                          </span>
-                        </li>
-                        <li>
-                          <span className="dropdown-item" href="#">
-                            Category Two
-                          </span>
-                        </li>
-                        <li>
-                          <span className="dropdown-item" href="#">
-                            Category Three
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
                     <input
                       type="text"
                       className="form-control"
@@ -118,7 +97,7 @@ const Navigation = () => {
                 </div>
               </li>
               <li className="nav-item">
-                <Link to="/signup">
+                <Link to="/">
                   <span className="nav-link">
                     <img
                       src="https://img.icons8.com/ios/50/000000/add-user-male.png"
@@ -127,7 +106,7 @@ const Navigation = () => {
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Signup
+                    Signin
                   </span>
                 </Link>
               </li>
@@ -149,6 +128,8 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
+    </div>
+    )}
     </div>
   );
 };

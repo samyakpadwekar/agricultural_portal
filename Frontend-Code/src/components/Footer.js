@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Footer = (props) => {
+  const userSignin = useSelector((store) => store.userSignin)
+  const { loading, error, response } = userSignin
+  const ROLE=sessionStorage.getItem('userRole')
   return (
-    <>
-      <div className="container-fluid">
+    <div>
+      { (response || ROLE ) && (
+      <div>
         <div className="row bg-light">
           <div className="footer-widget lead col-md-4 ">
             <h2>AgriShop</h2>
@@ -25,7 +30,7 @@ const Footer = (props) => {
                   FAQs
                 </span>
               </Link>
-              <Link to="/faqs">
+              <Link to="/contact-us">
                 <span className="nav-link footer-link">
                   <img
                     src="/./images/person-lines-fill.svg"
@@ -94,7 +99,8 @@ const Footer = (props) => {
           </div>
         </div>
       </div>
-    </>
+      )}
+    </div>
   )
 }
 

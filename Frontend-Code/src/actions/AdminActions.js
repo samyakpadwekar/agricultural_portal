@@ -14,6 +14,9 @@ import{
   PRODREP_FETCH_REQUEST,
   PRODREP_FETCH_SUCCESS,
   PRODREP_FETCH_FAIL,
+  PRODLIST_FETCH_REQUEST,
+  PRODLIST_FETCH_SUCCESS,
+  PRODLIST_FETCH_FAIL,
 } from '../constants/adminConstants'
 import axios from 'axios'
 
@@ -164,6 +167,37 @@ export const getProductRep = () => {
       .catch((error) => {
         dispatch({
           type: PRODREP_FETCH_FAIL,
+          payload: error,
+        })
+      })
+  }
+}
+
+//GET PRODUCTLIST
+export const getProducts = () => {
+  return (dispatch) => {
+    dispatch({
+      type: PRODLIST_FETCH_REQUEST,
+    })
+
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const url = 'http://localhost:8080/customer/product-list'
+    axios
+      .get(url, header)
+      .then((response) => {
+        dispatch({
+          type: PRODLIST_FETCH_SUCCESS,
+          payload: response.data,
+        })
+      })
+      .catch((error) => {
+        dispatch({
+          type: PRODLIST_FETCH_FAIL,
           payload: error,
         })
       })

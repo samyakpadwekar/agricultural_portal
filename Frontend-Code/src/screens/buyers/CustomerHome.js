@@ -10,42 +10,82 @@ import { useState } from 'react'
 import AddToCartScreen from './AddToCartScreen'
 
 const Customerhome = (props) => {
-  // const onProducts = () => {
-  //   props.history.push('/custprodlist')
-  // }
-  // const Signout = () => {
-  //   sessionStorage.clear()
-  //   props.history.push('/home')
-  // }
-  // const user = 'Pankaj'
-  // const [anchorEl, setAnchorEl] = React.useState(null)
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget)
-  // }
-  // const handleClose = () => {
-  //   setAnchorEl(null)
-  // }
-
-  let count = 1;
   const addToCart = (product) => {
     {
+      localStorage.setItem('product', JSON.stringify(product))
       product && props.history.push('/customer/addToCart', product)
     }
   }
 
   const [allProducts, setAllProducts] = useState()
+  const [topProducts, setTopProducts] = useState()
+  const [allCats, setAllCats] = useState()
+
   useEffect(() => {
+    // getTopProducts()
     result()
+    getAllCats()
   }, [])
 
-  const url = 'http://localhost:8080/customer/product-list'
-  const header = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const getAllCats = () => {
+    const url = 'http://localhost:8080/admin/get-categories'
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    axios
+      .get(url, header)
+      .then((response) => {
+        //const allCats = JSON.parse(response.data)
+
+        const temp = response.data
+        console.log(temp)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
+  }
+  const resultCategory = (name) => {
+    const url = 'http://localhost:8080/customer/search/'
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    axios
+      .get(url, header)
+      .then((response) => {
+        const temp = response.data
+        setTopProducts(temp)
+        console.log(temp)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
+  }
+
+  const getTopProducts = () => {
+    const url = 'http://localhost:8080/customer/product-list'
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    axios
+      .get(url, header)
+      .then((response) => {
+        const temp = response.data
+        setAllProducts(temp)
+        console.log(temp)
+      })
+      .catch((error) => console.error(`Error: ${error}`))
   }
 
   const result = () => {
+    const url = 'http://localhost:8080/customer/product-list'
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
     axios
       .get(url, header)
       .then((response) => {
@@ -61,185 +101,198 @@ const Customerhome = (props) => {
   return (
     <div>
       <div className="custhome">
-        <div className="cart">
-          <div className="YUhWwv">
-            <a className="_3SkBxJ" href="/cartpage">
-              <svg
-                className="V3C5bO"
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  className="_1bS9ic"
-                  d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86"
-                  fill="#fff"></path>
-              </svg>
-              {/* // <span>Cart</span> */}
-            </a>
-          </div>
-        </div>
-
-        <div>
-          {/* <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}>
-            {user.firstName}
-          </Button> */}
-          {/* <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}>
-            <MenuItem>
-              <a style={{ textDecoration: 'none' }} href="/userprofile">
-                My Profile
-              </a>
-            </MenuItem>
-            <MenuItem>
-              <a style={{ textDecoration: 'none' }} href="/home">
-                sign out
-              </a>
-            </MenuItem>
-          </Menu> */}
-        </div>
-
-        {/* <div>
-          <button onClick={onProducts} type="button" className="btn btn-info">
-            Products
-          </button>
-        </div> */}
-
-        <div className="tomer">
-          <div className="container col-md-10">
-            <div className="row">
-              {allProducts &&
-                allProducts.map((p) => {
-                  return (
-
-                    <div className="col-md-3">
-                      <div className="card">
-                        <img
-                          src={imageUrl + p.productId}
-                          className="card-img-top"
-                          alt="..."
-                          height="300px"
-                          width="200px"
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">
-                            {p.productCatalogue.productName}
-                          </h5>
-                          <h5 className="card-title">
-                            {p.seller.businessName}
-                          </h5>
-                          {p.avgRating > 0 ? (
-                            <h5 className="card-title">{p.avgRating}/5</h5>
-                          ) : (
-                            <h5> No ratings available </h5>
-                          )}
-                          <button
-                            onClick={(e) => addToCart(p)}
-                            type="button"
-                            className="btn btn-outline-success">
-                            Add To Cart
-                          </button>
+        <div className="container">
+          {/* <div className="col-md-10 mx-auto"> */}
+          <div className="col-md-12 mx-auto">
+            <div className="tomer">
+              <div className="container col-md-10">
+                <div className="row border px-3 py-3">
+                  <table className="customerHomeTable  ">
+                    <tr>
+                      <td>
+                        <div className="row ">
+                          {allProducts &&
+                            allProducts.map((p) => {
+                              return (
+                                <div className="col-md-3">
+                                  <div className="card">
+                                    <img
+                                      src={imageUrl + p.productId}
+                                      className="card-img-top"
+                                      alt="..."
+                                      height="150px"
+                                      width="100px"
+                                    />
+                                    <div className="card-body">
+                                      <p className="card-title">
+                                        {p.productCatalogue.productName}
+                                      </p>
+                                      <p className="card-title">
+                                        Vendor : {p.seller.businessName}
+                                      </p>
+                                      {p.avgRating > 0 ? (
+                                        <p className="card-title">
+                                          Rating : {p.avgRating}/5
+                                        </p>
+                                      ) : (
+                                        <p>Rating : N/A </p>
+                                      )}
+                                      <button
+                                        onClick={(e) => addToCart(p)}
+                                        type="button"
+                                        className="btn btn-outline-success">
+                                        Add To Cart
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            })}
                         </div>
-                      </div>
-                    </div>
-                    
-                  )
-                })}
-
-              {/* <div className="col-sm">
-                <div className="card">
-                  <img
-                    src={imageUrl + '4'}
-                    className="card-img-top"
-                    alt="..."
-                    height="300px"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Title2</h5>
-                    <h5 className="card-title">subtitle</h5>
-                    <h5 className="card-title">rating : 2/5</h5>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* 
-              <div className="col-sm">
-                <div className="card">
-                  <img
-                    src={imageUrl + '20'}
-                    className="card-img-top"
-                    alt="..."
-                    height="300px"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Title3</h5>
-                    <h5 className="card-title">subtitle</h5>
-                    <h5 className="card-title">rating : 4/5</h5>
-                  </div>
+                      </td>
+                    </tr>
+                  </table>{' '}
                 </div>
               </div>
-             
-
-              <div className="col-sm">
-                <div className="card">
-                  <img
-                    src={imageUrl + '5'}
-                    className="card-img-top"
-                    alt="..."
-                    height="300px"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Title4</h5>
-                    <h5 className="card-title">subtitle</h5>
-                    <h5 className="card-title">rating : 4/5</h5>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="col-sm">
-                <div className="card">
-                  <img
-                    src={imageUrl + '4'}
-                    className="card-img-top"
-                    alt="..."
-                    height="300px"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Title5</h5>
-                    <h5 className="card-title">subtitle</h5>
-                    <h5 className="card-title">rating : 3.5/5</h5>
-                  </div>
-                </div>
-              </div>
-             
-              <div className="col-sm">
-                <div className="card">
-                  <img
-                    src={imageUrl + '1'}
-                    className="card-img-top"
-                    alt="..."
-                    height="300px"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Title6</h5>
-                    <h5 className="card-title">subtitle</h5>
-                    <h5 className="card-title">rating : 4/5</h5>
-                  </div>
-                </div>
-              </div>
-            */}
             </div>
-            {/* <div>
-              <Footer />
-            </div> */}
           </div>
+          {/* </div>
+
+         
+
+        <div className="container"> */}
+          {/* <div className="col-md-12 mx-auto">
+            <div className="tomer">
+              <div className="container col-md-10">
+                <div className="row">
+                  {allProducts &&
+                    allProducts.map((p) => {
+                      return (
+                        <div className="col-md-3">
+                          <div className="card">
+                            <img
+                              src={imageUrl + p.productId}
+                              className="card-img-top"
+                              alt="..."
+                              height="150px"
+                              width="150px"
+                            />
+                            <div className="card-body">
+                              <p className="card-title">
+                                {p.productCatalogue.productName}
+                              </p>
+                              <p className="card-title">
+                                Vendor : {p.seller.businessName}
+                              </p>
+                              {p.avgRating > 0 ? (
+                                <p className="card-title">
+                                  Rating : {p.avgRating}/5
+                                </p>
+                              ) : (
+                                <p>Rating : N/A </p>
+                              )}
+                              <button
+                                onClick={(e) => addToCart(p)}
+                                type="button"
+                                className="btn btn-outline-success">
+                                Add To Cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </div>
+          </div>
+         */}
+          {/* <div>
+            <table>
+
+              <tr>                
+                <td>
+                  <img
+                    src={imageUrl + p.productId}
+                    className="card-img-top"
+                    alt="..."
+                    height="150px"
+                    width="100px"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div> */}
+        </div>
+
+        <div className="container">
+          {/* <div className="col-md-10 mx-auto"> */}
+
+          {/* {response &&
+            response.map((o) => {
+              ;<div className="col-md-12 mx-auto">
+                <div className="tomer">
+                  <div className="container col-md-10">
+                    <div className="row border px-3 py-3">
+                      <table className="customerHomeTable  ">
+                        <tr>
+                          <td>
+                            <h3>{o.catName}</h3>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="row ">
+                              {allProducts &&
+                                allProducts
+                                  .filter(
+                                    (p) => p.category.catName == o.catName
+                                  )
+                                  .map((p) => {
+                                    return (
+                                      <div className="col-md-3">
+                                        <div className="card">
+                                          <img
+                                            src={imageUrl + p.productId}
+                                            className="card-img-top"
+                                            alt="..."
+                                            height="150px"
+                                            width="100px"
+                                          />
+                                          <div className="card-body">
+                                            <p className="card-title">
+                                              {p.productCatalogue.productName}
+                                            </p>
+                                            <p className="card-title">
+                                              Vendor : {p.seller.businessName}
+                                            </p>
+                                            {p.avgRating > 0 ? (
+                                              <p className="card-title">
+                                                Rating : {p.avgRating}/5
+                                              </p>
+                                            ) : (
+                                              <p>Rating : N/A </p>
+                                            )}
+                                            <button
+                                              onClick={(e) => addToCart(p)}
+                                              type="button"
+                                              className="btn btn-outline-success">
+                                              Add To Cart
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )
+                                  })}
+                            </div>
+                          </td>
+                        </tr>
+                      </table>{' '}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            })} */}
         </div>
       </div>
     </div>

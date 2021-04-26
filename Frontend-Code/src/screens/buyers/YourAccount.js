@@ -36,7 +36,7 @@ const YourAccount = () => {
       title: 'Payment Option',
       description: 'Payment history/ Payment status',
       image: '/images/credit-card.svg',
-      link: '',
+      link: '/user/your-orders',
     },
   ]
 

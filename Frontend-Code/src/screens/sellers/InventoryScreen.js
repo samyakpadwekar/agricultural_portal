@@ -28,13 +28,13 @@ const InventoryScreen = (props) => {
       .put(url2, body, header2)
       .then((response) => {
         console.log(response.data)
-        alert("Poduct restocked successfully!");
+        // alert("Poduct restocked successfully!");
       })
       .catch((error) => {
         console.error(`Error: ${error}`)
         alert("Failed to restock!")
       })
-      props.history.push('/seller/home')
+      document.location.href='/seller/inventory';
   };
 
 
@@ -64,7 +64,7 @@ const InventoryScreen = (props) => {
   ]
   const [products, setProducts] = useState(initValue);
   
-  sessionStorage.setItem('sellerId',1);
+  // sessionStorage.setItem('sellerId',1);
   const url = 'http://localhost:8080/seller/inventory-report/'+sessionStorage.getItem('sellerId');
   const header = {
     headers: {
