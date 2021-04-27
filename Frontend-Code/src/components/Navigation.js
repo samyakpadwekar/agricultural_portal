@@ -34,16 +34,16 @@ const Navigation = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-1 mb-lg-0">
               <li className="nav-item">
-                <Link to="/your-address">
+                <Link to="/customer/nearbyseller">
                   <span className="nav-link">
                     <img
-                      src="https://img.icons8.com/ios-filled/50/000000/address--v1.png"
+                      src="https://img.icons8.com/pastel-glyph/64/000000/shop--v1.png"
                       width="30"
                       height="30"
                       className="d-inline-block align-top"
                       alt=""
                     />
-                    Delivery Address{" "}
+                    Near-by-Seller
                   </span>
                 </Link>
               </li>

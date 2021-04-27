@@ -49,7 +49,7 @@ import CustomerEditProfileScreen from './screens/buyers/CustomerEditProfile'
 import CustomerEditAddBank from './screens/buyers/CustomerEditAddBank'
 import Customerhome from './screens/buyers/CustomerHome'
 import AddToCartScreen from './screens/buyers/AddToCartScreen'
-import NearbySellers from './screens/buyers/NearbySellersScreen'
+import NearBySeller from './screens/buyers/NearbySellersScreen'
 
 function App() {
   return (
@@ -134,7 +134,7 @@ function App() {
             <Route path="/customer/home" component={Customerhome} />
             <Route path="/customer/addToCart" component={AddToCartScreen} />
             <Route path="/customer/categorywise" component={SearchByCategory} />
-            <Route path="/customer/nearbyseller" component={NearbySellers} />
+            <Route path="/customer/nearbyseller" component={NearBySeller} />
           </Switch>
         </div>
         <Footer />
