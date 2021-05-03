@@ -94,8 +94,8 @@ public class AdminController {
 	
 	@PostMapping("/add-category")
 	public ResponseEntity<?> addCategory(@RequestBody CategoryDTO catDTO) {
-		System.out.println("in add category");
-
+		System.out.println("in add category"+catDTO);
+		catDTO.setPicture(null);
 		return new ResponseEntity<>(userService.addCategory(catDTO), HttpStatus.CREATED);
 	}
 

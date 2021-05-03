@@ -32,8 +32,8 @@ import com.app.pojos.Seller;
 
 @Service
 @Transactional
-public class SellerServiceImpl implements ISellerService{
-	
+public class SellerServiceImpl implements ISellerService {
+
 	@Value("${file.upload.location}")
 	private String location;
 
@@ -45,7 +45,7 @@ public class SellerServiceImpl implements ISellerService{
 
 	@Autowired
 	private CategoryRepository categoryRepo;
-	
+
 	@Autowired
 	private ComplaintRepository compRepo;
 
@@ -58,23 +58,23 @@ public class SellerServiceImpl implements ISellerService{
 
 	@Override
 	public List<ProductDTO> getAllProductsBySellerId(Integer sellerId) {
-		List<ProductDTO> list=new ArrayList<ProductDTO>();
-		List<Product> products=productRepo.findBySellerId(sellerId);
-		products.forEach(p->{
-			 ProductDTO productDto=new ProductDTO();
-        	 BeanUtils.copyProperties(p, productDto,"picture");
-        	 if(p.getPicture()!=null)
-        	 productDto.setPicture(new String(p.getPicture()));
-        	 list.add(productDto);
+		List<ProductDTO> list = new ArrayList<ProductDTO>();
+		List<Product> products = productRepo.findBySellerId(sellerId);
+		products.forEach(p -> {
+			ProductDTO productDto = new ProductDTO();
+			BeanUtils.copyProperties(p, productDto, "picture");
+			if (p.getPicture() != null)
+				productDto.setPicture(new String(p.getPicture()));
+			list.add(productDto);
 		});
 		return list;
 	}
 
 	@Override
-	public Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId,MultipartFile imageFile) {
+	public Product addProduct(ProductDTO productDTO, Integer sellerId, Integer catId, MultipartFile imageFile) {
 		Product product2 = null;
-		System.out.println("productDTO "+productDTO);
-		
+		System.out.println("productDTO " + productDTO);
+
 		try {
 			System.out.println("in product modification stage !!!!1");
 			Product product = new Product();
@@ -83,26 +83,25 @@ public class SellerServiceImpl implements ISellerService{
 			product.setSeller(s);
 			product.setCategory(categoryRepo.findById(catId).get());
 			System.out.println("category success");
-			 String processed=null;
-			System.out.println("image"+imageFile);
-			  if(!imageFile.isEmpty()) { System.out.println("Image found");{
-				 String name =LocalDateTime.now().toString();
-				 processed = name.replace(":", "")+imageFile.getOriginalFilename();
-				 System.out.println("process"+processed);
-				  imageFile.transferTo(new File(location,processed));
-			 
-			  
-			  String
-			  path=location+"/"+processed;
-			  System.out.println("path : "+path);
-			  System.out.println("path bytes "+path.getBytes());
-			  product.setPicture(path.getBytes()); }
-			  }
-			 
+			String processed = null;
+			System.out.println("image" + imageFile);
+			if (!imageFile.isEmpty()) {
+				System.out.println("Image found");
+				String name = LocalDateTime.now().toString();
+				processed = name.replace(":", "") + imageFile.getOriginalFilename();
+				System.out.println("process" + processed);
+				imageFile.transferTo(new File(location, processed));
+
+				String path = location + "/" + processed;
+				System.out.println("path : " + path);
+				System.out.println("path bytes " + path.getBytes());
+				product.setPicture(path.getBytes());
+			}
+
 			// BL
 			product.setUnitsSold(0);
 			product.setAvgRating(0.0);
-			System.out.println("product "+product);
+			System.out.println("product " + product);
 			product2 = productRepo.save(product);
 		} catch (Exception e) {
 			// yet to handle other exceptions
@@ -113,24 +112,23 @@ public class SellerServiceImpl implements ISellerService{
 	}
 
 	@Override
-	public String editProduct(ProductDTO productDTO,MultipartFile imageFile) throws IllegalStateException, IOException {
+	public String editProduct(ProductDTO productDTO, MultipartFile imageFile)
+			throws IllegalStateException, IOException {
 		Product product = productRepo.findById(productDTO.getProductId()).get(); // product : persistent
 		System.out.println("in edit product service , before : " + product);
 		System.out.println("in edit product service , PRODUCTDTO NEW : " + productDTO);
 		Seller seller = product.getSeller();
-		BeanUtils.copyProperties(productDTO, product, "unitsSold","productCatalogue","avgRating","picture");
-		if(!imageFile.isEmpty())
-		{
-			String name =LocalDateTime.now().toString();
-			 String processed = name.replace(":", "")+imageFile.getOriginalFilename();
-			 System.out.println("process"+processed);
-			  imageFile.transferTo(new File(location,processed));
-			  String
-			  path=location+"/"+processed;
-			  System.out.println("path : "+path);
-			  System.out.println("path bytes "+path.getBytes());
-			  product.setPicture(path.getBytes());
-			
+		BeanUtils.copyProperties(productDTO, product, "unitsSold", "productCatalogue", "avgRating", "picture");
+		if (!imageFile.isEmpty()) {
+			String name = LocalDateTime.now().toString();
+			String processed = name.replace(":", "") + imageFile.getOriginalFilename();
+			System.out.println("process" + processed);
+			imageFile.transferTo(new File(location, processed));
+			String path = location + "/" + processed;
+			System.out.println("path : " + path);
+			System.out.println("path bytes " + path.getBytes());
+			product.setPicture(path.getBytes());
+
 		}
 		product.setSeller(seller);
 		// dirty checking
@@ -167,7 +165,6 @@ public class SellerServiceImpl implements ISellerService{
 		return "You account profile has been successfully updated..!";
 	}
 
-
 	@Override
 	public Seller saveSeller(SellerSignupRequest seller) {
 		Seller newSeller = new Seller();
@@ -183,19 +180,17 @@ public class SellerServiceImpl implements ISellerService{
 	public List<Complaint> getAllComplaintsBySellerId(Integer sellerId) {
 		return compRepo.findAllBySellerId(sellerId);
 	}
-	
+
 	@Override
 	public String getImage(int id) throws IOException {
 
-		//System.out.println("in img download 2 " + (location + imgName));
-		Product p=productRepo.findById(id).get();
-		System.out.println("in service "+new String(p.getPicture()));
-		if(p!=null)
+		// System.out.println("in img download 2 " + (location + imgName));
+		Product p = productRepo.findById(id).get();
+		System.out.println("in service " + new String(p.getPicture()));
+		if (p != null)
 			return new String(p.getPicture());
-		return null;		
-		
-	}
+		return null;
 
-	
+	}
 
 }
